@@ -14,6 +14,7 @@
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
+      import { DataMovie } from "./data/dataMovie.js";
       import { Movie } from "./component/Movie/script.js";
 
       // Controleur
@@ -30,6 +31,16 @@
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
         V.renderMovie();
+      };
+
+      /* C.getMovie
+
+        La fonction affiche sur la page la collection de films par défaut
+      */
+      C.getMovie = async function () {
+        // On utilise async pour pouvoir utiliser await
+        let data = await DataMovie.request(); // On récupère les données par défaut et on attend avec await
+        V.renderMovie(data); // On affiche les données
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -54,9 +65,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
        * formaté par le composant Movie.
        */
-      V.renderMovie = function () {
+      V.renderMovie = function (data) {
         let content = document.querySelector("#content");
-        content.innerHTML = Movie.format();
+        content.innerHTML = Movie.format(data);
       };
 
       C.start(); // Démarre l'application

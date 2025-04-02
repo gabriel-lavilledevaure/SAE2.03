@@ -25,6 +25,14 @@
 require("controller.php");
 
 /**
+ * Inclusion du fichier model.php.
+ * 
+ * Il contient les fonctions qui réalisent des opérations sur la base de données,
+ * telles que les requêtes SQL pour insérer, mettre à jour, supprimer ou récupérer des données.
+ */
+require("model.php");
+
+/**
  * Vérifie si la variable 'todo' est définie dans la requête.
  * 
  * Cette condition permet de déterminer si un paramètre 'todo' a été envoyé
@@ -51,13 +59,18 @@ if ( isset($_REQUEST['todo']) ){
   // en fonction de la valeur de 'todo', on appelle la fonction de contrôle appropriée
   // peut s'écrire aussi avec des if/else
   switch($todo){
-
+    case 'Movie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction getMovie()
+      $data = getMovie();
+      break;
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');
       http_response_code(400); // 400 == "Bad request"
+      break;
       exit();
   }
+
+
 
   /**
    * A ce stade, on a appelé la fonction de contrôleur appropriée et stocké le résultat dans la variable $data.
