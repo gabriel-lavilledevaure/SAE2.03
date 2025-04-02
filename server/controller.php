@@ -20,3 +20,17 @@
  */
 require("model.php");
 
+function readController(){
+ 
+    // ON VERIFIE QUE LES PARAMETRES EXISTENT ET SONT NON VIDES
+    // Vérification du paramètre 'movie' 
+    if ( isset($_REQUEST['movie'])==false || empty($_REQUEST['movie'])==true ){
+        return false;
+    }
+
+    // si on arrive ici c'est que les paramètres existent et sont valides, on peut interroger la BDD
+    // Appel de la fonction getMovie déclarée dans model.php pour extraire de la BDD les informations du film spécifié
+    $movie = getMovie($_REQUEST['movie']);
+    return $movie;
+}
+

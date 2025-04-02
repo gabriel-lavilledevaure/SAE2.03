@@ -14,6 +14,7 @@
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
+      import { Movie } from "./component/Movie/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -28,6 +29,7 @@
 
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
+        V.renderMovie();
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -43,6 +45,18 @@
       V.renderNavBar = function (hAbout) {
         let header = document.querySelector("#header");
         header.innerHTML = NavBar.format(hAbout);
+      };
+
+      /**
+       * V.renderMovie
+       *
+       * Cette fonction est responsable de l'affichage de la liste des films.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant Movie.
+       */
+      V.renderMovie = function () {
+        let content = document.querySelector("#content");
+        content.innerHTML = Movie.format();
       };
 
       C.start(); // Démarre l'application
