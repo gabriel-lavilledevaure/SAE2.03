@@ -3,10 +3,14 @@ let template = await templateFile.text();
 
 let Movie = {};
 
-Movie.format = function (movie) {
-  let html = template;
-  html = html.replace("{{titre}}", movie.name);
-  html = html.replace("{{image}}", movie.image);
+Movie.format = function (movies) {
+  let html = "";
+  movies.forEach((movie) => {
+    let movieHtml = template;
+    movieHtml = movieHtml.replace("{{titre}}", movie.name);
+    movieHtml = movieHtml.replace("{{image}}", movie.image);
+    html += movieHtml;
+  });
   return html;
 };
 

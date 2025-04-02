@@ -1,3 +1,12 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  justify-content: center;
+  gap: 5rem;
+  padding: 2rem;
+}
+
 .card {
   border: 1px solid #ccc;
   border-radius: 8px;

@@ -10,10 +10,13 @@
   <body>
     <header id="header"></header>
 
-    <section id="content"></section>
+    <section class="cards" id="content"></section>
 
     <script type="module">
+      // Importation de la NavBar
       import { NavBar } from "./component/NavBar/script.js";
+
+      // Importation des composants Movie et de sa Data
       import { DataMovie } from "./data/dataMovie.js";
       import { Movie } from "./component/Movie/script.js";
 
@@ -27,10 +30,9 @@
           "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
         );
       };
-
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
-        V.renderMovie();
+        C.getMovie(); // Appelle la fonction pour récupérer les films
       };
 
       /* C.getMovie
@@ -38,9 +40,8 @@
         La fonction affiche sur la page la collection de films par défaut
       */
       C.getMovie = async function () {
-        // On utilise async pour pouvoir utiliser await
-        let data = await DataMovie.request(); // On récupère les données par défaut et on attend avec await
-        V.renderMovie(data); // On affiche les données
+        let data = await DataMovie.requestMovies(); // On récupère les données par défaut et on attend avec await
+        V.renderMovie(data); // Affiche les données
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)

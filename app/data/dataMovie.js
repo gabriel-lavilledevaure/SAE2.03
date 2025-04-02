@@ -3,8 +3,14 @@ let HOST_URL = "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03";
 
 let DataMovie = {};
 
+// DataMovie.requestMovies = async function () {
+//   // Récupération des films
+//   let answer = await fetch(HOST_URL + "server/script.php?todo=getMovie");
+//   let movies = await answer.json();
+//   return movies;
+// };
+
 DataMovie.requestMovies = async function () {
-  // Récupération des films
   let answer = await fetch(HOST_URL + "/server/script.php?todo=getMovie");
   let movies = await answer.json();
   return movies;
