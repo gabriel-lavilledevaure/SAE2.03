@@ -37,7 +37,7 @@ function getMovie(){
 function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    $sql = "INSERT INTO Movie (name, director, year, length, description, id_category, image, trailer, min_age) 
+    $sql = "REPLACE INTO Movie (name, director, year, length, description, id_category, image, trailer, min_age) 
             VALUES (:name, :director, :year, :length, :description, :category, :image, :trailer, :min_age)";
 
     $stmt = $cnx->prepare($sql);
@@ -53,8 +53,8 @@ function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $stmt->bindParam(':min_age', $age);
 
     $stmt->execute();
-
-    return $stmt->rowCount();
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées par l'opération
 }
 
 

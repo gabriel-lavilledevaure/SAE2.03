@@ -60,7 +60,7 @@ function addController(){
       return "Le film $titre a été ajouté avec succès !";
     } 
     else{
-      return false;
+      return "Erreur lors de l'ajout du film $titre !";
     }
   }
 
