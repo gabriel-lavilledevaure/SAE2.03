@@ -35,4 +35,29 @@ function readController(){
     return $movies;
 }
 
+function updateController(){
+    /* Lecture des données de formulaire
+      On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà
+      vérifiées avant de les envoyer 
+    */
+    $titre = $_REQUEST['titre'];
+    $realisateur = $_REQUEST['realisateur'];
+    $annee = $_REQUEST['annee'];
+    $duree = $_REQUEST['duree'];
+    $desc = $_REQUEST['desc'];
+    $categorie = $_REQUEST['categorie'];
+    $image = $_REQUEST['image'];
+    $url = $_REQUEST['url'];
+    $age = $_REQUEST['age'];
+    // Mise à jour du menu à l'aide de la fonction updateMenu décrite dans model.php
+    $ok = addMovie($titre, $realisateur, $annee, $duree, $desc, $categorie, $image, $url, $age);
+    // $ok est le nombre de ligne affecté par l'opération de mise à jour dans la BDD (voir model.php)
+    if ($ok!=0){
+      return "Le menu du $jour semaine $semaine est à jour";
+    }
+    else{
+      return false;
+    }
+  }
+  
 

@@ -8,7 +8,7 @@
   </head>
   <body>
     <section id="log"></section>
-    <section id="addFilm"></section>
+    <section class=".addFilm__form" id="addFilm"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
@@ -19,7 +19,19 @@
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
-        V.renderForm(); // à finir
+        V.renderForm("C.handlerAdd");
+      };
+
+      C.handlerAdd = async function () {
+        // Sélectionne l'élément possédant la classe `.addMenu__form`
+        // il s'agit de l'élément <form> du composant NewMenuForm
+        let form = document.querySelector(".addFilm__form");
+        // Crée un objet FormData à partir du formulaire
+        let fd = new FormData(form);
+        // Attend la réponse de la fonction `DataMenu.update(fd)`
+        let res = await DataMovie.add(fd);
+        // Affiche le résultat de la mise à jour dans le journal
+        V.renderLog(res);
       };
 
       window.V = {};
@@ -31,9 +43,9 @@
       };
 
       // Render du NewFilmForm
-      V.renderForm = function (txt) {
+      V.renderForm = function (handler) {
         let content = document.querySelector("#addFilm");
-        content.innerHTML = NewFilmForm.format(txt);
+        content.innerHTML = NewFilmForm.format(handler);
       };
 
       C.start();

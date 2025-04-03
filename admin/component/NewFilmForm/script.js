@@ -5,6 +5,7 @@ let NewFilmForm = {};
 
 NewFilmForm.format = function () {
   let html = template;
+  html = html.replace("{{handler}}", handler);
   return html;
 };
 
