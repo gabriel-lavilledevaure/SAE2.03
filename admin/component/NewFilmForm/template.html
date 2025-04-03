@@ -1,0 +1,92 @@
+<div class="addFilm">
+  <h4 class="addFilm__title"># Ajouter ou modifier les films</h4>
+  <form class="addFilm__form">
+    <input
+      required
+      type="text"
+      name="Titre du film"
+      placeholder="Saisir un titre"
+      pattern="[^0-9]*"
+      title="Numbers are not allowed"
+    />
+
+    <input
+      required
+      type="text"
+      name="Réalisateur"
+      placeholder="Saisir un réalisateur"
+      pattern="[^0-9]*"
+      title="Numbers are not allowed"
+    />
+
+    <input
+      required
+      type="text"
+      name="Année de sortie"
+      placeholder="Saisir une année"
+      pattern="[^0-9]*"
+      title="Numbers are not allowed"
+    />
+
+    <input
+      required
+      type="text"
+      name="Durée"
+      placeholder="Saisir une durée (en minutes)"
+      pattern="[^0-9]*"
+      title="Numbers are not allowed"
+    />
+
+    <input
+      required
+      type="text"
+      name="Description"
+      placeholder="Saisir une description"
+      pattern="[^0-9]*"
+      title="Numbers are not allowed"
+    />
+
+    <select name="Catégorie" required></select>
+      <option value="" disabled selected>Choisir une catégorie</option>
+      <option value="action">Action</option>
+      <option value="action">Aventure</option>
+      <option value="comédie">Comédie</option>
+      <option value="drame">Drame</option>
+      <option value="fantastique">Fantastique</option>
+      <option value="horreur">Horreur</option>
+      <option value="science-fiction">Science-fiction</option>
+      <option value="thriller">Thriller</option>
+      <option value="animation">Animation</option>
+      <option value="documentaire">Documentaire</option>
+    </select>
+
+    <input
+    required
+    type="text"
+    name="Image"
+    placeholder="Saisir le nom d'une image et son extension"
+    pattern="[^0-9]*"
+    title="Numbers are not allowed"
+  />
+
+    <input
+    required
+    type="text"
+    name="Trailer"
+    placeholder="Saisir l'url du trailer'"
+    pattern="[^0-9]*"
+    title="Numbers are not allowed"
+  />
+
+    <input
+    required
+    type="text"
+    name="Restrictions d'âge"
+    placeholder="Saisir les restrictions d'âge"
+    pattern="[0-9]*"
+    title="Only numbers are allowed"
+  />
+
+    <!-- <input onclick="{{handler}}" type="button" value="Update" name="todo" /> -->
+  </form>
+</div>
