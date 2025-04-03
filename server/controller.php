@@ -35,11 +35,13 @@ function readController(){
     return $movies;
 }
 
-function updateController(){
+function addController(){
     /* Lecture des données de formulaire
       On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà
       vérifiées avant de les envoyer 
     */
+
+    // Récupération des paramètres de la requête
     $titre = $_REQUEST['titre'];
     $realisateur = $_REQUEST['realisateur'];
     $annee = $_REQUEST['annee'];
@@ -53,11 +55,13 @@ function updateController(){
     $ok = addMovie($titre, $realisateur, $annee, $duree, $desc, $categorie, $image, $url, $age);
     // $ok est le nombre de ligne affecté par l'opération de mise à jour dans la BDD (voir model.php)
     if ($ok!=0){
-      return "Le menu du $jour semaine $semaine est à jour";
-    }
+      return "Le film $titre a été ajouté avec succès !";
+    } 
     else{
       return false;
     }
   }
+
+  
   
 

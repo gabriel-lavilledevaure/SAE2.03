@@ -62,9 +62,10 @@ if ( isset($_REQUEST['todo']) ){
     case 'getMovie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction readController()
       $data = readController();
       break;
+      
+      case 'addMovie':
 
-    case 'update':
-      $data = updateController();
+        $data = addController();
       break;
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée

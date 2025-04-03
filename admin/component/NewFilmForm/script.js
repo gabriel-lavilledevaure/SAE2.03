@@ -3,7 +3,7 @@ let template = await templateFile.text();
 
 let NewFilmForm = {};
 
-NewFilmForm.format = function () {
+NewFilmForm.format = function (handler) {
   let html = template;
   html = html.replace("{{handler}}", handler);
   return html;

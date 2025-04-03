@@ -8,19 +8,16 @@
   </head>
   <body>
     <section id="log"></section>
-    <section class=".addFilm__form" id="addFilm"></section>
+    <section id="addFilm"></section>
 
     <script type="module">
+      // Importation des modules
       import { Log } from "./component/Log/script.js";
       import { NewFilmForm } from "./component/NewFilmForm/script.js";
       import { DataMovie } from "./data/dataMovie.js";
-
+      // console.log(DataMovie);
+      // console.log(NewFilmForm);
       window.C = {};
-
-      C.start = function () {
-        V.renderLog("Démarrage de l'application");
-        V.renderForm("C.handlerAdd");
-      };
 
       C.handlerAdd = async function () {
         // Sélectionne l'élément possédant la classe `.addMenu__form`
@@ -32,6 +29,11 @@
         let res = await DataMovie.add(fd);
         // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
+      };
+
+      C.start = function () {
+        V.renderLog("Démarrage de l'application");
+        V.renderForm("C.handlerAdd()");
       };
 
       window.V = {};
