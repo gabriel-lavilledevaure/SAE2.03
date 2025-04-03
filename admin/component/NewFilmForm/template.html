@@ -1,84 +1,51 @@
 <div class="addFilm">
   <h4 class="addFilm__title">Modifier les films</h4>
   <form class="addFilm__form">
+    <input required type="text" name="titre" placeholder="Saisir un titre" />
     <input
       required
       type="text"
-      name="Titre du film"
-      placeholder="Saisir un titre"
-      pattern="[^0-9]*"
-      title="Numbers are not allowed"
-    />
-
-    <input
-      required
-      type="text"
-      name="Réalisateur"
+      name="realisateur"
       placeholder="Saisir un réalisateur"
-      pattern="[^0-9]*"
-      title="Numbers are not allowed"
     />
+    <input required type="number" name="annee" placeholder="Saisir une année" />
 
     <input
       required
       type="number"
-      name="Année de sortie"
-      placeholder="Saisir une année"
-      pattern="[^0-9]*"
-      title="Only numbers are allowed"
-    />
-
-    <input
-      required
-      type="number"
-      name="Durée"
+      name="duree"
       placeholder="Saisir une durée (en minutes)"
-      pattern="[^0-9]*"
-      title="Only numbers are allowed"
     />
 
     <input
       required
       type="text"
-      name="Description"
+      name="desc"
       placeholder="Saisir une description"
-      pattern="[^0-9]*"
-      title="Numbers are not allowed"
     />
     <input
       required
       type="text"
-      name="Catégorie"
+      name="categorie"
       placeholder="Saisir une catégorie"
-      pattern="[^0-9]*"
-      title="Numbers are not allowed"
     />
-
     <input
       required
       type="text"
-      name="Image"
+      name="image"
       placeholder="Saisir le nom d'une image et son extension"
-      pattern="[^0-9]*"
-      title="Numbers are not allowed"
     />
-
     <input
       required
       type="text"
-      name="Trailer"
-      placeholder="Saisir l'url du trailer'"
-      pattern="[^0-9]*"
-      title="Numbers are not allowed"
+      name="url"
+      placeholder="Saisir l'url du trailer"
     />
-
     <input
       required
       type="number"
-      name="Restrictions d'âge"
+      name="age"
       placeholder="Saisir les restrictions d'âge"
-      pattern="[0-9]*"
-      title="Only numbers are allowed"
     />
 
     <input onclick="{{handler}}" type="button" value="Update" name="todo" />

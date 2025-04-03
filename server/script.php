@@ -64,7 +64,6 @@ if ( isset($_REQUEST['todo']) ){
       break;
       
       case 'addMovie':
-
         $data = addController();
       break;
 

@@ -20,6 +20,8 @@
  */
 require("model.php");
 
+
+
 function readController(){
  
     // ON VERIFIE QUE LES PARAMETRES EXISTENT ET SONT NON VIDES

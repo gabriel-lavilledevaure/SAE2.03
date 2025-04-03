@@ -24,7 +24,6 @@ DataMovie.add = async function (fdata) {
     config
   );
   let data = await answer.json();
-  console.log(data);
   return data;
 };
 
