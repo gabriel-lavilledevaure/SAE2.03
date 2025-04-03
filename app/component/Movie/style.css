@@ -1,29 +1,47 @@
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
-  justify-content: center;
-  gap: 5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
   padding: 2rem;
 }
 
 .card {
-  border: 1px solid #ccc;
+  position: relative;
+  overflow: hidden;
   border-radius: 8px;
-  padding: 16px;
-  max-width: 300px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .card__image {
   width: 100%;
-  height: auto;
-  border-radius: 4px;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .card__title {
-  margin-top: 12px;
-  font-size: 1.5em;
-  color: #333;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); */
+  color: #fff;
+  font-size: 1em;
+  padding: 0.8rem;
+  text-align: center;
+  opacity: 1; /* Toujours visible */
+}
+
+/* Styles pour les écrans plus grands */
+@media (min-width: 768px) {
+  .card__title {
+    font-size: 1.2em;
+    padding: 1rem;
+  }
 }

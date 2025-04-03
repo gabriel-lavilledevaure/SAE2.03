@@ -20,32 +20,18 @@ define("DBLOGIN", "lavilledevaur1");
 define("DBPWD", "lavilledevaur1");
 
 
-// function getMovie(){
-//     // Connexion à la base de données
-//     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-//     // Requête SQL pour récupérer le nom, l'image et l'id du film
-//     $sql = "SELECT id, name, image FROM Movie";
+function getMovie(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer le nom, l'image et l'id du film
+    $sql = "SELECT id, name, image FROM Movie";
 
-//     // exécution de la requête SQL via la connexion à la bdd et récupération de la réponse sur serveur MySQL
-//     $answer = $cnx->query($sql);
-//     // conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)
-//     $res = $answer->fetchAll(PDO::FETCH_OBJ);
-//     // et on renvoie le tout.
-//     return $res; // Retourne les résultats
-// }
-
-function getMovie() {
-    try {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-        $sql = "SELECT id, name, image FROM Movie";
-        $answer = $cnx->query($sql);
-        return $answer->fetchAll(PDO::FETCH_OBJ);
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage()); // Log dans les erreurs PHP
-        return false;
-    }
+    // exécution de la requête SQL via la connexion à la bdd et récupération de la réponse sur serveur MySQL
+    $answer = $cnx->query($sql);
+    // conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)
+    $res = $answer->fetchAll(PDO::FETCH_OBJ);
+    // et on renvoie le tout.
+    return $res; // Retourne les résultats
 }
 
 

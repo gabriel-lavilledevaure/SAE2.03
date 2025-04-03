@@ -1,40 +1,64 @@
-.addMenu {
-    width:30rem;
+.addFilm {
+  width: 40rem;
+  margin: 2rem auto;
+  background-color: #2c3e50;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #ecf0f1;
+  font-family: Arial, sans-serif;
 }
 
-.addMenu__title {
-    margin-bottom: 0.2rem;
-    color: #fff;
-  
+.addFilm__title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #ecf0f1;
 }
 
-.addMenu__form {
-    display: flex;
-    flex-direction: column;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(255, 255, 255);
-    padding:1.5rem;
+.addFilm__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.addMenu__form select {
-    font-size: medium;
-    border-style: none;
-    margin-top: .8rem;
+.addFilm__form input,
+.addFilm__form select {
+  font-size: 1rem;
+  padding: 0.8rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  background-color: #34495e;
+  color: #ecf0f1;
 }
 
-.addMenu__form input {
-    margin-top: .8rem;
-    font-size: medium;
-    border-style: none;
-    display: inline-block;
-    height: 2rem;
-    
+.addFilm__form input::placeholder {
+  color: #95a5a6;
 }
 
-.addMenu__form input[type=button] {
-    background-color: rgb(113, 91, 69);
-    color:#fff;
-    
-   
+.addFilm__form input:focus,
+.addFilm__form select:focus {
+  outline: none;
+  border-color: #1abc9c;
+  box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+}
+
+.addFilm__form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ecf0f1' d='M2 0L0 2h4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 0.65rem;
+}
+
+.addFilm__form input[type="button"] {
+  background-color: #1abc9c;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addFilm__form input[type="button"]:hover {
+  background-color: #16a085;
 }
