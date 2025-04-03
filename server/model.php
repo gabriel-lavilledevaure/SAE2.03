@@ -13,6 +13,7 @@
  * DBLOGIN : Nom d'utilisateur pour se connecter à la base de données.
  * DBPWD : Mot de passe pour se connecter à la base de données.
  */
+// Ces constantes sont utilisées pour établir une connexion à la base de données.
 define("HOST", "localhost");
 define("DBNAME", "lavilledevaur1");
 define("DBLOGIN", "lavilledevaur1");
