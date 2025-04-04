@@ -43,16 +43,22 @@ function addController(){
       vérifiées avant de les envoyer 
     */
 
+
     // Récupération des paramètres de la requête
-    $titre = $_REQUEST['titre'];
-    $realisateur = $_REQUEST['realisateur'];
-    $annee = $_REQUEST['annee'];
-    $duree = $_REQUEST['duree'];
-    $desc = $_REQUEST['desc'];
-    $categorie = $_REQUEST['categorie'];
-    $image = $_REQUEST['image'];
-    $url = $_REQUEST['url'];
-    $age = $_REQUEST['age'];
+    $titre = $_REQUEST['titre'] ?? null;
+    $realisateur = $_REQUEST['realisateur'] ?? null;
+    $annee = $_REQUEST['annee'] ?? null;
+    $duree = $_REQUEST['duree'] ?? null;
+    $desc = $_REQUEST['desc'] ?? null;
+    $categorie = $_REQUEST['categorie'] ?? null;
+    $image = $_REQUEST['image'] ?? null;
+    $url = $_REQUEST['url'] ?? null;
+    $age = $_REQUEST['age'] ?? null;
+
+    // Validation: Check if any parameter is empty
+    if (empty($titre) || empty($realisateur) || empty($annee) || empty($duree) || empty($desc) || empty($categorie) || empty($image) || empty($url) || empty($age)) {
+        return "Erreur : Tous les champs doivent être remplis.";
+    }
     // Mise à jour du menu à l'aide de la fonction updateMenu décrite dans model.php
     $ok = addMovie($titre, $realisateur, $annee, $duree, $desc, $categorie, $image, $url, $age);
     // $ok est le nombre de ligne affecté par l'opération de mise à jour dans la BDD (voir model.php)
