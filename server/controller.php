@@ -28,13 +28,13 @@ function readController(){
     return $movies;
 }
 function readControllerMovieinfos(){
-  $name = $_REQUEST['name'] ?? null;
+  $id = $_REQUEST['id'] ?? null;
 
-  if (empty($name)) {
+  if (empty($id)) {
       return "Erreur : Tous les champs doivent être remplis.";
   }
 
-  return getMovieinfos($name);
+  return getMovieinfos($id);
 }
 
 function addController(){

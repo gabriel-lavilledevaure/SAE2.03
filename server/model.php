@@ -40,13 +40,13 @@ function getMovieinfos($name){
     $sql = "SELECT Movie.id, Movie.name, image, description, director, year, Category.name AS category_name, min_age, trailer 
             FROM Movie 
             INNER JOIN Category ON Movie.id_category = Category.id 
-            WHERE LOWER(Movie.name) = LOWER(:name)
+            WHERE LOWER(Movie.id) = LOWER(:id)
 ";
 
     // Préparation de la requête SQL
     $stmt = $cnx->prepare($sql);
-    // Liaison du paramètre :name avec la variable $name
-    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    // Liaison du paramètre :id avec la variable $id
+    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
     // Exécution de la requête
     $stmt->execute(); 
     // Conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)
