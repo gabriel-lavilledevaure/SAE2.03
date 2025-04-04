@@ -13,13 +13,13 @@
     <script type="module">
       // Importation des modules
       import { Log } from "./component/Log/script.js";
-      import { NewFilmForm } from "./component/NewFilmForm/script.js";
+      import { NewFilmForm } from "./component/MovieForm/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       // console.log(DataMovie);
       // console.log(NewFilmForm);
       window.C = {};
 
-      C.handlerAdd = async function () {
+      C.handlerAddMovie = async function () {
         // Sélectionne l'élément possédant la classe `.addMenu__form`
         // il s'agit de l'élément <form> du composant NewMenuForm
         let form = document.querySelector(".addFilm__form");
@@ -28,14 +28,16 @@
         // Attend la réponse de la fonction `DataMenu.update(fd)`
         console.log("fd", fd);
         let res = await DataMovie.add(fd);
-        console.log("add effectué");
+
+        // console.log("add effectué"); // vérif console
+
         // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
-        V.renderForm("C.handlerAdd()");
+        V.renderForm("C.handlerAddMovie()");
       };
 
       window.V = {};

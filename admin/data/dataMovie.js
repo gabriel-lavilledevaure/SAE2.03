@@ -15,18 +15,18 @@ let DataMovie = {};
  */
 
 DataMovie.add = async function (fdata) {
-  console.log("DataMovie.add 1");
+  // console.log("DataMovie.add 1"); // Point de repère n°1
   let config = {
     method: "POST", // méthode HTTP à utiliser
     body: fdata, // données à envoyer sous forme d'objet FormData
   };
-  console.log("DataMovie.add 2 ", config);
+  // console.log("DataMovie.add 2 ", config); // Point de repère n°2
 
   let answer = await fetch(
     HOST_URL + "/server/script.php?todo=addMovie",
     config
   );
-  console.log("DataMovie.add 3 ");
+  // console.log("DataMovie.add 3 "); // Point de repère n°3
   let data = await answer.json();
   return data;
 };
