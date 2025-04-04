@@ -33,14 +33,14 @@ function getMovie(){
     return $res; // Retourne les résultats
 }
 
-function getMovieinfos($name){
+function getMovieinfos($id){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les informations du film en fonction du nom
     $sql = "SELECT Movie.id, Movie.name, image, description, director, year, Category.name AS category_name, min_age, trailer 
             FROM Movie 
             INNER JOIN Category ON Movie.id_category = Category.id 
-            WHERE LOWER(Movie.id) = LOWER(:id)
+            WHERE Movie.id = :id
 ";
 
     // Préparation de la requête SQL
