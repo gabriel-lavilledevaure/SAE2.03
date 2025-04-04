@@ -1,12 +1,12 @@
 let templateFile = await fetch("./component/MovieForm/template.html");
 let template = await templateFile.text();
 
-let NewFilmForm = {};
+let MovieForm = {};
 
-NewFilmForm.format = function (handler) {
+MovieForm.format = function (handler) {
   let html = template;
   html = html.replace("{{handler}}", handler);
   return html;
 };
 
-export { NewFilmForm };
+export { MovieForm };
