@@ -38,19 +38,19 @@ function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
     $sql = "REPLACE INTO Movie (name, director, year, length, description, id_category, image, trailer, min_age) 
-            VALUES (:name, :director, :year, :length, :description, :category, :image, :trailer, :min_age)";
+            VALUES (:titre, :realisateur, :annee, :duree, :desc, :categorie, :image, :url, :age)";
 
     $stmt = $cnx->prepare($sql);
 
-    $stmt->bindParam(':name', $titre);
-    $stmt->bindParam(':director', $real);
-    $stmt->bindParam(':year', $annee);
-    $stmt->bindParam(':length', $duree);
-    $stmt->bindParam(':description', $des);
-    $stmt->bindParam(':category', $cat);
+    $stmt->bindParam(':titre', $titre);
+    $stmt->bindParam(':realisateur', $real);
+    $stmt->bindParam(':annee', $annee);
+    $stmt->bindParam(':duree', $duree);
+    $stmt->bindParam(':desc', $des);
+    $stmt->bindParam(':categorie', $cat);
     $stmt->bindParam(':image', $img);
-    $stmt->bindParam(':trailer', $url);
-    $stmt->bindParam(':min_age', $age);
+    $stmt->bindParam(':url', $url);
+    $stmt->bindParam(':age', $age);
 
     $stmt->execute();
     $res = $stmt->rowCount();

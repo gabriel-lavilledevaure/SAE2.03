@@ -50,6 +50,8 @@ DataMovie.update = async function (fdata) {
     body: fdata, // données à envoyer sous forme d'objet FormData
   };
   let answer = await fetch(HOST_URL + "/server/script.php?todo=update", config);
+  console.log(fdata);
+  console.log(answer);
   let data = await answer.json();
   return data;
 };
