@@ -13,7 +13,7 @@
     <script type="module">
       // Importation des modules
       import { Log } from "./component/Log/script.js";
-      import { NewFilmForm } from "./component/MovieForm/script.js";
+      import { MovieForm } from "./component/MovieForm/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       // console.log(DataMovie);
       // console.log(NewFilmForm);
@@ -51,7 +51,7 @@
       // Render du NewFilmForm
       V.renderForm = function (handler) {
         let content = document.querySelector("#addFilm");
-        content.innerHTML = NewFilmForm.format(handler);
+        content.innerHTML = MovieForm.format(handler);
       };
 
       C.start();
