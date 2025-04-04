@@ -11,7 +11,7 @@
     <header id="header"></header>
 
     <section class="cards" id="content"></section>
-    <section class="cards__infos" id="content"></section>
+    <section class="cards__infos" id="infos"></section>
 
     <script type="module">
       // Importation de la NavBar
@@ -20,6 +20,8 @@
       // Importation des composants Movie et de sa Data
       import { DataMovie } from "./data/dataMovie.js";
       import { Movie } from "./component/Movie/script.js";
+      // Importation de la DataMovie
+      import { Moviedetails } from "./component/Moviedetails/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -31,9 +33,18 @@
           "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
         );
       };
+
+      C.handlerDetail = async function (id) {
+        console.log("ID reçu :", id); // debug
+
+        let details = await DataMovie.requestMoviedetails(id);
+        console.log("Détails du film :", details); // debug
+        V.renderMovieDetail(details[0]);
+      };
+
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
-        C.getMovie(); // Appelle la fonction pour récupérer les films
+        C.getMovie(); // ça suffit
       };
 
       /* C.getMovie
@@ -70,6 +81,19 @@
       V.renderMovie = function (data) {
         let content = document.querySelector("#content");
         content.innerHTML = Movie.format(data);
+      };
+      /**
+       * V.renderMovieDetail
+       *
+       * Cette fonction est responsable de l'affichage de la liste des films.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant Movie.
+       */
+      V.renderMovieDetail = function (data) {
+        if (!data) return; // Si data est vide, on ne fait rien
+
+        let content = document.querySelector("#content");
+        content.innerHTML = Moviedetails.format(data);
       };
 
       C.start(); // Démarre l'application
