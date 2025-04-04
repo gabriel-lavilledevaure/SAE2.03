@@ -23,13 +23,6 @@
  * et définir la réponnse à renvoyer au client.
  */
 require("controller.php");
-/**
- * Inclusion du fichier model.php.
- * 
- * Il contient les fonctions qui réalisent des opérations sur la base de données,
- * telles que les requêtes SQL pour insérer, mettre à jour, supprimer ou récupérer des données.
- */
-
 
 /**
  * Vérifie si la variable 'todo' est définie dans la requête.
@@ -62,8 +55,12 @@ if ( isset($_REQUEST['todo']) ){
     case 'getMovie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction readController()
       $data = readController();
       break;
+
+    case 'getMovieinfos': // si la valeur de 'todo' est 'getMovie', on appelle la fonction  readMovieinfos()
+      $data = readControllerMovieinfos(); 
+      break;
       
-      case 'addMovie':
+      case 'addMovie': // si la valeur de 'todo' est 'addMovie', on appelle la fonction addController()
         $data = addController();
       break;
 
@@ -88,7 +85,7 @@ if ( isset($_REQUEST['todo']) ){
     exit();
   }
 
-  error_log("Réponse API : " . json_encode($data));
+  // error_log("Réponse API : " . json_encode($data));  //j'affiche la réponse dans le log du serveur
 
   /**
    * Si tout s'est bien passé, on renvoie la réponse HTTP avec les données ($data) retournées

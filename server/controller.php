@@ -23,18 +23,18 @@ require("model.php");
 
 
 function readController(){
- 
-    // ON VERIFIE QUE LES PARAMETRES EXISTENT ET SONT NON VIDES
-    // Vérification du paramètre 'todo' 
-
-    // if ( isset($_REQUEST['todo'])==false || empty($_REQUEST['todo'])==true ){
-    //     return false;
-    // }   
-
-    // si on arrive ici c'est que les paramètres existent et sont valides, on peut interroger la BDD
     // Appel de la fonction getMovie déclarée dans model.php pour extraire de la BDD les informations des films
     $movies = getMovie();
     return $movies;
+}
+function readControllerMovieinfos(){
+  $name = $_REQUEST['name'] ?? null;
+
+  if (empty($name)) {
+      return "Erreur : Tous les champs doivent être remplis.";
+  }
+
+  return getMovieinfos($name);
 }
 
 function addController(){
