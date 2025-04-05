@@ -28,10 +28,9 @@
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
-      C.handlerAbout = function () {
-        alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
-        );
+      // On applelle la fonction handlerMovies lorsqu'on clique sur le bouton "Films"
+      C.handlerMovies = function () {
+        C.getMovie();
       };
 
       C.handlerDetail = async function (id) {
@@ -43,7 +42,7 @@
       };
 
       C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
+        V.renderNavBar("C.handlerMovies()");
         C.getMovie(); // ça suffit
       };
 

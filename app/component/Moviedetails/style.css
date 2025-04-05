@@ -1,40 +1,48 @@
 .details {
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
 }
 
-.details:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+.details__title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  text-align: center;
 }
 
 .details__image {
   width: 100%;
-  height: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.details__desc {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.details__realisateur,
+.details__annee,
+.details__duree,
+.details__categorie,
+.details__age {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+.details__trailer {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-top: 15px;
   object-fit: cover;
-  display: block;
-}
-
-.details__title {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  /* background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); */
-  color: #fff;
-  font-size: 1em;
-  padding: 0.8rem;
-  text-align: center;
-  opacity: 1; /* Toujours visible */
-}
-
-/* Styles pour les écrans plus grands */
-@media (min-width: 768px) {
-  .details__title {
-    font-size: 1.2em;
-    padding: 1rem;
-  }
+  border-radius: 8px;
 }
