@@ -11,9 +11,8 @@
     <header id="header"></header>
 
     <section class="categorie"></section>
+    <section class="infos" id="infos"></section>
     <section class="cards" id="content"></section>
-
-    <section class="cards__infos" id="infos"></section>
 
     <script type="module">
       // Importation de la NavBar
@@ -95,7 +94,7 @@
       V.renderMovieDetail = function (data) {
         if (!data) return; // Si data est vide, on ne fait rien
 
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#infos");
         content.innerHTML = Moviedetails.format(data);
       };
 

@@ -1,33 +1,52 @@
 .categorie {
-  background-color: #f8f9fa;
-  padding: 1rem 2rem;
-  border-bottom: 2px solid #ddd;
-  overflow-x: auto;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-gray-dark);
 }
 
 .categorie__list {
   display: flex;
-  gap: 1rem;
-  list-style: none;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   padding: 0;
   margin: 0;
-  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 .categorie__tag {
+  background-color: var(--color-gray-darkest);
+  color: var(--color-white);
   padding: 0.5rem 1rem;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-gray-dark);
   border-radius: 2rem;
-  cursor: pointer;
+  font-family: var(--ff-sans);
+  font-size: 0.875rem;
   font-weight: 500;
-  white-space: nowrap;
-  transition: background-color 0.3s, color 0.3s;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
 .categorie__tag:hover,
 .categorie__tag.active {
-  background-color: #007bff;
-  color: #ffffff;
-  border-color: #007bff;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  border-color: var(--color-blue);
+}
+
+/* 💻 Amélioration desktop : plus d’espace */
+@media (min-width: 768px) {
+  .categorie {
+    padding: 1.5rem 2rem;
+  }
+
+  .categorie__list {
+    gap: 1rem;
+  }
+
+  .categorie__tag {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
 }
