@@ -51,11 +51,20 @@
 
       /* C.getMovie
 
-        La fonction affiche sur la page la collection de films par défaut
-      */
+          La fonction affiche sur la page la collection de films par défaut
+        */
       C.getMovie = async function () {
-        let data = await DataMovie.requestMovies(); // On récupère les données par défaut et on attend avec await
-        V.renderMovie(data); // Affiche les données
+        // Efface la fiche détail s’il y en a une
+        let infosSection = document.querySelector("#infos");
+        infosSection.innerHTML = "";
+        // infosSection.style.display = "none";
+
+        // Recharge les films
+        let data = await DataMovie.requestMovies();
+        V.renderMovie(data);
+
+        // Remonte en haut de la page avec une animation fluide
+        window.scrollTo({ top: 0, behavior: "smooth" });
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
