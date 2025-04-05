@@ -27,7 +27,15 @@ function readController(){
     $movies = getMovie();
     return $movies;
 }
+
+/**
+ * Fonction de contrôle pour lire les informations d'un film en fonction de son id.
+ * 
+ * @return array|false Les informations du film ou false en cas d'erreur.
+ */
 function readControllerMovieinfos(){
+  // Récupération des paramètres de la requête
+  // On utilise l'opérateur de coalescence nulle (??) pour assigner une valeur par défaut si la clé n'existe pas
   $id = $_REQUEST['id'] ?? null;
 
   if (empty($id)) {
@@ -35,6 +43,23 @@ function readControllerMovieinfos(){
   }
 
   return getMovieinfos($id);
+}
+
+/**
+ * Fonction de contrôle pour lire les informations d'un film en fonction de sa catégorie.
+ * 
+ * @return array|false Les informations du film ou false en cas d'erreur.
+ */
+function readControllerMoviecategorie(){
+  // Récupération des paramètres de la requête
+  // On utilise l'opérateur de coalescence nulle (??) pour assigner une valeur par défaut si la clé n'existe pas
+  $categorie = $_REQUEST['categorie'] ?? null;
+
+  if (empty($categorie)) {
+      return "Erreur : Tous les champs doivent être remplis.";
+  }
+
+  return getMoviecategorie($categorie);
 }
 
 function addController(){
