@@ -10,6 +10,7 @@
   <body>
     <header id="header"></header>
 
+    <section class="categorie"></section>
     <section class="cards" id="content"></section>
 
     <section class="cards__infos" id="infos"></section>
@@ -23,6 +24,7 @@
       import { Movie } from "./component/Movie/script.js";
       // Importation de la DataMovie
       import { Moviedetails } from "./component/Moviedetails/script.js";
+      import { Moviecategorie } from "./component/Moviecategorie/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -94,6 +96,13 @@
 
         let content = document.querySelector("#content");
         content.innerHTML = Moviedetails.format(data);
+      };
+
+      V.renderMovieCategorie = function (data) {
+        if (!data) return; // Si data est vide, on ne fait rien
+
+        let content = document.querySelector("#content");
+        content.innerHTML = Moviecategorie.format(data);
       };
 
       C.start(); // Démarre l'application
