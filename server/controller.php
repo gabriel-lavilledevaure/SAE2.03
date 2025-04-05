@@ -62,6 +62,15 @@ function readControllerMoviecategorie(){
   return getMoviecategorie($categorie);
 }
 
+/**
+ * Fonction de contrôle pour lire toutes les catégories de films.
+ * 
+ * @return array|false Les informations des catégories ou false en cas d'erreur.
+ */
+function readControllerCategories() {
+  return getAllCategories();
+}
+
 function addController(){
     /* Lecture des données de formulaire
       On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà

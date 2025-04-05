@@ -59,7 +59,11 @@ if ( isset($_REQUEST['todo']) ){
     case 'getMovieinfos': // si la valeur de 'todo' est 'getMovie', on appelle la fonction  readMovieinfos()
       $data = readControllerMovieinfos(); 
       break;
-
+      
+    case 'getCategories':
+      $data = readControllerCategories();
+      break;
+      
     case 'getMoviecategorie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction  readMovieinfos()
       $data = readControllerMoviecategorie(); 
       break;

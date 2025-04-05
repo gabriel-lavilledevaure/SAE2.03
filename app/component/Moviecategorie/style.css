@@ -1,0 +1,33 @@
+.categorie {
+  background-color: #f8f9fa;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #ddd;
+  overflow-x: auto;
+}
+
+.categorie__list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: nowrap;
+}
+
+.categorie__tag {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.categorie__tag:hover,
+.categorie__tag.active {
+  background-color: #007bff;
+  color: #ffffff;
+  border-color: #007bff;
+}

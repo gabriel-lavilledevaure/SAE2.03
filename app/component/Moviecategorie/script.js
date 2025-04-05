@@ -3,8 +3,16 @@ let template = await templateFile.text();
 
 let Moviecategorie = {};
 
-Moviecategorie.format = function () {
-  return template;
+Moviecategorie.format = function (categories) {
+  let listHTML = categories
+    .map(
+      (cat) =>
+        `<li class="categorie__tag" onclick="C.handlerCategorie('${cat.name}')">${cat.name}</li>`
+    )
+    .join("");
+
+  let html = template.replace("{{categories}}", listHTML);
+  return html;
 };
 
 export { Moviecategorie };

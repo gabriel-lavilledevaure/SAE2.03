@@ -54,6 +54,23 @@ function getMovieinfos($id){
     return $res; // Retourne les résultats
 }
 
+/**
+ * Fonction pour récupérer toutes les catégories de films
+ * 
+ * @return array Un tableau d'objets contenant les noms des catégories
+ */
+function getAllCategories() {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les noms de toutes les catégories
+    $sql = "SELECT name FROM Category";
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res;
+}
+
+
 function getMoviecategorie($categorie){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);

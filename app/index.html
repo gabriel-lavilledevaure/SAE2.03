@@ -46,6 +46,7 @@
 
       C.start = function () {
         V.renderNavBar("C.handlerMovies()");
+        V.renderMovieCategorie();
         C.getMovie(); // ça suffit
       };
 
@@ -98,11 +99,16 @@
         content.innerHTML = Moviedetails.format(data);
       };
 
-      V.renderMovieCategorie = function (data) {
-        if (!data) return; // Si data est vide, on ne fait rien
+      V.renderMovieCategorie = async function () {
+        let container = document.querySelector(".categorie");
+        let categories = await DataMovie.requestCategories();
+        container.innerHTML = Moviecategorie.format(categories);
+      };
 
-        let content = document.querySelector("#content");
-        content.innerHTML = Moviecategorie.format(data);
+      C.handlerCategorie = async function (categorie) {
+        console.log("Catégorie sélectionnée :", categorie);
+        let data = await DataMovie.requestMoviecategorie(categorie);
+        V.renderMovie(data);
       };
 
       C.start(); // Démarre l'application
