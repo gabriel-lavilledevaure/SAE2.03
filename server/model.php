@@ -95,7 +95,7 @@ function getMoviecategorie($categorie){
 function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    $sql = "REPLACE INTO Movie (name, director, year, length, description, id_category, image, trailer, min_age) 
+    $sql = "INSERT INTO Movie (name, director, year, length, description, id_category, image, trailer, min_age) 
             VALUES (:titre, :realisateur, :annee, :duree, :desc, :categorie, :image, :url, :age)";
 
     $stmt = $cnx->prepare($sql);
@@ -114,6 +114,21 @@ function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $res = $stmt->rowCount();
     return $res; // Retourne le nombre de lignes affectées par l'opération
 }
+function addUser($name, $image, $datenaissance) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
+    $sql = "INSERT INTO User (name, image, datenaissance) 
+            VALUES (:name, :image, :datenaissance)";
+
+    $stmt = $cnx->prepare($sql);
+
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':image', $image);
+    $stmt->bindParam(':datenaissance', $datenaissance);
+
+    $stmt->execute();
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées par l'opération
+}
 
 
