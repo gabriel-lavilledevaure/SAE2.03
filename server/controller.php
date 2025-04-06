@@ -28,6 +28,12 @@ function readController(){
     return $movies;
 }
 
+function readControllerProfiles(){
+    // Appel de la fonction getProfiles déclarée dans model.php pour extraire de la BDD les informations des films
+    $profiles = getProfiles();
+    return $profiles;
+}
+
 /**
  * Fonction de contrôle pour lire les informations d'un film en fonction de son id.
  * 
@@ -133,4 +139,3 @@ function addUserController(){
 
   
   
-
