@@ -20,6 +20,7 @@
 
       // Importation des composants Movie et de sa Data
       import { DataMovie } from "./data/dataMovie.js";
+      import { DataProfile } from "./data/dataProfile.js";
       import { Movie } from "./component/Movie/script.js";
       // Importation de la DataMovie
       import { Moviedetails } from "./component/Moviedetails/script.js";
@@ -46,7 +47,7 @@
       C.start = function () {
         V.renderNavBar("C.handlerMovies()");
         V.renderMovieCategorie();
-        C.getMovie(); // ça suffit
+        C.getMovie();
       };
 
       /* C.getMovie
@@ -77,9 +78,10 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout) {
+      V.renderNavBar = async function (hAbout) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
+        let profiles = await DataProfile.requestProfiles();
+        header.innerHTML = NavBar.format(hAbout, profiles);
       };
 
       /**
