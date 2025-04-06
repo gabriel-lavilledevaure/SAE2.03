@@ -9,12 +9,16 @@
   <body>
     <section id="log"></section>
     <section id="addFilm"></section>
+    <section id="addUser"></section>
 
     <script type="module">
       // Importation des modules
       import { Log } from "./component/Log/script.js";
       import { MovieForm } from "./component/MovieForm/script.js";
+      import { UserForm } from "./component/UserForm/script.js";
+
       import { DataMovie } from "./data/dataMovie.js";
+      import { DataProfile } from "./data/dataProfile.js";
       // console.log(DataMovie);
       // console.log(NewFilmForm);
       window.C = {};
@@ -35,9 +39,26 @@
         V.renderLog(res);
       };
 
+      C.handlerAddUser = async function () {
+        // Sélectionne l'élément possédant la classe `.addMenu__form`
+        // il s'agit de l'élément <form> du composant NewMenuForm
+        let form = document.querySelector(".addUser__form");
+        // Crée un objet FormData à partir du formulaire
+        let fd = new FormData(form);
+        // Attend la réponse de la fonction `DataMenu.update(fd)`
+        console.log("fd", fd);
+        let res = await DataProfile.add(fd);
+
+        // console.log("add effectué"); // vérif console
+
+        // Affiche le résultat de la mise à jour dans le journal
+        V.renderLog(res);
+      };
+
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderForm("C.handlerAddMovie()");
+        V.renderUserForm("C.handlerAddUser()");
       };
 
       window.V = {};
@@ -52,6 +73,12 @@
       V.renderForm = function (handler) {
         let content = document.querySelector("#addFilm");
         content.innerHTML = MovieForm.format(handler);
+      };
+
+      // Render du NewUserForm
+      V.renderUserForm = function (handler) {
+        let content = document.querySelector("#addUser");
+        content.innerHTML = UserForm.format(handler);
       };
 
       C.start();
