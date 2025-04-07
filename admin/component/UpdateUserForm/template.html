@@ -1,0 +1,20 @@
+<div class="addUser">
+  <h4 class="addUser__title">Ajouter un utilisateur</h4>
+  <form class="addUser__form">
+    <input required type="text" name="name" placeholder="Saisir un nom" />
+    <input
+      required
+      type="text"
+      name="image"
+      placeholder="Saisir un image (et son extension)"
+    />
+    <input
+      required
+      type="date"
+      name="datenaissance"
+      placeholder="Saisir une année"
+      min="1"
+    />
+    <button type="button" onclick="{{handler}}">Ajouter</button>
+  </form>
+</div>
