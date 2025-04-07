@@ -181,3 +181,28 @@ function getMoviesAgeCategory($age, $categorie) {
     return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 
+/**
+ * Fonction pour mettre à jour les informations d'un utilisateur
+ * 
+ * @param int $id L'identifiant de l'utilisateur
+ * @param string $name Le nom de l'utilisateur
+ * @param string $image L'image de l'utilisateur
+ * @param string $datenaissance La date de naissance de l'utilisateur
+ * @return int Le nombre de lignes affectées par la mise à jour
+ */
+function updateUser($id, $name, $image, $datenaissance) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+
+    $sql = "UPDATE User SET name = :name, image = :image, datenaissance = :datenaissance WHERE id = :id";
+
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':image', $image);
+    $stmt->bindParam(':datenaissance', $datenaissance);
+    $stmt->bindParam(':id', $id);
+
+    $stmt->execute();
+    return $stmt->rowCount(); // Retourne 1 si ok, 0 sinon
+}
+
+

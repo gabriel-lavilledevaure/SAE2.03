@@ -16,71 +16,63 @@
       import { Log } from "./component/Log/script.js";
       import { MovieForm } from "./component/MovieForm/script.js";
       import { UserForm } from "./component/UserForm/script.js";
-
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
-      // console.log(DataMovie);
-      // console.log(NewFilmForm);
+
       window.C = {};
 
+      // Handler pour ajout d’un film
       C.handlerAddMovie = async function () {
-        // Sélectionne l'élément possédant la classe `.addMenu__form`
-        // il s'agit de l'élément <form> du composant NewMenuForm
         let form = document.querySelector(".addFilm__form");
-        // Crée un objet FormData à partir du formulaire
         let fd = new FormData(form);
-        // Attend la réponse de la fonction `DataMenu.update(fd)`
-        console.log("fd", fd);
         let res = await DataMovie.add(fd);
-
-        // console.log("add effectué"); // vérif console
-
-        // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
 
+      // Handler pour ajout d’un utilisateur
       C.handlerAddUser = async function () {
-        // Sélectionne l'élément possédant la classe `.addMenu__form`
-        // il s'agit de l'élément <form> du composant NewMenuForm
         let form = document.querySelector(".addUser__form");
-        // Crée un objet FormData à partir du formulaire
         let fd = new FormData(form);
-        // Attend la réponse de la fonction `DataMenu.update(fd)`
-        console.log("fd", fd);
         let res = await DataProfile.add(fd);
-
-        // console.log("add effectué"); // vérif console
-
-        // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
 
-      C.start = function () {
+      // Handler pour mise à jour d’un utilisateur
+      C.handlerUpdateUser = async function () {
+        let form = document.querySelector(".addUser__form");
+        let fd = new FormData(form);
+        let res = await DataProfile.update(fd);
+        V.renderLog(res);
+      };
+
+      // Fonction de démarrage
+      C.start = async function () {
         V.renderLog("Démarrage de l'application");
         V.renderForm("C.handlerAddMovie()");
-        V.renderUserForm("C.handlerAddUser()");
+        await V.renderUserForm("C.handlerAddUser()", "C.handlerUpdateUser()");
       };
 
       window.V = {};
 
-      // Render du Log
+      // Affichage du journal
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
       };
 
-      // Render du NewFilmForm
+      // Affichage du formulaire Film
       V.renderForm = function (handler) {
         let content = document.querySelector("#addFilm");
         content.innerHTML = MovieForm.format(handler);
       };
 
-      // Render du NewUserForm
-      V.renderUserForm = function (handler) {
+      // Affichage du formulaire Utilisateur (asynchrone)
+      V.renderUserForm = async function (handlerAdd, handlerUpdate) {
         let content = document.querySelector("#addUser");
-        content.innerHTML = UserForm.format(handler);
+        content.innerHTML = await UserForm.format(handlerAdd, handlerUpdate);
       };
 
+      // Démarrage de l'app
       C.start();
     </script>
   </body>

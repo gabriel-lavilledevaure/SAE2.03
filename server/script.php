@@ -84,7 +84,10 @@
         $data = readControllerMoviesAgeCategory();
         break;
       
-      
+      case 'updateProfile':
+        $data = updateUserController();
+        break;
+        
 
       case 'addProfile': // si la valeur de 'todo' est 'addUser', on appelle la fonction addUserController()
         $data = addUserController();

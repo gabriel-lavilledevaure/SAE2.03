@@ -1,20 +1,30 @@
 <div class="addUser">
-  <h4 class="addUser__title">Ajouter un utilisateur</h4>
+  <h4 class="addUser__title">Gérer les utilisateurs</h4>
+
+  <label for="profile-select">Sélectionner un profil existant :</label>
+  <select id="profile-select">
+    <option value="">-- Nouveau profil --</option>
+    {{options}}
+  </select>
+
   <form class="addUser__form">
-    <input required type="text" name="name" placeholder="Saisir un nom" />
+    <input
+      required
+      type="text"
+      name="name"
+      id="name"
+      placeholder="Nom du profil"
+    />
     <input
       required
       type="text"
       name="image"
-      placeholder="Saisir un image (et son extension)"
+      id="image"
+      placeholder="Nom de l'image (avec extension)"
     />
-    <input
-      required
-      type="date"
-      name="datenaissance"
-      placeholder="Saisir une date (AAAA-MM-JJ)"
-      min="1"
-    />
-    <button type="button" onclick="{{handler}}">Ajouter</button>
+    <input required type="date" name="datenaissance" id="datenaissance" />
+
+    <button type="button" onclick="{{handlerAdd}}">Ajouter</button>
+    <button type="button" onclick="{{handlerUpdate}}">Mettre à jour</button>
   </form>
 </div>
