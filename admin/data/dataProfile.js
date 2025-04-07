@@ -31,6 +31,18 @@ DataProfile.add = async function (fdata) {
   return data;
 };
 
+DataProfile.update = async function (fdata) {
+  let config = {
+    method: "POST",
+    body: fdata,
+  };
+  let res = await fetch(
+    HOST_URL + "/server/script.php?todo=updateProfile",
+    config
+  );
+  return await res.json();
+};
+
 // /** DataProfile.update
 //  *
 //  * Prend en paramètre un objet FormData (données de formulaire) à envoyer au serveur.

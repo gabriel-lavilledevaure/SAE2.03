@@ -56,20 +56,23 @@
         // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
-      C.handlerUpdateUser = async function () {
-        // Sélectionne l'élément possédant la classe `.addMenu__form`
-        // il s'agit de l'élément <form> du composant NewMenuForm
-        let form = document.querySelector(".addUser__form");
-        // Crée un objet FormData à partir du formulaire
-        let fd = new FormData(form);
-        // Attend la réponse de la fonction `DataMenu.update(fd)`
-        console.log("fd", fd);
-        let res = await DataProfile.update(fd);
 
-        // console.log("add effectué"); // vérif console
+      C.handleProfileSelection = function (select) {
+        const selected = select.selectedOptions[0];
+        const form = document.querySelector(".updateUser__form");
 
-        // Affiche le résultat de la mise à jour dans le journal
-        V.renderLog(res);
+        if (selected.value === "") {
+          // Réinitialiser le formulaire pour un nouveau profil
+          form.reset();
+          form.querySelector('[name="id"]').value = "";
+        } else {
+          // Remplir le formulaire avec les données du profil sélectionné
+          form.querySelector('[name="name"]').value = selected.dataset.name;
+          form.querySelector('[name="image"]').value = selected.dataset.img;
+          form.querySelector('[name="datenaissance"]').value =
+            selected.dataset.dob;
+          form.querySelector('[name="id"]').value = selected.value;
+        }
       };
 
       // ..................................................

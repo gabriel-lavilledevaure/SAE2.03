@@ -1,4 +1,4 @@
-let templateFile = await fetch("./component/UserForm/template.html");
+let templateFile = await fetch("./component/UpdateUserForm/template.html");
 let template = await templateFile.text();
 
 let UpdateUserForm = {};

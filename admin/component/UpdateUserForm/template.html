@@ -1,6 +1,9 @@
 <div class="addUser">
-  <h4 class="addUser__title">Ajouter un utilisateur</h4>
+  <h4 class="addUser__title">Modifier un utilisateur</h4>
   <form class="addUser__form">
+    <select id="profile-select" class="navbar__select" onchange="{{handler}}">
+      {{options}}
+    </select>
     <input required type="text" name="name" placeholder="Saisir un nom" />
     <input
       required
@@ -15,6 +18,6 @@
       placeholder="Saisir une année"
       min="1"
     />
-    <button type="button" onclick="{{handler}}">Ajouter</button>
+    <button type="button" onclick="{{handler}}">Modifier</button>
   </form>
 </div>
