@@ -31,6 +31,8 @@
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
+      C.userAge = null; // Stocke l'âge de l'utilisateur sélectionné
+
       // On applelle la fonction handlerMovies lorsqu'on clique sur le bouton "Films"
       C.handlerMovies = function () {
         C.getMovie(); // on fait appelle à C.getMovie() qu'on a défini plus bas
@@ -44,10 +46,13 @@
         V.renderMovieDetail(details[0]);
       };
 
-      C.start = function () {
-        V.renderNavBar("C.handlerMovies()");
+      C.start = async function () {
+        await V.renderNavBar("C.handlerMovies()");
         V.renderMovieCategorie();
         C.getMovie();
+
+        // Déclenche l’affichage du premier profil
+        C.handlerProfile();
       };
 
       /* C.getMovie
@@ -81,7 +86,11 @@
       V.renderNavBar = async function (hAbout) {
         let header = document.querySelector("#header");
         let profiles = await DataProfile.requestProfiles();
-        header.innerHTML = NavBar.format(hAbout, profiles);
+        header.innerHTML = NavBar.format(
+          hAbout,
+          "C.handlerProfile()",
+          profiles
+        );
       };
 
       /**
@@ -116,9 +125,46 @@
       };
 
       C.handlerCategorie = async function (categorie) {
-        console.log("Catégorie sélectionnée :", categorie);
-        let data = await DataMovie.requestMoviecategorie(categorie);
+        if (C.userAge === null) {
+          console.warn("Aucun âge utilisateur défini.");
+          return;
+        }
+
+        let data = await DataMovie.requestMoviesAgeCategory(
+          C.userAge,
+          categorie
+        );
         V.renderMovie(data);
+      };
+
+      C.handlerProfile = async function () {
+        // Récupérer le profil sélectionné depuis le select
+        const select = document.querySelector("#profile-select");
+        const selectedOption = select.selectedOptions[0];
+
+        // On récupère le nom du profil, la date de naissance et l'image
+        const profileName = selectedOption.value;
+        const dob = selectedOption.getAttribute("data-dob");
+        const imageFilename = selectedOption.getAttribute("data-img");
+        const picture = document.querySelector("#profile-picture");
+        const base =
+          "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/";
+        picture.src = base + imageFilename;
+
+        // Calcul de l'âge
+        let birthDate = new Date(dob);
+        let today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        C.userAge = age; // On enregistre l’âge globalement
+
+        // Récupérer les films adaptés à l'âge depuis le serveur
+        let filteredMovies = await DataMovie.requestMoviesByAge(age);
+
+        V.renderMovie(filteredMovies);
       };
 
       C.start(); // Démarre l'application

@@ -4,9 +4,10 @@
   </ul>
   <div class="navbar__profile">
     <label for="profile-select" class="navbar__label">Profil :</label>
-    <select id="profile-select" class="navbar__select">
+    <select id="profile-select" class="navbar__select" onchange="{{handler}}">
       {{options}}
     </select>
+
     <img
       id="profile-picture"
       class="navbar__picture"

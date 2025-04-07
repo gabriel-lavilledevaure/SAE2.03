@@ -40,5 +40,25 @@ DataMovie.requestMoviecategorie = async function (categorie) {
   return movie;
 };
 
+DataMovie.requestMoviesByAge = async function (age) {
+  let answer = await fetch(
+    HOST_URL + "/server/script.php?todo=getMoviesByAge&age=" + age
+  );
+  let movies = await answer.json();
+  return movies;
+};
+
+DataMovie.requestMoviesAgeCategory = async function (age, categorie) {
+  let answer = await fetch(
+    HOST_URL +
+      "/server/script.php?todo=getMoviesAgeCategory&age=" +
+      age +
+      "&categorie=" +
+      categorie
+  );
+  let movies = await answer.json();
+  return movies;
+};
+
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };
