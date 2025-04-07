@@ -104,6 +104,21 @@ function getMoviecategorie($categorie){
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
 }
+/**
+ * Fonction pour récupérer les films en fonction de l'âge
+ * 
+ * @param int $age L'âge de l'utilisateur
+ * @return array Un tableau d'objets contenant les films accessibles à cet âge
+ */
+function getMoviesByAge($age) {
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name, image, min_age FROM Movie WHERE min_age <= :age";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res;
+}
 
 function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);

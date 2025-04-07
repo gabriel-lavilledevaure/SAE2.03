@@ -66,6 +66,11 @@
       case 'getCategories':
         $data = readControllerCategories();
         break;
+
+      case 'getMoviesByAge':
+        $data = readControllerMoviesByAge();
+        break;
+        
         
       case 'getMoviecategorie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction  readMovieinfos()
         $data = readControllerMoviecategorie(); 

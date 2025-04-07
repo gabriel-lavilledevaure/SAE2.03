@@ -69,6 +69,21 @@ function readControllerMoviecategorie(){
 }
 
 /**
+ * Fonction de contrôle pour lire les films en fonction de l'âge.
+ * 
+ * @return array|false Les informations des films ou false en cas d'erreur.
+ */
+function readControllerMoviesByAge() {
+  $age = $_REQUEST['age'] ?? null;
+  if ($age === null || !is_numeric($age)) {
+      return false;
+  }
+
+  return getMoviesByAge((int)$age);
+}
+
+
+/**
  * Fonction de contrôle pour lire toutes les catégories de films.
  * 
  * @return array|false Les informations des catégories ou false en cas d'erreur.
