@@ -10,12 +10,14 @@
     <section id="log"></section>
     <section id="addFilm"></section>
     <section id="addUser"></section>
+    <section id="updateUser"></section>
 
     <script type="module">
       // Importation des modules
       import { Log } from "./component/Log/script.js";
       import { MovieForm } from "./component/MovieForm/script.js";
       import { UserForm } from "./component/UserForm/script.js";
+      import { UpdateUserForm } from "./component/UpdateUserForm/script.js";
 
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
@@ -54,6 +56,55 @@
         // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
+      C.handlerUpdateUser = async function () {
+        // Sélectionne l'élément possédant la classe `.addMenu__form`
+        // il s'agit de l'élément <form> du composant NewMenuForm
+        let form = document.querySelector(".addUser__form");
+        // Crée un objet FormData à partir du formulaire
+        let fd = new FormData(form);
+        // Attend la réponse de la fonction `DataMenu.update(fd)`
+        console.log("fd", fd);
+        let res = await DataProfile.update(fd);
+
+        // console.log("add effectué"); // vérif console
+
+        // Affiche le résultat de la mise à jour dans le journal
+        V.renderLog(res);
+      };
+
+      // ..................................................
+      // ..
+      // ..
+      // ..
+      // ..
+      // ..     ARRÊTE DE VOLER MON CODE
+      // ..
+      // ..
+      // ..
+      // ..
+      // ..................................................
+      // ..................................................
+      // ..
+      // ..
+      // ..
+      // ..
+      // ..     ARRÊTE DE VOLER MON CODE
+      // ..
+      // ..
+      // ..
+      // ..
+      // ..................................................
+      // ..................................................
+      // ..
+      // ..
+      // ..
+      // ..
+      // ..     ARRÊTE DE VOLER MON CODE
+      // ..
+      // ..
+      // ..
+      // ..
+      // ..................................................
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
@@ -79,6 +130,11 @@
       V.renderUserForm = function (handler) {
         let content = document.querySelector("#addUser");
         content.innerHTML = UserForm.format(handler);
+      };
+      // Render du UpdateUserForm
+      V.renderUserForm = function (handler) {
+        let content = document.querySelector("#updateUser");
+        content.innerHTML = UpdateUserForm.format(handler);
       };
 
       C.start();
