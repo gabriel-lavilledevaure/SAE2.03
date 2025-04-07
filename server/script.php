@@ -81,7 +81,7 @@
       break;
 
       case 'getMoviesAgeCategory': // sit la valeur est 'getMoviesByAgeAndCategory', on appelle la fonction readControllerMoviesByAgeAndCategory()
-        $data = readControllerMoviesAgaCategory();
+        $data = readControllerMoviesAgeCategory();
         break;
       
       
