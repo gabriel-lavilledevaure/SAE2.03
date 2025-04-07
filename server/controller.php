@@ -136,6 +136,32 @@ function addController(){
     return getMoviesAgeCategory($age, $categorie);
   }
 
+  function addUserController(){
+    /* Lecture des données de formulaire
+      On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà
+      vérifiées avant de les envoyer 
+    */
+
+
+    // Récupération des paramètres de la requête
+    $name = $_REQUEST['name'] ?? null;
+    $image = $_REQUEST['image'] ?? null;
+    $datenaissance = $_REQUEST['datenaissance'] ?? null;
+
+    // Validation: Check if any parameter is empty
+    if (empty($name) || empty($image) || empty($datenaissance)) {
+        return "Erreur : Tous les champs doivent être remplis.";
+    }
+    // Mise à jour du menu à l'aide de la fonction updateMenu décrite dans model.php
+    $ok = addUser($name, $image,$datenaissance);
+    // $ok est le nombre de ligne affecté par l'opération de mise à jour dans la BDD (voir model.php)
+    if ($ok!=0){
+      return "L'utilisateur $name a été ajouté avec succès !";
+    } 
+    else{
+      return "Erreur lors de l'ajout de l'utilisateur $titre !";
+    }
+  }
   function updateUserController() {
     $id = $_REQUEST['id'] ?? null;
     $name = $_REQUEST['name'] ?? null;
