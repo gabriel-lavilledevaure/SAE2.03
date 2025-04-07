@@ -55,6 +55,7 @@
       case 'getMovie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction readController()
         $data = readController();
         break;
+        
       case 'getProfiles': // si la valeur de 'todo' est 'getMovie', on appelle la fonction readController()
         $data = readControllerProfiles();
         break;

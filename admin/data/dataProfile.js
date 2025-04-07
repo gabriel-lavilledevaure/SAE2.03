@@ -23,7 +23,7 @@ DataProfile.add = async function (fdata) {
   // console.log("DataProfile.add 2 ", config); // Point de repère n°2
 
   let answer = await fetch(
-    HOST_URL + "/server/script.php?todo=addProfile&",
+    HOST_URL + "/server/script.php?todo=addProfile",
     config
   );
   // console.log("DataProfile.add 3 "); // Point de repère n°3
@@ -41,6 +41,12 @@ DataProfile.update = async function (fdata) {
     config
   );
   return await res.json();
+};
+
+DataProfile.getAllProfiles = async function () {
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=getProfiles");
+  let data = await answer.json();
+  return data;
 };
 
 // /** DataProfile.update

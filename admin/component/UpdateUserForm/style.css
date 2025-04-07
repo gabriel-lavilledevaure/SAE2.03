@@ -1,4 +1,4 @@
-.addUser {
+.updateUser {
   width: 95vw;
   max-width: 1600px;
   margin: 2rem auto;
@@ -10,20 +10,20 @@
   font-family: Arial, sans-serif;
 }
 
-.addUser__title {
+.updateUser__title {
   font-size: 1.5rem;
   margin-bottom: 2rem;
   text-align: center;
   color: #ecf0f1;
 }
 
-.addUser__form {
+.updateUser__form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem 2rem;
 }
 
-.addUser__form input {
+.updateUser__form input {
   font-size: 1rem;
   padding: 1rem;
   border: 1px solid #bdc3c7;
@@ -35,17 +35,17 @@
   transition: transform 0.2s ease;
 }
 
-.addUser__form input::placeholder {
+.updateUser__form input::placeholder {
   color: #95a5a6;
 }
 
-.addUser__form input:focus {
+.updateUser__form input:focus {
   outline: none;
   border-color: #bcbc1a;
   box-shadow: 0 0 5px rgba(188, 169, 26, 0.5);
 }
 
-.addUser__form button {
+.updateUser__form button {
   background-color: #1abc9c;
   color: #fff;
   border: none;
@@ -59,15 +59,15 @@
 }
 
 @media (max-width: 768px) {
-  .addUser__form button {
+  .updateUser__form button {
     grid-column: span 1;
   }
 }
 
-.addUser__form button:hover {
+.updateUser__form button:hover {
   background-color: #16a085;
 }
 
-.addUser__form button:active {
+.updateUser__form button:active {
   transform: scale(0.95);
 }

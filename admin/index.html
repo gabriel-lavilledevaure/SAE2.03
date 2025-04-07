@@ -57,22 +57,25 @@
         V.renderLog(res);
       };
 
-      C.handleProfileSelection = function (select) {
+      C.handlerSelectUser = function () {
+        const select = document.getElementById("user-select");
         const selected = select.selectedOptions[0];
-        const form = document.querySelector(".updateUser__form");
+        const id = select.value;
+        const name = selected.dataset.name;
+        const avatar = selected.dataset.avatar;
+        const dob = selected.dataset.age;
 
-        if (selected.value === "") {
-          // Réinitialiser le formulaire pour un nouveau profil
-          form.reset();
-          form.querySelector('[name="id"]').value = "";
-        } else {
-          // Remplir le formulaire avec les données du profil sélectionné
-          form.querySelector('[name="name"]').value = selected.dataset.name;
-          form.querySelector('[name="image"]').value = selected.dataset.img;
-          form.querySelector('[name="datenaissance"]').value =
-            selected.dataset.dob;
-          form.querySelector('[name="id"]').value = selected.value;
-        }
+        document.querySelector(".updateUser__form input[name='id']").value = id;
+        document.getElementById("user-name").value = name;
+        document.getElementById("user-image").value = avatar;
+        document.getElementById("user-dob").value = dob;
+      };
+
+      C.handlerUpdateUser = async function () {
+        let form = document.querySelector(".updateUser__form");
+        let fd = new FormData(form);
+        let res = await DataProfile.update(fd);
+        V.renderLog(res);
       };
 
       // ..................................................
@@ -112,7 +115,10 @@
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderForm("C.handlerAddMovie()");
-        V.renderUserForm("C.handlerAddUser()");
+        V.renderUpdateUserForm(
+          "C.handlerSelectUser()",
+          "C.handlerUpdateUser()"
+        );
       };
 
       window.V = {};
@@ -138,6 +144,17 @@
       V.renderUserForm = function (handler) {
         let content = document.querySelector("#updateUser");
         content.innerHTML = UpdateUserForm.format(handler);
+      };
+
+      V.renderUpdateUserForm = async function (handlerSelect, handlerUpdate) {
+        let content = document.querySelector("#updateUser");
+        let profiles = await DataProfile.getAllProfiles();
+        content.innerHTML = UpdateUserForm.format(
+          profiles,
+          handlerSelect,
+          handlerUpdate
+        );
+        UpdateUserForm.init(); // Plus besoin de passer handler ici, c'est intégré
       };
 
       C.start();
