@@ -84,6 +84,7 @@ function getAllCategories() {
 }
 
 
+
 function getMoviecategorie($categorie){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
@@ -159,4 +160,24 @@ function addUser($name, $image, $datenaissance) {
     return $res; // Retourne le nombre de lignes affectées par l'opération
 }
 
+/**
+ * Fonction pour récupérer les films en fonction de l'âge et de la catégorie
+ * 
+ * @param int $age L'âge de l'utilisateur
+ * @param string $categorie La catégorie de film
+ * @return array Un tableau d'objets contenant les films accessibles à cet âge et dans cette catégorie
+ */
+function getMoviesAgeCategory($age, $categorie) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT Movie.id, Movie.name, Movie.image
+            FROM Movie
+            INNER JOIN Category ON Movie.id_category = Category.id
+            WHERE Movie.min_age <= :age AND LOWER(Category.name) = LOWER(:categorie)";
+
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+    $stmt->bindParam(':categorie', $categorie, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
 

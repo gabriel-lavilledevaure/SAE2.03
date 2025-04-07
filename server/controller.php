@@ -124,6 +124,19 @@ function addController(){
       return "Erreur lors de l'ajout du film $titre !";
     }
   }
+
+  function readControllerMoviesAgeCategory() {
+    $age = $_REQUEST['age'] ?? null;
+    $categorie = $_REQUEST['categorie'] ?? null;
+  
+    if ($age === null || !is_numeric($age) || empty($categorie)) {
+      return false;
+    }
+  
+    return getMoviesAgeCategory($age, $categorie);
+  }
+  
+
 function addUserController(){
     /* Lecture des données de formulaire
       On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà

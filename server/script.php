@@ -76,13 +76,19 @@
         $data = readControllerMoviecategorie(); 
         break;
         
-        case 'addMovie': // si la valeur de 'todo' est 'addMovie', on appelle la fonction addController()
-          $data = addController();
-        break;
+      case 'addMovie': // si la valeur de 'todo' est 'addMovie', on appelle la fonction addController()
+        $data = addController();
+      break;
 
-        case 'addProfile': // si la valeur de 'todo' est 'addUser', on appelle la fonction addUserController()
-          $data = addUserController();
+      case 'getMoviesAgeCategory': // sit la valeur est 'getMoviesByAgeAndCategory', on appelle la fonction readControllerMoviesByAgeAndCategory()
+        $data = readControllerMoviesAgaCategory();
         break;
+      
+      
+
+      case 'addProfile': // si la valeur de 'todo' est 'addUser', on appelle la fonction addUserController()
+        $data = addUserController();
+      break;
 
       default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
         echo json_encode('[error] Unknown todo value');
