@@ -18,45 +18,28 @@
       import { MovieForm } from "./component/MovieForm/script.js";
       import { UserForm } from "./component/UserForm/script.js";
       import { UpdateUserForm } from "./component/UpdateUserForm/script.js";
-
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
-      // console.log(DataMovie);
-      // console.log(NewFilmForm);
+
       window.C = {};
 
+      // Handler pour l'ajout d'un film
       C.handlerAddMovie = async function () {
-        // Sélectionne l'élément possédant la classe `.addMenu__form`
-        // il s'agit de l'élément <form> du composant NewMenuForm
         let form = document.querySelector(".addFilm__form");
-        // Crée un objet FormData à partir du formulaire
         let fd = new FormData(form);
-        // Attend la réponse de la fonction `DataMenu.update(fd)`
-        console.log("fd", fd);
         let res = await DataMovie.add(fd);
-
-        // console.log("add effectué"); // vérif console
-
-        // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
 
+      // Handler pour l'ajout d'un utilisateur
       C.handlerAddUser = async function () {
-        // Sélectionne l'élément possédant la classe `.addMenu__form`
-        // il s'agit de l'élément <form> du composant NewMenuForm
         let form = document.querySelector(".addUser__form");
-        // Crée un objet FormData à partir du formulaire
         let fd = new FormData(form);
-        // Attend la réponse de la fonction `DataMenu.update(fd)`
-        console.log("fd", fd);
         let res = await DataProfile.add(fd);
-
-        // console.log("add effectué"); // vérif console
-
-        // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
 
+      // Handler pour sélectionner un utilisateur (remplit les champs du formulaire)
       C.handlerSelectUser = function () {
         const select = document.getElementById("user-select");
         const selected = select.selectedOptions[0];
@@ -71,6 +54,7 @@
         document.getElementById("user-dob").value = dob;
       };
 
+      // Handler pour modifier un utilisateur
       C.handlerUpdateUser = async function () {
         let form = document.querySelector(".updateUser__form");
         let fd = new FormData(form);
@@ -78,43 +62,11 @@
         V.renderLog(res);
       };
 
-      // ..................................................
-      // ..
-      // ..
-      // ..
-      // ..
-      // ..     ARRÊTE DE VOLER MON CODE
-      // ..
-      // ..
-      // ..
-      // ..
-      // ..................................................
-      // ..................................................
-      // ..
-      // ..
-      // ..
-      // ..
-      // ..     ARRÊTE DE VOLER MON CODE
-      // ..
-      // ..
-      // ..
-      // ..
-      // ..................................................
-      // ..................................................
-      // ..
-      // ..
-      // ..
-      // ..
-      // ..     ARRÊTE DE VOLER MON CODE
-      // ..
-      // ..
-      // ..
-      // ..
-      // ..................................................
-
+      // Fonction de démarrage de l'application
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderForm("C.handlerAddMovie()");
+        V.renderAddUserForm("C.handlerAddUser()");
         V.renderUpdateUserForm(
           "C.handlerSelectUser()",
           "C.handlerUpdateUser()"
@@ -123,29 +75,25 @@
 
       window.V = {};
 
-      // Render du Log
+      // Affichage du journal
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
       };
 
-      // Render du NewFilmForm
+      // Affichage du formulaire de film
       V.renderForm = function (handler) {
         let content = document.querySelector("#addFilm");
         content.innerHTML = MovieForm.format(handler);
       };
 
-      // Render du NewUserForm
-      V.renderUserForm = function (handler) {
+      // Affichage du formulaire d'ajout utilisateur
+      V.renderAddUserForm = function (handler) {
         let content = document.querySelector("#addUser");
         content.innerHTML = UserForm.format(handler);
       };
-      // Render du UpdateUserForm
-      V.renderUserForm = function (handler) {
-        let content = document.querySelector("#updateUser");
-        content.innerHTML = UpdateUserForm.format(handler);
-      };
 
+      // Affichage du formulaire de modification utilisateur
       V.renderUpdateUserForm = async function (handlerSelect, handlerUpdate) {
         let content = document.querySelector("#updateUser");
         let profiles = await DataProfile.getAllProfiles();
@@ -154,9 +102,10 @@
           handlerSelect,
           handlerUpdate
         );
-        UpdateUserForm.init(); // Plus besoin de passer handler ici, c'est intégré
+        UpdateUserForm.init();
       };
 
+      // Lancement
       C.start();
     </script>
   </body>
