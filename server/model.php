@@ -143,6 +143,7 @@ function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $res = $stmt->rowCount();
     return $res; // Retourne le nombre de lignes affectées par l'opération
 }
+
 function addUser($name, $image, $datenaissance) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
