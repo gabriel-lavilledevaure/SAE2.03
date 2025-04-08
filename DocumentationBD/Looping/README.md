@@ -10,3 +10,12 @@ Pour la cinquième itération, il nous est demandé de gérer des utilisateurs. 
 - **`datenaissance`** : Un champ de type `DATE` pour enregistrer la date de naissance de l'utilisateur. Ce champ pourra être utilisé ultérieurement pour appliquer des restrictions d'âge.
 
 Cette structure permet une gestion efficace et évolutive des utilisateurs dans notre base de données.
+
+## Itération 9
+
+Pour la neuvième itération, il nous est demandé de gérer des favoris. J'ai donc décidé de créer une nouvelle table nommée **`Like`**. Cette table comporte les attributs suivants :
+
+- **`id_user`** : Un id clé étrangère qui est reliée à la table **`User`**.
+- **`id_movie`** : un id clé étrangère qui est reliée à la table **`Movie`**.
+
+Cette structure permet une gestion efficace et évolutive des favoris de nos utilisateurs dans notre base de données.
