@@ -54,14 +54,15 @@
 
         if (!id_user || !id_movie) return;
 
-        el.style.pointerEvents = "none";
+        const isLiked = el.classList.contains("card__favoris--liked");
+        const todo = isLiked ? "removeLikes" : "addLikes";
 
-        let fd = new FormData();
+        const fd = new FormData();
         fd.append("id_user", id_user);
         fd.append("id_movie", id_movie);
 
         const res = await fetch(
-          "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=addLikes",
+          `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=${todo}`,
           {
             method: "POST",
             body: fd,
@@ -69,10 +70,16 @@
         );
 
         const json = await res.json();
-        console.log("Like ajouté :", json);
+        console.log(
+          `${todo === "addLikes" ? "Ajout" : "Suppression"} du like :`,
+          json
+        );
 
-        el.classList.add("card__favoris--liked");
-        el.textContent = "❤";
+        // Mise à jour visuelle
+        el.classList.toggle("card__favoris--liked");
+        el.textContent = el.classList.contains("card__favoris--liked")
+          ? "❤"
+          : "♡";
       };
 
       C.start = async function () {

@@ -106,8 +106,9 @@
 }
 
 .card__favoris--liked {
-  background-color: rgba(255, 0, 0, 0.2);
   color: red;
+  transform: scale(1.2);
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 @media (min-width: 37.5rem) {
