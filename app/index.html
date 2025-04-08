@@ -43,7 +43,7 @@
 
         let details = await DataMovie.requestMoviedetails(id);
         console.log("Détails du film :", details); // debug
-        V.renderMovieDetail(details[0]);
+        V.renderMovieDetail(details[0]); //indice 0 car cela correspond à l'id du film
       };
 
       C.start = async function () {
