@@ -162,6 +162,7 @@ function addController(){
       return "Erreur lors de l'ajout de l'utilisateur $titre !";
     }
   }
+  
   function updateUserController() {
     $id = $_REQUEST['id'] ?? null;
     $name = $_REQUEST['name'] ?? null;
