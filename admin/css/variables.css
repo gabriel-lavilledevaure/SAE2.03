@@ -9,6 +9,16 @@
   --color-gray-dark: hsl(0, 0%, 20%);
   --color-green: hsl(120, 100%, 37%);
 
+  --color-primary: #1abc9c;
+  --color-secondary: #16a085;
+  --color-dark: #1e1e2f;
+  --color-light: #ecf0f1;
+  --color-muted: #95a5a6;
+  --radius: 8px;
+  --transition: 0.3s ease;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --font: "Segoe UI", Roboto, sans-serif;
+
   --ff-sans: "DM sans", sans-serif;
 
   /* Sementic Tokens */
