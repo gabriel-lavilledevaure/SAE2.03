@@ -35,7 +35,6 @@
   border-color: var(--color-blue);
 }
 
-/* 💻 Amélioration desktop : plus d’espace */
 @media (min-width: 768px) {
   .categorie {
     padding: 1.5rem 2rem;

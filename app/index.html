@@ -63,7 +63,7 @@
         // Efface la fiche détail s’il y en a une
         let infosSection = document.querySelector("#infos");
         infosSection.innerHTML = "";
-        // infosSection.style.display = "none";
+        infosSection.style.display = "none";
 
         // Recharge les films
         let data = await DataMovie.requestMovies();
@@ -104,6 +104,7 @@
         let content = document.querySelector("#content");
         content.innerHTML = Movie.format(data);
       };
+
       /**
        * V.renderMovieDetail
        *
@@ -112,9 +113,10 @@
        * formaté par le composant Movie.
        */
       V.renderMovieDetail = function (data) {
-        if (!data) return; // Si data est vide, on ne fait rien
+        if (!data) return;
 
         let content = document.querySelector("#infos");
+        content.style.display = "block"; // Affiche la section infos
         content.innerHTML = Moviedetails.format(data);
       };
 
@@ -162,9 +164,9 @@
         C.userAge = age; // On enregistre l’âge globalement
 
         // Récupérer les films adaptés à l'âge depuis le serveur
-        let filteredMovies = await DataMovie.requestMoviesByAge(age);
+        let Moviestrie = await DataMovie.requestMoviesByAge(age);
 
-        V.renderMovie(filteredMovies);
+        V.renderMovie(Moviestrie);
       };
 
       C.start(); // Démarre l'application
