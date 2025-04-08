@@ -231,4 +231,14 @@ function updateUser($id, $name, $image, $datenaissance) {
     return $stmt->rowCount(); // Retourne 1 si ok, 0 sinon
 }
 
+function checkUser($name) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT COUNT(*) FROM User WHERE name = :name";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':name', $name);
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+    return $count > 0; // retourne true si au moins un utilisateur existe avec ce nom
+}
+
 
