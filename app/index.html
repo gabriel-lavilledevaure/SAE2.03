@@ -46,11 +46,15 @@
         V.renderMovieDetail(details[0]); //indice 0 car cela correspond à l'id du film
       };
 
-      C.handlerFavoris = async function (id_movie) {
+      C.handlerFavoris = async function (id_movie, el) {
+        if (!el)
+          return console.error("Aucun élément reçu pour le bouton like.");
         const select = document.querySelector("#profile-select");
-        const id_user = select.selectedIndex + 1; // ou récupère l’ID s’il est stocké dans les options
+        const id_user = select.selectedIndex + 1;
 
         if (!id_user || !id_movie) return;
+
+        el.style.pointerEvents = "none";
 
         let fd = new FormData();
         fd.append("id_user", id_user);
@@ -66,6 +70,9 @@
 
         const json = await res.json();
         console.log("Like ajouté :", json);
+
+        el.classList.add("card__favoris--liked");
+        el.textContent = "❤";
       };
 
       C.start = async function () {

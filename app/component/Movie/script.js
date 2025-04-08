@@ -12,18 +12,20 @@ Movie.format = function (movies) {
     let movieHtml = template;
     movieHtml = movieHtml.replace("{{titre}}", movie.name);
     movieHtml = movieHtml.replace("{{image}}", movie.image);
+    movieHtml = movieHtml.replace("{{id}}", movie.id);
     movieHtml = movieHtml.replace(
       "{{handlerFavoris}}",
-      `C.handlerFavoris(${movie.id})`
+      `C.handlerFavoris(${movie.id}, this)`
     );
 
     movieHtml = movieHtml.replace(
       "{{handler}}",
-      `C.handlerDetail(${movie.id})`
+      `C.handlerDetail(${movie.id}, this)`
     );
 
     html += movieHtml;
   });
+
   return html;
 };
 
