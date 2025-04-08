@@ -16,6 +16,14 @@ DataProfile.requestProfiles = async function () {
   return profiles;
 };
 
+DataProfile.requestLikesForUser = async function (id_user) {
+  let answer = await fetch(
+    HOST_URL + "/server/script.php?todo=getLikesUserMovie&id_user=" + id_user
+  );
+  let likes = await answer.json();
+  return likes;
+};
+
 // DataProfile.requestMoviedetails = async function (id) {
 //   let answer = await fetch(
 //     HOST_URL + "/server/script.php?todo=getMovieinfos&id=" + id

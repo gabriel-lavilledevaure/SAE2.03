@@ -46,6 +46,28 @@
         V.renderMovieDetail(details[0]); //indice 0 car cela correspond à l'id du film
       };
 
+      C.handlerFavoris = async function (id_movie) {
+        const select = document.querySelector("#profile-select");
+        const id_user = select.selectedIndex + 1; // ou récupère l’ID s’il est stocké dans les options
+
+        if (!id_user || !id_movie) return;
+
+        let fd = new FormData();
+        fd.append("id_user", id_user);
+        fd.append("id_movie", id_movie);
+
+        const res = await fetch(
+          "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=addLikes",
+          {
+            method: "POST",
+            body: fd,
+          }
+        );
+
+        const json = await res.json();
+        console.log("Like ajouté :", json);
+      };
+
       C.start = async function () {
         await V.renderNavBar("C.handlerMovies()");
         V.renderMovieCategorie();
@@ -73,6 +95,20 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
 
+      C.handlerLikes = async function () {
+        const select = document.querySelector("#profile-select");
+        const id_user = select.selectedIndex + 1;
+
+        const likedMovies = await DataProfile.requestLikesForUser(id_user);
+        const allMovies = await DataMovie.requestMovies();
+
+        const likedFull = allMovies.filter((movie) =>
+          likedMovies.some((like) => like.id_movie == movie.id)
+        );
+
+        V.renderMovie(likedFull);
+      };
+
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -89,7 +125,8 @@
         header.innerHTML = NavBar.format(
           hAbout,
           "C.handlerProfile()",
-          profiles
+          profiles,
+          "C.handlerLikes()"
         );
       };
 
@@ -138,16 +175,14 @@
         );
         V.renderMovie(data);
       };
-
       C.handlerProfile = async function () {
-        // Récupérer le profil sélectionné depuis le select
         const select = document.querySelector("#profile-select");
         const selectedOption = select.selectedOptions[0];
 
-        // On récupère le nom du profil, la date de naissance et l'image
         const profileName = selectedOption.value;
         const dob = selectedOption.getAttribute("data-dob");
         const imageFilename = selectedOption.getAttribute("data-img");
+
         const picture = document.querySelector("#profile-picture");
         const base =
           "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/";
@@ -161,12 +196,14 @@
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
           age--;
         }
-        C.userAge = age; // On enregistre l’âge globalement
 
-        // Récupérer les films adaptés à l'âge depuis le serveur
-        let Moviestrie = await DataMovie.requestMoviesByAge(age);
+        C.userAge = age;
 
-        V.renderMovie(Moviestrie);
+        // Affiche les films filtrés par âge
+        let filteredMovies = await DataMovie.requestMoviesByAge(age);
+        V.renderMovie(filteredMovies);
+
+        // Le gestionnaire de clic sur l’image est maintenant défini via le template avec handlerLikes
       };
 
       C.start(); // Démarre l'application
