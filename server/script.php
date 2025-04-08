@@ -95,6 +95,11 @@
         case 'addLikes': // si la valeur de 'todo' est 'addMovie', on appelle la fonction addController()
             $data = addLikesController();
             break;
+
+            case 'removeLikes':
+              $data = removeLikesController();
+              break;
+            
               
         case 'addProfile': // si la valeur de 'todo' est 'addProfile', on appelle la fonction addUserController()
           $data = addUserController();

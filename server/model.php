@@ -241,4 +241,15 @@ function checkUser($name) {
     return $count > 0; // retourne true si au moins un utilisateur existe avec ce nom
 }
 
+function removeLikes($user, $movie) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
+    $sql = "DELETE FROM Likes WHERE id_user = :id_user AND id_movie = :id_movie";
+
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id_user', $user);
+    $stmt->bindParam(':id_movie', $movie);
+    $stmt->execute();
+
+    return $stmt->rowCount(); // retourne 1 si un like a été supprimé
+}

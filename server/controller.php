@@ -200,11 +200,14 @@ function addController(){
     return $ok ? "Le profil a été modifié avec succès." : "Erreur lors de la modification du profil.";
 }
 
-  
+function removeLikesController(){
+  $user = $_REQUEST['id_user'] ?? null;
+  $movie = $_REQUEST['id_movie'] ?? null;
 
+  if (empty($user) || empty($movie)) {
+      return "Erreur : Tous les champs doivent être remplis.";
+  }
 
-
-
-
-  
-  
+  $ok = removeLikes($user, $movie);
+  return $ok ? "Like supprimé" : "Aucun like à supprimer";
+}
