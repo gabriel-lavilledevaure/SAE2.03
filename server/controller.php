@@ -136,6 +136,17 @@ function addController(){
     return getMoviesAgeCategory($age, $categorie);
   }
 
+  function readControllerLikesUserMovie() {
+    $id_user = $_REQUEST['id_user'] ?? null;
+  
+    if ($id_user === null) {
+      return false;
+    }
+  
+    return getLikesUserMovie($id_user);
+  }
+
+
   function addUserController(){
     /* Lecture des données de formulaire
       On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà
@@ -162,7 +173,26 @@ function addController(){
       return "Erreur lors de l'ajout de l'utilisateur $titre !";
     }
   }
-  
+
+  function addLikesController(){
+    /* Lecture des données de formulaire
+      On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà
+      vérifiées avant de les envoyer 
+    */
+
+
+    // Récupération des paramètres de la requête
+    $user = $_REQUEST['id_user'] ?? null;
+    $movie = $_REQUEST['id_movie'] ?? null;
+
+    // Validation: Check if any parameter is empty
+    if (empty($user) || empty($movie)) {
+        return "Erreur : Tous les champs doivent être remplis.";
+    }
+    // Mise à jour du menu à l'aide de la fonction updateMenu décrite dans model.php
+    $ok = addLikes($user,$movie);
+  }
+
   function updateUserController() {
     $id = $_REQUEST['id'] ?? null;
     $name = $_REQUEST['name'] ?? null;

@@ -66,33 +66,39 @@
         
       case 'getCategories':
         $data = readControllerCategories();
-        break;
+      break;
 
-      case 'getMoviesByAge':
-        $data = readControllerMoviesByAge();
-        break;
-        
-        
+      case 'getLikesUserMovie':
+        $data = readControllerLikesUserMovie();
+      break;
+
       case 'getMoviecategorie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction  readMovieinfos()
         $data = readControllerMoviecategorie(); 
         break;
-        
-      case 'addMovie': // si la valeur de 'todo' est 'addMovie', on appelle la fonction addController()
-        $data = addController();
-      break;
-
-      case 'getMoviesAgeCategory': // sit la valeur est 'getMoviesByAgeAndCategory', on appelle la fonction readControllerMoviesByAgeAndCategory()
-        $data = readControllerMoviesAgeCategory();
+          
+      case 'getMoviesByAge':
+        $data = readControllerMoviesByAge();
         break;
-      
+            
+      case 'getMoviesAgeCategory': // sit la valeur est 'getMoviesAgeCategory', on appelle la fonction readControllerMoviesAgeCategory()
+        $data = readControllerMoviesAgeCategory();
+         break;
+          
       case 'updateProfile':
         $data = updateUserController();
         break;
-        
+            
+      case 'addMovie': // si la valeur de 'todo' est 'addMovie', on appelle la fonction addController()
+          $data = addController();
+          break;
 
-      case 'addProfile': // si la valeur de 'todo' est 'addUser', on appelle la fonction addUserController()
+      case 'addLikes': // si la valeur de 'todo' est 'addMovie', on appelle la fonction addController()
+          $data = addLikesController();
+          break;
+            
+      case 'addProfile': // si la valeur de 'todo' est 'addProfile', on appelle la fonction addUserController()
         $data = addUserController();
-      break;
+        break;
 
       default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
         echo json_encode('[error] Unknown todo value');

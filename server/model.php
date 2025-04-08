@@ -121,6 +121,15 @@ function getMoviesByAge($age) {
     return $res;
 }
 
+function getLikesUserMovie($id_user){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id_user, id_movie FROM Likes WHERE id_user = :id_user";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
 function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
@@ -155,6 +164,22 @@ function addUser($name, $image, $datenaissance) {
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':image', $image);
     $stmt->bindParam(':datenaissance', $datenaissance);
+
+    $stmt->execute();
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées par l'opération
+}
+
+function addLikes($user, $movie) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+
+    $sql = "INSERT INTO Likes (id_user, id_movie) 
+            VALUES (:id_user, :id_movie)";
+
+    $stmt = $cnx->prepare($sql);
+
+    $stmt->bindParam(':id_user', $user);
+    $stmt->bindParam(':id_movie', $movie);
 
     $stmt->execute();
     $res = $stmt->rowCount();
