@@ -98,7 +98,6 @@ function addController(){
       vérifiées avant de les envoyer 
     */
 
-
     // Récupération des paramètres de la requête
     $titre = $_REQUEST['titre'] ?? null;
     $realisateur = $_REQUEST['realisateur'] ?? null;
@@ -153,7 +152,6 @@ function addController(){
       vérifiées avant de les envoyer 
     */
 
-
     // Récupération des paramètres de la requête
     $name = $_REQUEST['name'] ?? null;
     $image = $_REQUEST['image'] ?? null;
@@ -179,7 +177,6 @@ function addController(){
       On ne vérifie pas si les données sont valides, on suppose (faudra pas toujours...) que le client les a déjà
       vérifiées avant de les envoyer 
     */
-
 
     // Récupération des paramètres de la requête
     $user = $_REQUEST['id_user'] ?? null;
