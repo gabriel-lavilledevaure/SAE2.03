@@ -9,3 +9,4 @@
 @import "../component/Movie/style.css" layer(components);
 @import "../component/Moviedetails/style.css" layer(components);
 @import "../component/Moviecategorie/style.css" layer(components);
+@import "../component/MovieReco/style.css" layer(components);
