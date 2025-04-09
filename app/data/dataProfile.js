@@ -1,52 +1,43 @@
-// URL où se trouve le répertoire "server" sur mmi.unilim.fr
 let HOST_URL = "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03";
 
 let DataProfile = {};
 
-// DataProfile.requestMovies = async function () {
-//   // Récupération des films
-//   let answer = await fetch(HOST_URL + "server/script.php?todo=getMovie");
-//   let movies = await answer.json();
-//   return movies;
-// };
-
 DataProfile.requestProfiles = async function () {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=getProfiles");
-  let profiles = await answer.json();
-  return profiles;
+  let res = await fetch(HOST_URL + "/server/script.php?todo=getProfiles");
+  return await res.json();
 };
 
 DataProfile.requestLikesForUser = async function (id_user) {
-  let answer = await fetch(
-    HOST_URL + "/server/script.php?todo=getLikesUserMovie&id_user=" + id_user
+  let res = await fetch(
+    `${HOST_URL}/server/script.php?todo=getLikesUserMovie&id_user=${id_user}`
   );
-  let likes = await answer.json();
-  return likes;
+  return await res.json();
 };
 
-// DataProfile.requestMoviedetails = async function (id) {
-//   let answer = await fetch(
-//     HOST_URL + "/server/script.php?todo=getMovieinfos&id=" + id
-//   );
-//   let movie = await answer.json();
-//   return movie;
-// };
+DataProfile.removeLike = async function (id_user, id_movie) {
+  const fd = new FormData();
+  fd.append("id_user", id_user);
+  fd.append("id_movie", id_movie);
 
-// DataProfile.requestCategories = async function () {
-//   let answer = await fetch(HOST_URL + "/server/script.php?todo=getCategories");
-//   let categories = await answer.json();
-//   return categories;
-// };
+  const res = await fetch(`${HOST_URL}/server/script.php?todo=removeLikes`, {
+    method: "POST",
+    body: fd,
+  });
 
-// DataProfile.requestMoviecategorie = async function (categorie) {
-//   let answer = await fetch(
-//     HOST_URL +
-//       "/server/script.php?todo=getMoviecategorie&categorie=" +
-//       categorie
-//   );
-//   let movie = await answer.json();
-//   return movie;
-// };
+  return await res.json();
+};
 
-// On exporte la fonction DataProfile.requestMovies
+DataProfile.addLike = async function (id_user, id_movie) {
+  const fd = new FormData();
+  fd.append("id_user", id_user);
+  fd.append("id_movie", id_movie);
+
+  const res = await fetch(`${HOST_URL}/server/script.php?todo=addLikes`, {
+    method: "POST",
+    body: fd,
+  });
+
+  return await res.json();
+};
+
 export { DataProfile };

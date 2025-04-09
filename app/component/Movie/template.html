@@ -5,12 +5,15 @@
     class="card__image"
   />
   <h2 class="card__title">{{titre}}</h2>
-  <span
-    class="card__favoris"
-    data-id="{{id}}"
-    onclick="event.stopPropagation(); {{handlerFavoris}}"
-    title="Ajouter aux favoris"
-  >
-    ♡
-  </span>
+  <div class="card__actions">
+    {{deleteLike}}
+    <span
+      class="card__favoris"
+      data-id="{{id}}"
+      onclick="event.stopPropagation(); {{handlerFavoris}}"
+      title="Ajouter aux favoris"
+    >
+      ♡
+    </span>
+  </div>
 </div>

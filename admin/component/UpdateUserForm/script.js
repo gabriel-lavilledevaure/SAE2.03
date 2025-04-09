@@ -6,12 +6,11 @@ let UpdateUserForm = {};
 UpdateUserForm.format = function (profiles, handlerSelect, handlerUpdate) {
   let html = template;
 
-  let options = profiles
-    .map(
-      (p) =>
-        `<option value="${p.id}" data-name="${p.name}" data-avatar="${p.image}" data-age="${p.datenaissance}">${p.name}</option>`
-    )
-    .join("");
+  let options = "";
+  for (let i = 0; i < profiles.length; i++) {
+    const p = profiles[i];
+    options += `<option value="${p.id}" data-name="${p.name}" data-avatar="${p.image}" data-age="${p.datenaissance}">${p.name}</option>`;
+  }
 
   html = html.replace("{{options}}", options);
   html = html.replace("{{handlerSelect}}", handlerSelect);

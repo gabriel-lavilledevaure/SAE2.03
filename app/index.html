@@ -46,23 +46,22 @@
         V.renderMovieDetail(details[0]); //indice 0 car cela correspond à l'id du film
       };
 
-      C.handlerFavoris = async function (id_movie, el) {
+      C.handlerAddFavoris = async function (id_movie, el) {
         if (!el)
           return console.error("Aucun élément reçu pour le bouton like.");
         const select = document.querySelector("#profile-select");
+
+        // On récupère l'identifiant de l'utilisateur sélectionné
         const id_user = select.selectedIndex + 1;
 
         if (!id_user || !id_movie) return;
-
-        const isLiked = el.classList.contains("card__favoris--liked");
-        const todo = isLiked ? "removeLikes" : "addLikes";
 
         const fd = new FormData();
         fd.append("id_user", id_user);
         fd.append("id_movie", id_movie);
 
         const res = await fetch(
-          `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=${todo}`,
+          `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=addLikes`,
           {
             method: "POST",
             body: fd,
@@ -70,16 +69,48 @@
         );
 
         const json = await res.json();
-        console.log(
-          `${todo === "addLikes" ? "Ajout" : "Suppression"} du like :`,
-          json
+
+        if (json.success) {
+          el.classList.add("card__favoris--liked");
+          el.textContent = "❤";
+        } else {
+          console.error("Erreur lors de l'ajout aux favoris :", json.message);
+        }
+      };
+
+      C.handlerRemoveFavoris = async function (id_movie, el) {
+        if (!el)
+          return console.error("Aucun élément reçu pour le bouton like.");
+        const select = document.querySelector("#profile-select");
+
+        // Récupération de l'identifiant de l'utilisateur sélectionné
+        const id_user = select.selectedIndex + 1;
+
+        if (!id_user || !id_movie) return;
+
+        const fd = new FormData();
+        fd.append("id_user", id_user);
+        fd.append("id_movie", id_movie);
+
+        const res = await fetch(
+          `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=removeLikes`,
+          {
+            method: "POST",
+            body: fd,
+          }
         );
 
-        // Mise à jour visuelle
-        el.classList.toggle("card__favoris--liked");
-        el.textContent = el.classList.contains("card__favoris--liked")
-          ? "❤"
-          : "♡";
+        const json = await res.json();
+
+        if (json.success) {
+          el.classList.remove("card__favoris--liked");
+          el.textContent = "♡";
+        } else {
+          console.error(
+            "Erreur lors de la suppression des favoris :",
+            json.message
+          );
+        }
       };
 
       C.start = async function () {
@@ -87,7 +118,7 @@
         V.renderMovieCategorie();
         C.getMovie();
 
-        // Déclenche l’affichage du premier profil
+        // On appelle un premier profile par défaut
         C.handlerProfile();
       };
 
@@ -96,16 +127,14 @@
           La fonction affiche sur la page la collection de films par défaut
         */
       C.getMovie = async function () {
-        // Efface la fiche détail s’il y en a une
         let infosSection = document.querySelector("#infos");
         infosSection.innerHTML = "";
         infosSection.style.display = "none";
 
-        // Recharge les films
         let data = await DataMovie.requestMovies();
         V.renderMovie(data);
 
-        // Remonte en haut de la page avec une animation fluide
+        // Scroll vers le haut de la page
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
 
@@ -120,61 +149,7 @@
           likedMovies.some((like) => like.id_movie == movie.id)
         );
 
-        V.renderMovie(likedFull);
-      };
-
-      // Vue (contient tout ce qui est relatif à l'affichage)
-      window.V = {};
-
-      /**
-       * V.renderNavBar
-       *
-       * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
-       * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
-       * formaté par le composant NavBar.
-       */
-      V.renderNavBar = async function (hAbout) {
-        let header = document.querySelector("#header");
-        let profiles = await DataProfile.requestProfiles();
-        header.innerHTML = NavBar.format(
-          hAbout,
-          "C.handlerProfile()",
-          profiles,
-          "C.handlerLikes()"
-        );
-      };
-
-      /**
-       * V.renderMovie
-       *
-       * Cette fonction est responsable de l'affichage de la liste des films.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant Movie.
-       */
-      V.renderMovie = function (data) {
-        let content = document.querySelector("#content");
-        content.innerHTML = Movie.format(data);
-      };
-
-      /**
-       * V.renderMovieDetail
-       *
-       * Cette fonction est responsable de l'affichage de la liste des films.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant Movie.
-       */
-      V.renderMovieDetail = function (data) {
-        if (!data) return;
-
-        let content = document.querySelector("#infos");
-        content.style.display = "block"; // Affiche la section infos
-        content.innerHTML = Moviedetails.format(data);
-      };
-
-      V.renderMovieCategorie = async function () {
-        let container = document.querySelector(".categorie");
-        let categories = await DataMovie.requestCategories();
-        container.innerHTML = Moviecategorie.format(categories);
+        V.renderMovie(likedFull, true);
       };
 
       C.handlerCategorie = async function (categorie) {
@@ -189,6 +164,7 @@
         );
         V.renderMovie(data);
       };
+
       C.handlerProfile = async function () {
         const select = document.querySelector("#profile-select");
         const selectedOption = select.selectedOptions[0];
@@ -218,6 +194,59 @@
         V.renderMovie(filteredMovies);
 
         // Le gestionnaire de clic sur l’image est maintenant défini via le template avec handlerLikes
+      };
+      // Vue (contient tout ce qui est relatif à l'affichage)
+      window.V = {};
+
+      /**
+       * V.renderNavBar
+       *
+       * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
+       * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
+       * formaté par le composant NavBar.
+       */
+      V.renderNavBar = async function (hAbout) {
+        let header = document.querySelector("#header");
+        let profiles = await DataProfile.requestProfiles();
+        header.innerHTML = NavBar.format(
+          hAbout,
+          "C.handlerProfile()",
+          profiles,
+          "C.handlerLikes()"
+        );
+      };
+
+      /**
+       * V.renderMovie
+       *
+       * Cette fonction est responsable de l'affichage de la liste des films.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant Movie.
+       */
+      V.renderMovie = function (data, isLikesPage = false) {
+        let content = document.querySelector("#content");
+        content.innerHTML = Movie.format(data, isLikesPage);
+      };
+
+      /**
+       * V.renderMovieDetail
+       *
+       * Cette fonction est responsable de l'affichage de la liste des films.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant Movie.
+       */
+      V.renderMovieDetail = function (data) {
+        if (!data) return;
+
+        let content = document.querySelector("#infos");
+        content.style.display = "block"; // Affiche la section infos
+        content.innerHTML = Moviedetails.format(data);
+      };
+
+      V.renderMovieCategorie = async function () {
+        let container = document.querySelector(".categorie");
+        let categories = await DataMovie.requestCategories();
+        container.innerHTML = Moviecategorie.format(categories);
       };
 
       C.start(); // Démarre l'application
