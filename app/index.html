@@ -17,64 +17,24 @@
     <script type="module">
       // Importation de la NavBar
       import { NavBar } from "./component/NavBar/script.js";
-
-      // Importation des composants Movie et de sa Data
-      import { DataMovie } from "./data/dataMovie.js";
-      import { DataProfile } from "./data/dataProfile.js";
+      // Importation du composant Movie
       import { Movie } from "./component/Movie/script.js";
-      // Importation de la DataMovie
+      // Importation du composant Moviedetails
       import { Moviedetails } from "./component/Moviedetails/script.js";
+      // Importation du composant Moviecategorie
       import { Moviecategorie } from "./component/Moviecategorie/script.js";
+      // Importation de la DataMovie
+      import { DataMovie } from "./data/dataMovie.js";
+      // Importation de la DataProfile
+      import { DataProfile } from "./data/dataProfile.js";
 
       // Controleur
       window.C = {};
 
-      C.userAge = null; // Stocke l'âge de l'utilisateur sélectionné
-
-      // On applelle la fonction handlerMovies lorsqu'on clique sur le bouton "Films"
-      C.handlerMovies = function () {
-        C.getMovie(); // On fait appelle à C.getMovie() qu'on a défini plus bas
-      };
-
-      C.handlerDetail = async function (id) {
-        console.log("ID reçu :", id); // debug
-
-        let details = await DataMovie.requestMoviedetails(id);
-        console.log("Détails du film :", details); // debug
-        V.renderMovieDetail(details[0]); //indice 0 car cela correspond à l'id du film
-      };
-
-      C.handlerAddFavoris = async function (id_movie, el) {
-        if (!el)
-          return console.error("Aucun élément reçu pour le bouton like.");
-        const select = document.querySelector("#profile-select");
-        const id_user = select.selectedIndex + 1;
-
-        if (!id_user || !id_movie) return;
-
-        const response = await DataProfile.addLike(id_user, id_movie);
-      };
-
-      C.handlerDeleteLike = async function (id_movie, el) {
-        const select = document.querySelector("#profile-select");
-        const id_user = select.selectedIndex + 1;
-
-        if (!id_user || !id_movie) return;
-
-        const response = await DataProfile.removeLike(id_user, id_movie);
-      };
-
-      C.start = async function () {
-        await V.renderNavBar("C.handlerMovies()");
-        V.renderMovieCategorie();
-        C.getMovie();
-
-        // On appelle un premier profile par défaut
-        C.handlerProfile();
-      };
+      // Stocke l'âge de l'utilisateur sélectionné
+      C.userAge = null;
 
       /* C.getMovie
-
           La fonction affiche sur la page la collection de films par défaut
         */
       C.getMovie = async function () {
@@ -88,6 +48,50 @@
         // Scroll vers le haut de la page
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
+
+      /*
+        C.handlerMovies
+        La fonction affiche sur la page la collection de films par défaut
+      */
+      C.handlerMovies = function () {
+        C.getMovie(); // On fait appelle à C.getMovie() qu'on a défini plus bas
+      };
+
+      // Handler pour les détails d'un film
+      C.handlerDetail = async function (id) {
+        console.log("ID reçu :", id); // debug
+
+        let details = await DataMovie.requestMoviedetails(id);
+        console.log("Détails du film :", details); // debug
+        V.renderMovieDetail(details[0]); //indice 0 car cela correspond à l'id du film
+      };
+
+      // Handler pour le clic sur le bouton pour ajouter un film dans les favoris
+      C.handlerAddFavoris = async function (id_movie, el) {
+        if (!el)
+          return console.error("Aucun élément reçu pour le bouton like.");
+        const select = document.querySelector("#profile-select");
+        const id_user = select.selectedIndex + 1;
+
+        if (!id_user || !id_movie) return;
+
+        const response = await DataProfile.addLike(id_user, id_movie);
+      };
+
+      // Handler pour le clic sur le bouton pour supprimer un favoris
+      C.handlerDeleteLike = async function (id_movie, el) {
+        const select = document.querySelector("#profile-select");
+        const id_user = select.selectedIndex + 1;
+
+        if (!id_user || !id_movie) return;
+
+        const response = await DataProfile.removeLike(id_user, id_movie);
+      };
+
+      /*
+        C.handlerLikes
+        La fonction affiche sur la page la collection de films aimés par l'utilisateur sélectionné
+      */
 
       C.handlerLikes = async function () {
         const select = document.querySelector("#profile-select");
@@ -103,6 +107,10 @@
         V.renderMovie(likedFull, true);
       };
 
+      /*
+        C.handlerCategorie
+        La fonction affiche sur la page la collection de films par catégorie
+      */
       C.handlerCategorie = async function (categorie) {
         if (C.userAge === null) {
           console.warn("Aucun âge utilisateur défini.");
@@ -116,6 +124,10 @@
         V.renderMovie(data);
       };
 
+      /*
+        C.handlerProfile
+        La fonction affiche sur la page la collection de films par âge
+      */
       C.handlerProfile = async function () {
         const select = document.querySelector("#profile-select");
         const selectedOption = select.selectedOptions[0];
@@ -143,9 +155,25 @@
         // Affiche les films filtrés par âge
         let filteredMovies = await DataMovie.requestMoviesByAge(age);
         V.renderMovie(filteredMovies);
-
-        // Le gestionnaire de clic sur l’image est maintenant défini via le template avec handlerLikes
       };
+
+      /*
+        C.start
+        La fonction démarre l'application en affichant la barre de navigation,
+        la liste des catégories et la liste des films.
+        Elle appelle également un premier profil par défaut.
+      */
+      C.start = async function () {
+        // On affiche la barre de navigation
+        await V.renderNavBar("C.handlerMovies()");
+        // On affiche la liste des catégories
+        V.renderMovieCategorie();
+        // On affiche la liste des films
+        C.getMovie();
+        // On appelle un premier profile par défaut
+        C.handlerProfile();
+      };
+
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -194,6 +222,13 @@
         content.innerHTML = Moviedetails.format(data);
       };
 
+      /**
+       * V.renderMovieCategorie
+       *
+       * Cette fonction est responsable de l'affichage de la liste des catégories de films.
+       * Elle sélectionne l'élément HTML avec la classe "categorie" et y insère le contenu
+       * formaté par le composant Moviecategorie.
+       */
       V.renderMovieCategorie = async function () {
         let container = document.querySelector(".categorie");
         let categories = await DataMovie.requestCategories();
