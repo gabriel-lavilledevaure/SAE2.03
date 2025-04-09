@@ -111,6 +111,23 @@
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.card__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card__favoris,
+.card__delete {
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 0 5px;
+}
+
+.card__favoris--liked {
+  color: red;
+}
+
 @media (min-width: 37.5rem) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
