@@ -27,15 +27,13 @@
       import { Moviecategorie } from "./component/Moviecategorie/script.js";
 
       // Controleur
-      // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
-      // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
       C.userAge = null; // Stocke l'âge de l'utilisateur sélectionné
 
       // On applelle la fonction handlerMovies lorsqu'on clique sur le bouton "Films"
       C.handlerMovies = function () {
-        C.getMovie(); // on fait appelle à C.getMovie() qu'on a défini plus bas
+        C.getMovie(); // On fait appelle à C.getMovie() qu'on a défini plus bas
       };
 
       C.handlerDetail = async function (id) {
@@ -49,66 +47,38 @@
       C.handlerAddFavoris = async function (id_movie, el) {
         if (!el)
           return console.error("Aucun élément reçu pour le bouton like.");
+
         const select = document.querySelector("#profile-select");
-
-        // On récupère l'identifiant de l'utilisateur sélectionné
         const id_user = select.selectedIndex + 1;
-
         if (!id_user || !id_movie) return;
 
-        const fd = new FormData();
-        fd.append("id_user", id_user);
-        fd.append("id_movie", id_movie);
+        const res = await DataProfile.addLike(id_user, id_movie);
 
-        const res = await fetch(
-          `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=addLikes`,
-          {
-            method: "POST",
-            body: fd,
-          }
-        );
-
-        const json = await res.json();
-
-        if (json.success) {
+        if (res.success || res === true) {
           el.classList.add("card__favoris--liked");
           el.textContent = "❤";
         } else {
-          console.error("Erreur lors de l'ajout aux favoris :", json.message);
+          console.error("Erreur lors de l'ajout aux favoris :", res.message);
         }
       };
 
       C.handlerRemoveFavoris = async function (id_movie, el) {
         if (!el)
           return console.error("Aucun élément reçu pour le bouton like.");
+
         const select = document.querySelector("#profile-select");
-
-        // Récupération de l'identifiant de l'utilisateur sélectionné
         const id_user = select.selectedIndex + 1;
-
         if (!id_user || !id_movie) return;
 
-        const fd = new FormData();
-        fd.append("id_user", id_user);
-        fd.append("id_movie", id_movie);
+        const res = await DataProfile.removeLike(id_user, id_movie);
 
-        const res = await fetch(
-          `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/script.php?todo=removeLikes`,
-          {
-            method: "POST",
-            body: fd,
-          }
-        );
-
-        const json = await res.json();
-
-        if (json.success) {
+        if (res.success || res === true) {
           el.classList.remove("card__favoris--liked");
           el.textContent = "♡";
         } else {
           console.error(
             "Erreur lors de la suppression des favoris :",
-            json.message
+            res.message
           );
         }
       };
