@@ -24,7 +24,7 @@ function getMovie(){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer le nom, l'image et l'id du film
-    $sql = "SELECT id, name, image FROM Movie";
+    $sql = "SELECT id, name, image, reco FROM Movie";
 
     // exécution de la requête SQL via la connexion à la bdd et récupération de la réponse sur serveur MySQL
     $answer = $cnx->query($sql);
@@ -60,6 +60,22 @@ function getMovieinfos($id){
     $stmt = $cnx->prepare($sql);
     // Liaison du paramètre :id avec la variable $id
     $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+    // Exécution de la requête
+    $stmt->execute(); 
+    // Conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+function getMovieReco(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les informations du film en fonction du nom
+    $sql = "SELECT id, name, image
+            FROM Movie 
+            WHERE reco = 1
+";
+    // Préparation de la requête SQL
+    $stmt = $cnx->prepare($sql);
     // Exécution de la requête
     $stmt->execute(); 
     // Conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)

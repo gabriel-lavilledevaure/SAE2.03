@@ -27,6 +27,11 @@ function readController(){
     $movies = getMovie();
     return $movies;
 }
+function readControllerMoviesReco(){
+    // Appel de la fonction getMovieReco déclarée dans model.php pour extraire de la BDD les informations des films
+    $reco = getMovieReco();
+    return $reco;
+}
 
 function readControllerProfiles(){
     // Appel de la fonction getProfiles déclarée dans model.php pour extraire de la BDD les informations des films

@@ -83,6 +83,10 @@
         case 'getMoviesAgeCategory': // sit la valeur est 'getMoviesAgeCategory', on appelle la fonction readControllerMoviesAgeCategory()
           $data = readControllerMoviesAgeCategory();
           break;
+              
+    case 'getMovieReco': // sit la valeur est 'getMoviesAgeCategory', on appelle la fonction readControllerMoviesAgeCategory()
+      $data = readControllerMoviesReco();
+      break;
           
     case 'addProfile': // si la valeur de 'todo' est 'addProfile', on appelle la fonction addUserController()
       $data = addUserController();
