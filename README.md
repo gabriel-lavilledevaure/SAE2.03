@@ -1,5 +1,3 @@
-## ARRETE DE VOLER
-
 ## Installation et configuration du projet
 
 Rappel : Le sujet est [ici](https://docs.google.com/document/d/1MxM8H3PVpFOUG4-buM8BLXRv18PIHKrjf76EBzmINZs/edit?usp=sharing)
