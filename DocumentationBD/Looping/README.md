@@ -16,7 +16,11 @@ Cette structure permet une gestion efficace et évolutive des utilisateurs dans 
 Pour la neuvième itération, il nous est demandé de gérer des favoris. J'ai donc décidé de créer une nouvelle table nommée **`Likes`**.Je rajoute un **`s`** car **`LIKE`** est un mot réservé SQL. Cette table comporte les attributs suivants :
 
 - **`id`** : Une clé unique qui s'auto-incrémente.
-- **`id_user`** : Un id clé étrangère qui est reliée à la table **`User`**.
+- **`id_user`** : Un id clé étrangère qui est reliée à la table **`User`**.\*\*
 - **`id_movie`** : un id clé étrangère qui est reliée à la table **`Movie`**.
 
 Cette structure permet une gestion efficace et évolutive des favoris de nos utilisateurs dans notre base de données.
+
+## Itération 11
+
+Pour la onzième itération, il nous est demandé de gérer les recommandations. J'ai donc décidé d'ajouter à ma tavle **`Movie`** un attribut **`reco`** qui aura pour type **`BOOL`** et qui prendra **`True`** si le film doit apparaître dans les recommandations, **`False`**, si le cas contraîre.
