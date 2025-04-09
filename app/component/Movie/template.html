@@ -1,26 +1,18 @@
 <div class="card" onclick="{{handler}}">
+  {{deleteHandler}}
+
   <img
     src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/{{image}}"
     alt="Affiche du film"
     class="card__image"
   />
   <h2 class="card__title">{{titre}}</h2>
-  <div class="card__actions">
-    <span
-      class="card__favoris"
-      data-id="{{id}}"
-      onclick="event.stopPropagation(); {{handlerFavoris}}"
-      title="Ajouter aux favoris"
-    >
-      ♡
-    </span>
-    <span
-      class="card__delete"
-      data-id="{{id}}"
-      onclick="event.stopPropagation(); {{handlerRemoveFavoris}}"
-      title="Retirer des favoris"
-    >
-      ❌
-    </span>
-  </div>
+  <span
+    class="card__favoris"
+    data-id="{{id}}"
+    onclick="event.stopPropagation(); {{handlerFavoris}}"
+    title="Ajouter aux favoris"
+  >
+    ♡
+  </span>
 </div>

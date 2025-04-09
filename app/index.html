@@ -53,15 +53,6 @@
         if (!id_user || !id_movie) return;
 
         const response = await DataProfile.addLike(id_user, id_movie);
-        if (response.success) {
-          el.classList.add("card__favoris--liked");
-          el.textContent = "❤";
-        } else {
-          console.error(
-            "Erreur lors de l'ajout aux favoris :",
-            response.message
-          );
-        }
       };
 
       C.handlerRemoveFavoris = async function (id_movie, el) {
@@ -82,6 +73,15 @@
             response.message
           );
         }
+      };
+
+      C.handlerDeleteLike = async function (id_movie, el) {
+        const select = document.querySelector("#profile-select");
+        const id_user = select.selectedIndex + 1;
+
+        if (!id_user || !id_movie) return;
+
+        const response = await DataProfile.removeLike(id_user, id_movie);
       };
 
       C.start = async function () {
