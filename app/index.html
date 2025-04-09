@@ -76,6 +76,7 @@
         if (!id_user || !id_movie) return;
 
         const response = await DataProfile.addLike(id_user, id_movie);
+        alert("Ajouté au favoris !");
       };
 
       // Handler pour le clic sur le bouton pour supprimer un favoris
@@ -86,6 +87,7 @@
         if (!id_user || !id_movie) return;
 
         const response = await DataProfile.removeLike(id_user, id_movie);
+        alert("Supprimé des favoris !");
       };
 
       /*
@@ -133,8 +135,8 @@
         const selectedOption = select.selectedOptions[0];
 
         const profileName = selectedOption.value;
-        const dob = selectedOption.getAttribute("data-dob");
-        const imageFilename = selectedOption.getAttribute("data-img");
+        const dob = selectedOption.dataset.dob;
+        const imageFilename = selectedOption.dataset.img;
 
         const picture = document.querySelector("#profile-picture");
         const base =
