@@ -1,0 +1,100 @@
+.reco {
+  padding: 2rem 1.5rem;
+  background-color: var(--color-gray-darkest);
+}
+
+.reco__title {
+  font-size: 1.8rem;
+  color: var(--color-white);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.reco__scroll {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+}
+
+.reco__card {
+  flex: 0 0 auto;
+  width: 9.5rem;
+  scroll-snap-align: start;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.reco__card:hover {
+  transform: scale(1.05);
+}
+
+.reco__img-wrapper {
+  position: relative;
+}
+
+.reco__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 0.6rem;
+}
+
+.reco__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 0.5rem 0.7rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 60%);
+  color: white;
+  text-align: left;
+}
+
+.reco__name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.reco__meta {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.reco__age,
+.reco__year,
+.reco__category {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+}
+
+/* Responsive */
+@media (min-width: 48rem) {
+  .reco__card {
+    width: 11rem;
+  }
+
+  .reco__name {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .reco__card {
+    width: 13rem;
+  }
+
+  .reco__name {
+    font-size: 1.2rem;
+  }
+}

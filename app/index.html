@@ -11,6 +11,7 @@
     <header id="header"></header>
 
     <section class="categorie"></section>
+    <section class="recos" id="recos"></section>
     <section class="infos" id="infos"></section>
     <section class="cards" id="content"></section>
 
@@ -19,6 +20,8 @@
       import { NavBar } from "./component/NavBar/script.js";
       // Importation du composant Movie
       import { Movie } from "./component/Movie/script.js";
+      // Importation du composant MovieReco
+      import { MovieReco } from "./component/MovieReco/script.js";
       // Importation du composant Moviedetails
       import { Moviedetails } from "./component/Moviedetails/script.js";
       // Importation du composant Moviecategorie
@@ -160,6 +163,15 @@
       };
 
       /*
+        C.getMovieReco
+        La fonction affiche sur la page la collection de films recommandés
+      */
+      C.getMoviesReco = async function () {
+        const data = await DataMovie.requestMoviesReco();
+        V.renderReco(data);
+      };
+
+      /*
         C.start
         La fonction démarre l'application en affichant la barre de navigation,
         la liste des catégories et la liste des films.
@@ -172,6 +184,8 @@
         V.renderMovieCategorie();
         // On affiche la liste des films
         C.getMovie();
+        // On affiche les reccomandations
+        C.getMoviesReco();
         // On appelle un premier profile par défaut
         C.handlerProfile();
       };
@@ -207,6 +221,18 @@
       V.renderMovie = function (data, isLikesPage = false) {
         let content = document.querySelector("#content");
         content.innerHTML = Movie.format(data, isLikesPage);
+      };
+
+      /**
+       * V.renderReco
+       *
+       * Cette fonction est responsable de l'affichage de la liste des films recommandés.
+       * Elle sélectionne l'élément HTML avec la classe "reco-header" et y insère le contenu
+       * formaté par le composant MovieReco.
+       */
+      V.renderReco = function (data) {
+        const container = document.querySelector("#recos");
+        container.innerHTML = MovieReco.format(data);
       };
 
       /**
