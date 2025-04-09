@@ -8,6 +8,10 @@
   color: var(--color-white);
   font-weight: 700;
   margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(1rem);
+  animation: fadeInUp 0.6s ease-out forwards;
+  animation-delay: 0.2s;
 }
 
 .reco__scroll {
@@ -17,6 +21,7 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 1rem;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 .reco__card {
@@ -25,12 +30,18 @@
   scroll-snap-align: start;
   overflow: hidden;
   position: relative;
-  transition: transform 0.3s ease;
   cursor: pointer;
+  transform: translateY(1rem);
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+  animation-delay: calc(0.1s * var(--i, 1));
+  border-radius: 0.6rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .reco__card:hover {
-  transform: scale(1.05);
+  transform: scale(1.08) translateY(-0.2rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
 }
 
 .reco__img-wrapper {
@@ -44,6 +55,7 @@
   aspect-ratio: 2 / 3;
   object-fit: cover;
   border-radius: 0.6rem;
+  transition: transform 0.3s ease;
 }
 
 .reco__overlay {
@@ -55,6 +67,14 @@
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 60%);
   color: white;
   text-align: left;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.reco__card:hover .reco__overlay {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .reco__name {
@@ -87,7 +107,6 @@
   border-radius: 1rem;
 }
 
-/* Responsive */
 @media (min-width: 48rem) {
   .reco__card {
     width: 11rem;
@@ -105,5 +124,22 @@
 
   .reco__name {
     font-size: 1.2rem;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

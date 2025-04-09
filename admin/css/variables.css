@@ -2,27 +2,36 @@
 
 :root {
   /* Primitive Tokens */
-  --color-black: hsl(253, 69%, 8%);
+  --color-black: hsl(0, 0%, 5%);
   --color-white: hsl(0, 0%, 100%);
   --color-gray-light: hsl(0, 0%, 80%);
   --color-gray: hsl(0, 0%, 50%);
   --color-gray-dark: hsl(0, 0%, 20%);
-  --color-green: hsl(120, 100%, 37%);
-
-  --color-primary: #1abc9c;
-  --color-secondary: #16a085;
-  --color-dark: #1e1e2f;
-  --color-light: #ecf0f1;
-  --color-muted: #95a5a6;
-  --radius: 8px;
-  --transition: 0.3s ease;
-  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  --font: "Segoe UI", Roboto, sans-serif;
+  --color-gray-darker: hsl(0, 0%, 10%);
+  --color-gray-darkest: hsl(0, 0%, 5%);
+  --color-green-light: hsl(120, 100%, 61%);
+  --color-green: hsl(120, 100%, 51%);
+  --color-green-dark: hsl(120, 100%, 41%);
+  --color-purple-light: hsl(240, 100%, 61%);
+  --color-purple: hsl(240, 100%, 51%);
+  --color-purple-dark: hsl(240, 100%, 41%);
+  --color-orange-light: hsl(30, 100%, 61%);
+  --color-orange: hsl(30, 100%, 51%);
+  --color-blue-light: hsl(220, 90%, 66%);
+  --color-blue: hsl(220, 90%, 56%);
+  --color-blue-dark: hsl(220, 90%, 46%);
+  --color-red-light: hsl(340, 82%, 62%);
+  --color-red: hsl(340, 82%, 52%);
+  --color-red-dark: hsl(340, 82%, 42%);
+  --color-yellow-light: hsl(45, 100%, 61%);
+  --color-yellow: hsl(45, 100%, 51%);
+  --color-yellow-dark: hsl(45, 100%, 41%);
+  --color-yellow-dark: hsl(45, 100%, 41%);
 
   --ff-sans: "DM sans", sans-serif;
+  --ff-serif: "DM Serif Display", serif;
 
   /* Sementic Tokens */
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
-  --color-accent: var(--color-green);
 }
