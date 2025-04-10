@@ -18,6 +18,8 @@
     <script type="module">
       // Importation de la NavBar
       import { NavBar } from "./component/NavBar/script.js";
+      // Importation de la NavBar
+      import { SearchBar } from "./component/SearchBar/script.js";
       // Importation du composant Movie
       import { Movie } from "./component/Movie/script.js";
       // Importation du composant MovieReco
@@ -172,6 +174,19 @@
       };
 
       /*
+        C.handlerSearch
+        La fonction affiche sur la page la collection de films correspondant à la recherche
+      */
+      C.handlerSearchBar = async function (valeur) {
+        if (!valeur || valeur.trim().length === 0) {
+          return C.getMovie(); // Revenir à la liste complète si champ vide
+        }
+
+        const results = await DataMovie.requestSearchMovies(valeur);
+        V.renderMovie(results);
+      };
+
+      /*
         C.start
         La fonction démarre l'application en affichant la barre de navigation,
         la liste des catégories et la liste des films.
@@ -188,6 +203,9 @@
         C.getMoviesReco();
         // On appelle un premier profile par défaut
         C.handlerProfile();
+        // On affiche la barre de recherche dans la nav
+        let searchbar = SearchBar.format();
+        await V.renderNavBar("C.handlerMovies()", searchbar);
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -200,14 +218,15 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = async function (hAbout) {
+      V.renderNavBar = async function (hAbout, searchbarHTML) {
         let header = document.querySelector("#header");
         let profiles = await DataProfile.requestProfiles();
         header.innerHTML = NavBar.format(
           hAbout,
           "C.handlerProfile()",
           profiles,
-          "C.handlerLikes()"
+          "C.handlerLikes()",
+          searchbarHTML
         );
       };
 
