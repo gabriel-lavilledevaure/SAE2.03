@@ -46,12 +46,12 @@
         const id = select.value;
         const name = selected.dataset.name;
         const avatar = selected.dataset.avatar;
-        const dob = selected.dataset.age;
+        const birthday = selected.dataset.age;
 
         document.querySelector(".updateUser__form input[name='id']").value = id;
         document.getElementById("user-name").value = name;
         document.getElementById("user-image").value = avatar;
-        document.getElementById("user-dob").value = dob;
+        document.getElementById("user-birthday").value = birthday;
       };
 
       // Handler pour modifier un utilisateur

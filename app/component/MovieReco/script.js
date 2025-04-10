@@ -5,19 +5,20 @@ let MovieReco = {};
 
 MovieReco.format = function (movies) {
   if (!movies.length) return "";
-  console.log("Movies recommandés :", movies);
 
   let cards = "";
-  for (let movie of movies) {
-    // Sécurité : valeurs par défaut
+  movies.forEach((movie, index) => {
     const image = movie.image ?? "placeholder.jpg";
     const name = movie.name ?? "Sans titre";
     const age = movie.min_age ?? "N.C";
     const year = movie.year ?? "????";
     const category = movie.category_name ?? "Inconnu";
+    const description = movie.description ?? "Aucune description disponible.";
 
     cards += `
-      <div class="reco__card" onclick="C.handlerDetail(${movie.id})">
+      <div class="reco__card" onclick="C.handlerDetail(${
+        movie.id
+      })" style="--i:${index + 1}">
         <div class="reco__img-wrapper">
           <img class="reco__image" src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/${image}" alt="${name}" />
           <div class="reco__overlay">
@@ -29,8 +30,11 @@ MovieReco.format = function (movies) {
             </div>
           </div>
         </div>
+        <div class="reco__description">
+          ${description}
+        </div>
       </div>`;
-  }
+  });
 
   return template.replace("{{cards}}", cards);
 };

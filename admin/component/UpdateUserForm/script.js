@@ -23,14 +23,14 @@ UpdateUserForm.init = function () {
   const select = document.getElementById("user-select");
   const name = document.getElementById("user-name");
   const image = document.getElementById("user-image");
-  const dob = document.getElementById("user-dob");
+  const birthday = document.getElementById("user-birthday");
 
   select.addEventListener("change", (event) => {
     const selectedOption = event.target.selectedOptions[0];
     if (selectedOption) {
       name.value = selectedOption.dataset.name || "";
       image.value = selectedOption.dataset.avatar || "";
-      dob.value = selectedOption.dataset.age || "";
+      birthday.value = selectedOption.dataset.age || "";
     }
   });
 };

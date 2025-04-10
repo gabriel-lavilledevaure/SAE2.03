@@ -138,7 +138,7 @@
         const selectedOption = select.selectedOptions[0];
 
         const profileName = selectedOption.value;
-        const dob = selectedOption.dataset.dob;
+        const birthday = selectedOption.dataset.birthday;
         const imageFilename = selectedOption.dataset.img;
 
         const picture = document.querySelector("#profile-picture");
@@ -147,7 +147,7 @@
         picture.src = base + imageFilename;
 
         // Calcul de l'âge
-        let birthDate = new Date(dob);
+        let birthDate = new Date(birthday);
         let today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
