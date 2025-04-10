@@ -21,15 +21,15 @@ SearchBar.resultat = function (films) {
     const recoActuel = film.reco === "1";
     const recoLabel = recoActuel ? "✅ Mis en avant" : "❌ Non mis en avant";
     const buttonLabel = recoActuel ? "Retirer" : "Mettre en avant";
-    const nextStatus = recoActuel ? "1" : "0"; // valeur actuelle à envoyer
+    const nextStatus = recoActuel ? "0" : "1"; // ✅ inverse de l’actuel
 
     const li = document.createElement("li");
     li.className = "searchbar__results__item";
     li.innerHTML = `
-      <div class="result__item">
+      <div class="result-item">
         <strong>${film.name}</strong> (${film.year}) - ${film.category_name}<br/>
         <span>${recoLabel}</span><br/>
-        <button onclick="C.handlerToggleReco(${film.id}, '${nextStatus}')">
+        <button onclick="C.handlerToggleReco(${film.id}, '${film.reco}')">
           ${buttonLabel}
         </button>
       </div>
