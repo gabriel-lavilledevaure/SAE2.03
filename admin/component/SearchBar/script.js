@@ -21,7 +21,7 @@ SearchBar.resultat = function (films) {
     const recoActuel = film.reco === "1";
     const recoLabel = recoActuel ? "✅ Mis en avant" : "❌ Non mis en avant";
     const buttonLabel = recoActuel ? "Retirer" : "Mettre en avant";
-    const nextStatus = recoActuel ? "0" : "1"; // ✅ inverse de l’actuel
+    const nextStatus = recoActuel ? "0" : "1";
 
     const li = document.createElement("li");
     li.className = "searchbar__results__item";
