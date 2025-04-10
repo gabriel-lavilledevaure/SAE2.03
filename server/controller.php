@@ -20,8 +20,6 @@
  */
 require("model.php");
 
-
-
 function readController(){
     // Appel de la fonction getMovie déclarée dans model.php pour extraire de la BDD les informations des films
     $movies = getMovie();
