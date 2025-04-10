@@ -269,7 +269,7 @@
 
     function searchMoviesTitre($titre) {
         $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-        $sql = "SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Movie.description, Category.name AS category_name
+        $sql = "SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Movie.description, Movie.reco, Category.name AS category_name
                 FROM Movie
                 INNER JOIN Category ON Movie.id_category = Category.id
                 WHERE Movie.name LIKE :titre OR Category.name LIKE :titre OR year LIKE :titre";
@@ -280,4 +280,13 @@
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
       }
-    
+      
+      function updateMovieRecoStatus($id, $reco) {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+        $sql = "UPDATE Movie SET reco = :reco WHERE id = :id";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':reco', $reco, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+      }

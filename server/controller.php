@@ -221,3 +221,18 @@ function removeLikesController(){
   $ok = removeLikes($user, $movie);
   return $ok ? "Like supprimé" : "Aucun like à supprimer";
 }
+
+function updateControllerMovieReco() {
+  $id = $_REQUEST['id'] ?? null;
+  $reco = $_REQUEST['reco'] ?? null;
+
+  if ($id === null || $reco === null || !is_numeric($id) || !in_array($reco, ['0','1'], true)) {
+    return "Erreur : Paramètres invalides.";
+  }
+
+  $result = updateMovieRecoStatus($id,$reco);
+
+  return $result
+    ? "Le statut du film a été mis à jour avec succès."
+    : "Erreur lors de la mise à jour du statut du film.";
+}
