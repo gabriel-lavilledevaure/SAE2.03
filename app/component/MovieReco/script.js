@@ -7,7 +7,8 @@ MovieReco.format = function (movies) {
   if (!movies.length) return "";
 
   let cards = "";
-  movies.forEach((movie, index) => {
+  for (let index = 0; index < movies.length; index++) {
+    const movie = movies[index];
     const image = movie.image ?? "placeholder.jpg";
     const name = movie.name ?? "Sans titre";
     const age = movie.min_age ?? "N.C";
@@ -34,7 +35,7 @@ MovieReco.format = function (movies) {
           ${description}
         </div>
       </div>`;
-  });
+  }
 
   return template.replace("{{cards}}", cards);
 };

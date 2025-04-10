@@ -18,7 +18,8 @@ SearchBar.resultat = function (films) {
     return;
   }
 
-  films.forEach((film) => {
+  for (let i = 0; i < films.length; i++) {
+    const film = films[i];
     const recoActuel = film.reco == 1;
     const recoLabel = recoActuel ? "✅ Mis en avant" : "❌ Non mis en avant";
     const buttonLabel = recoActuel ? "Retirer" : "Mettre en avant";
@@ -36,7 +37,7 @@ SearchBar.resultat = function (films) {
       </div>
     `;
     container.appendChild(li);
-  });
+  }
 };
 
 export { SearchBar };

@@ -9,7 +9,8 @@ Movie.format = function (movies, isLikesPage = false) {
   }
 
   let html = "";
-  movies.forEach((movie) => {
+  for (let i = 0; i < movies.length; i++) {
+    let movie = movies[i];
     let movieHtml = template;
 
     // Remplacements principaux
@@ -37,7 +38,7 @@ Movie.format = function (movies, isLikesPage = false) {
     );
 
     html += movieHtml;
-  });
+  }
 
   return html;
 };
