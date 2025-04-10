@@ -1,0 +1,21 @@
+.searchbar {
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--color-gray-darkest);
+  border-bottom: 1px solid var(--color-gray-dark);
+}
+
+.searchbar__input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  color: white;
+  background-color: var(--color-gray-dark);
+  border: 1px solid var(--color-gray);
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.searchbar__input::placeholder {
+  color: #ccc;
+}
