@@ -108,7 +108,10 @@
         case 'removeLikes':
           $data = removeLikesController();
           break;
-            
+
+          case 'searchMovies':
+            $data = readControllerSearchMovies();
+            break;
 
         default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
           echo json_encode('[error] Unknown todo value');

@@ -39,6 +39,13 @@ function readControllerProfiles(){
     return $profiles;
 }
 
+function readControllerSearchMovies() {
+  $titre = $_REQUEST['titre'] ?? null;
+  if (empty($titre)) return false;
+  return searchMoviesTitre($titre);
+}
+
+
 /**
  * Fonction de contrôle pour lire les informations d'un film en fonction de son id.
  * 
