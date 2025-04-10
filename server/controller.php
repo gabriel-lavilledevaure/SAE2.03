@@ -236,3 +236,20 @@ function updateControllerMovieReco() {
     ? "Le statut du film a été mis à jour avec succès."
     : "Erreur lors de la mise à jour du statut du film.";
 }
+
+function addNoteController() {
+  $id_user = $_REQUEST['id_user'] ?? null;
+  $id_movie = $_REQUEST['id_movie'] ?? null;
+  $note = $_REQUEST['note'] ?? null;
+
+  if (!$id_user || !$id_movie || $note === null || $note < 0 || $note > 5) {
+      return "Erreur : Données invalides.";
+  }
+
+  if (checkNote($id_user, $id_movie)) {
+      return "Erreur : Ce film a déjà été noté par cet utilisateur.";
+  }
+
+  $ok = addNote($id_user, $id_movie, $note);
+  return $ok ? "Votre note a été enregistrée." : "Erreur lors de l'enregistrement de la note.";
+}

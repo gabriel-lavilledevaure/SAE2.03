@@ -290,3 +290,29 @@
         $stmt->execute();
         return $stmt->rowCount() > 0;
       }
+
+      function addNote($id_user, $id_movie, $note) {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+        $sql = "INSERT INTO Notation (id_user, id_movie, note) VALUES (:id_user, :id_movie, :note)";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+        $stmt->bindParam(':id_movie', $id_movie, PDO::PARAM_INT);
+        $stmt->bindParam(':note', $note, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+
+    }
+
+    
+    
+    function checkNote($id_user, $id_movie) {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+        $sql = "SELECT COUNT(*) FROM Notation WHERE id_user = :id_user AND id_movie = :id_movie";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':id_user', $id_user);
+        $stmt->bindParam(':id_movie', $id_movie);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
+    
