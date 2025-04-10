@@ -66,23 +66,22 @@ function getMovieinfos($id){
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
 }
+
 function getMovieReco(){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    // Requête SQL pour récupérer les informations du film en fonction du nom
-    $sql = "SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Category.name AS category_name
-    FROM Movie
-    INNER JOIN Category ON Movie.id_category = Category.id
-    WHERE Movie.reco = 1";
 
-    // Préparation de la requête SQL
+    $sql = "SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Movie.description, Category.name AS category_name
+            FROM Movie
+            INNER JOIN Category ON Movie.id_category = Category.id
+            WHERE Movie.reco = 1";
+
     $stmt = $cnx->prepare($sql);
-    // Exécution de la requête
     $stmt->execute(); 
-    // Conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res; // Retourne les résultats
+    return $res;
 }
+
 
 /**
  * Fonction pour récupérer toutes les catégories de films
