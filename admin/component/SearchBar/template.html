@@ -1,8 +1,14 @@
-<div class="searchbar">
-  <input
-    type="text"
-    class="searchbar__input"
-    placeholder="Rechercher un film, une date, une categorie..."
-    onkeyup="C.handlerSearchBar(this.value)"
-  />
+<div>
+  <h2>Recommandations</h2>
+  <div class="searchbar">
+    <input
+      type="text"
+      class="searchbar__input"
+      placeholder="Rechercher un film, une date, une catégorie..."
+      onkeyup="C.handlerSearchBar(this.value)"
+    />
+  </div>
+  <div class="searchbar__results">
+    <ul class="searchbar__results__list" id="searchbar-results"></ul>
+  </div>
 </div>

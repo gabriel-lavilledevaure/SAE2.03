@@ -11,6 +11,7 @@
     <section id="addFilm"></section>
     <section id="addUser"></section>
     <section id="updateUser"></section>
+    <section id="searchbar"></section>
 
     <script type="module">
       // Importation des modules
@@ -18,6 +19,7 @@
       import { MovieForm } from "./component/MovieForm/script.js";
       import { UserForm } from "./component/UserForm/script.js";
       import { UpdateUserForm } from "./component/UpdateUserForm/script.js";
+      import { SearchBar } from "./component/SearchBar/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
 
@@ -62,6 +64,26 @@
         V.renderLog(res);
       };
 
+      // Recherche des films à modifier
+      C.handlerSearchBar = async function (query) {
+        if (!query || query.trim().length < 2) {
+          SearchBar.resultat([]);
+          return;
+        }
+
+        let results = await DataMovie.searchMovies(query);
+        SearchBar.resultat(results);
+      };
+
+      // Sélection pour inverser le statut "mis en avant"
+      C.handlerToggleReco = async function (id, currentStatus) {
+        const newStatus = currentStatus === "1" ? "0" : "1";
+        await DataMovie.toggleRecoStatus(id, newStatus);
+
+        const input = document.querySelector(".searchbar__input");
+        C.handlerSearchBar(input.value); // On relance la recherche pour mettre à jour l'affichage
+      };
+
       // Fonction de démarrage de l'application
       C.start = function () {
         V.renderLog("Démarrage de l'application");
@@ -71,6 +93,7 @@
           "C.handlerSelectUser()",
           "C.handlerUpdateUser()"
         );
+        V.renderSearchBar();
       };
 
       window.V = {};
@@ -103,6 +126,12 @@
           handlerUpdate
         );
         UpdateUserForm.init();
+      };
+
+      // Affichage de la barre de recherche
+      V.renderSearchBar = async function () {
+        let content = document.querySelector("#searchbar");
+        content.innerHTML = SearchBar.format(); // pas besoin de passer movies
       };
 
       // Lancement

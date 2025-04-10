@@ -61,5 +61,37 @@ DataMovie.update = async function (fdata) {
   return data;
 };
 
+/**
+ * DataMovie.getAllMovies
+ *
+ * Récupère tous les films de la base de données.
+ *
+ * @returns la réponse du serveur.
+ */
+
+DataMovie.searchMovies = async function (valeur) {
+  let answer = await fetch(
+    HOST_URL + "/server/script.php?todo=searchMovies&titre=" + valeur
+  );
+  let data = await answer.json();
+  return data;
+};
+
+DataMovie.toggleRecoStatus = async function (id, status) {
+  const fd = new FormData();
+  fd.append("id", id);
+  fd.append("reco", status);
+  console.log("DataMovie.toggleRecoStatus", fd); // debug
+  const response = await fetch(
+    HOST_URL + "/server/script.php?todo=updateMovieReco",
+    {
+      method: "POST",
+      body: fd,
+    }
+  );
+  let data = await response.json();
+  return data;
+};
+
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };
