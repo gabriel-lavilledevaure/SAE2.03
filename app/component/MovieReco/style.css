@@ -99,7 +99,7 @@
 
 .reco__card:hover .reco__description {
   opacity: 1;
-  max-height: 10rem; /* Ajustable selon le contenu */
+  max-height: 10rem;
 }
 
 .reco__name {
