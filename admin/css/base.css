@@ -8,3 +8,4 @@
 @import "../component/MovieForm/style.css" layer(components);
 @import "../component/UserForm/style.css" layer(components);
 @import "../component/UpdateUserForm/style.css" layer(components);
+@import "../component/SearchBar/style.css" layer(components);

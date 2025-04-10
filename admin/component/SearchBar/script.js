@@ -26,7 +26,7 @@ SearchBar.resultat = function (films) {
     const li = document.createElement("li");
     li.className = "searchbar__results__item";
     li.innerHTML = `
-      <div class="result-item">
+      <div class="result__item">
         <strong>${film.name}</strong> (${film.year}) - ${film.category_name}<br/>
         <span>${recoLabel}</span><br/>
         <button onclick="C.handlerToggleReco(${film.id}, '${nextStatus}')">
