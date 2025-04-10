@@ -81,7 +81,8 @@
         await DataMovie.toggleRecoStatus(id, newStatus);
 
         const input = document.querySelector(".searchbar__input");
-        C.handlerSearchBar(input.value); // On relance la recherche pour mettre à jour l'affichage
+        const results = await DataMovie.searchMovies(input.value);
+        SearchBar.resultat(results);
       };
 
       // Fonction de démarrage de l'application

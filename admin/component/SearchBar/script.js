@@ -10,6 +10,7 @@ SearchBar.format = function () {
 SearchBar.resultat = function (films) {
   const container = document.getElementById("searchbar-results");
   container.innerHTML = "";
+  console.log("reco après update", films);
 
   if (!films || films.length === 0) {
     container.innerHTML =
@@ -18,7 +19,7 @@ SearchBar.resultat = function (films) {
   }
 
   films.forEach((film) => {
-    const recoActuel = film.reco === "1";
+    const recoActuel = film.reco == 1;
     const recoLabel = recoActuel ? "✅ Mis en avant" : "❌ Non mis en avant";
     const buttonLabel = recoActuel ? "Retirer" : "Mettre en avant";
     const nextStatus = recoActuel ? "0" : "1";
