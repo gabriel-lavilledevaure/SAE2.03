@@ -121,6 +121,7 @@
         $res = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $res; // Retourne les résultats
     }
+    
     /**
      * Fonction pour récupérer les films en fonction de l'âge
      * 
