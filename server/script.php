@@ -124,7 +124,7 @@
           case 'getMoyenneNote':
             $data = getMoyenneNoteController();
             break;
-            
+
           case 'checkUserNote':
             $data = checkUserNoteController();
             break;
