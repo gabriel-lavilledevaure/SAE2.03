@@ -304,9 +304,16 @@
 
     }
 
+    function getMoyenneNote($id_movie) {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+        $sql = "SELECT ROUND(AVG(note), 1) as moyenne FROM Notation WHERE id_movie = :id_movie";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':id_movie', $id_movie);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
     
-    
-    function checkNote($id_user, $id_movie) {
+    function checkUserNote($id_user, $id_movie) {
         $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
         $sql = "SELECT COUNT(*) FROM Notation WHERE id_user = :id_user AND id_movie = :id_movie";
         $stmt = $cnx->prepare($sql);
@@ -316,4 +323,3 @@
         $count = $stmt->fetchColumn();
         return $count > 0;
     }
-    

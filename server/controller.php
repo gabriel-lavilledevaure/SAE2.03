@@ -253,3 +253,18 @@ function addNoteController() {
   $ok = addNote($id_user, $id_movie, $note);
   return $ok ? "Votre note a été enregistrée." : "Erreur lors de l'enregistrement de la note.";
 }
+
+function getMoyenneNoteController() {
+  $id_movie = $_REQUEST['id_movie'] ?? null;
+  if (!$id_movie) return false;
+
+  return getMoyenneNote($id_movie);
+}
+
+function checkUserNoteController() {
+  $id_user = $_REQUEST['id_user'] ?? null;
+  $id_movie = $_REQUEST['id_movie'] ?? null;
+  if (!$id_user || !$id_movie) return false;
+
+  return checkUserNote($id_user, $id_movie);
+}
