@@ -242,17 +242,28 @@ function addNoteController() {
   $id_movie = $_REQUEST['id_movie'] ?? null;
   $note = $_REQUEST['note'] ?? null;
 
-  if (!$id_user || !$id_movie || $note === null || $note < 0 || $note > 5) {
-      return "Erreur : Données invalides.";
+  if (!$id_user || !$id_movie || $note === null) {
+      return [ "error" => true, "message" => "Données manquantes." ];
   }
 
-  if (checkNote($id_user, $id_movie)) {
-      return "Erreur : Ce film a déjà été noté par cet utilisateur.";
+  // $note = (int)$note; 
+
+  // if ($note < 0 || $note > 5) {
+  //     return [ "error" => true, "message" => "Note invalide." ];
+  // }
+
+  if (checkUserNote($id_user, $id_movie)) {
+      return [ "error" => true, "alreadyNoted" => true ];
   }
 
   $ok = addNote($id_user, $id_movie, $note);
-  return $ok ? "Votre note a été enregistrée." : "Erreur lors de l'enregistrement de la note.";
+  if ($ok) {
+    return [ "success" => true, "message" => "Votre note a été enregistrée." ];
+  } else {
+    return [ "error" => true, "message" => "Erreur lors de l'enregistrement de la note." ];
+  }
 }
+
 
 function getMoyenneNoteController() {
   $id_movie = $_REQUEST['id_movie'] ?? null;
@@ -266,5 +277,6 @@ function checkUserNoteController() {
   $id_movie = $_REQUEST['id_movie'] ?? null;
   if (!$id_user || !$id_movie) return false;
 
-  return checkUserNote($id_user, $id_movie);
+  $noted = checkUserNote($id_user, $id_movie);
+  return ["alreadyNoted" => $noted]; // ← tableau JSON propre
 }
