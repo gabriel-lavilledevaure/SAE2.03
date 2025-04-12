@@ -47,6 +47,7 @@
         infosSection.innerHTML = "";
         infosSection.style.display = "none";
 
+        // On récupère la liste des films
         let data = await DataMovie.requestMovies();
         V.renderMovie(data);
 
@@ -67,19 +68,19 @@
         const details = await DataMovie.requestMoviedetails(id);
         const movie = details[0];
 
-        // Récupération de la note moyenne
+        // On récupère la moyenne de notes
         const moyenneObj = await DataMovie.getMoyenneNote(id);
         const moyenne = moyenneObj?.moyenne ?? "Acune note";
 
-        // Récupération de l'utilisateur courant
+        // On récupère l'ID de l'utilisateur sélectionné
         const select = document.querySelector("#profile-select");
         const id_user = select.selectedIndex + 1;
 
-        // Vérifie s'il a déjà noté
+        // On vérifie si l'utilisateur a déjà noté le film
         const check = await DataMovie.checkUserNote(id_user, id);
         const dejaNote = check.dejaNote;
 
-        // Affiche
+        // On affiche les détails du film
         V.renderMovieDetail(movie, moyenne, dejaNote);
       };
 
@@ -151,30 +152,32 @@
         const select = document.querySelector("#profile-select");
         const selectedOption = select.selectedOptions[0];
 
-        const profileName = selectedOption.value;
-        const birthday = selectedOption.dataset.birthday;
-        const imageFilename = selectedOption.dataset.img;
+        const profileName = selectedOption.value; // On récupère le nom du profil
+        const birthday = selectedOption.dataset.birthday; // On récupère la date de naissance
+        const imageFilename = selectedOption.dataset.img; // On récupère le nom de l'image
 
-        const picture = document.querySelector("#profile-picture");
+        const picture = document.querySelector("#profile-picture"); // On récupère l'image du profil
         const base =
-          "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/";
+          "https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/"; //
         picture.src = base + imageFilename;
 
-        // Calcul de l'âge
-        let birthDate = new Date(birthday);
-        let today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        let m = today.getMonth() - birthDate.getMonth();
+        // Calcul de l'âge de l'utilisateur
+        let birthDate = new Date(birthday); // Date de naissance
+        let today = new Date(); // Date d'aujourd'hui
+        let age = today.getFullYear() - birthDate.getFullYear(); // Calcul de l'âge
+        let m = today.getMonth() - birthDate.getMonth(); // Calcul de la différence de mois
+        // Si le mois est négatif ou si c'est le même mois mais que la date d'aujourd'hui est avant la date de naissance
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          // On soustrait 1 à l'âge
           age--;
         }
 
-        C.userAge = age;
+        C.userAge = age; // Stocker l'âge de l'utilisateur sélectionné
 
-        await C.getMoviesReco();
+        await C.getMoviesReco(); // Recharger les recommandations après le changement de profil
 
-        let filteredMovies = await DataMovie.requestMoviesByAge(age);
-        V.renderMovie(filteredMovies);
+        let filteredMovies = await DataMovie.requestMoviesByAge(age); // Récupérer les films par âge
+        V.renderMovie(filteredMovies); // Afficher les films filtrés
       };
 
       /*
@@ -204,15 +207,15 @@
       C.handlerSubmitNote = async function (id_movie) {
         const select = document.querySelector("#profile-select");
         const noteSelect = document.querySelector("#note-select");
-        if (!select || !noteSelect) return;
+        if (!select || !noteSelect) return; // Vérifie si les éléments existent
 
-        const id_user = select.selectedIndex + 1;
-        const note = noteSelect.value; // ici on ne parse pas, on récupère la string directement
+        const id_user = select.selectedIndex + 1; // On récupère l'ID de l'utilisateur sélectionné
+        const note = noteSelect.value; // On récupère la note sélectionnée
 
         if (!["0", "1", "2", "3", "4", "5"].includes(note)) {
           alert("Veuillez sélectionner une note valide.");
           return;
-        }
+        } // Vérifie si la note est valide entre 0 et 5
 
         const response = await DataMovie.addNote(id_user, id_movie, note);
         if (response.error) {
@@ -224,7 +227,7 @@
 
         alert("Votre note a été enregistrée.");
 
-        // Recharge les détails pour mettre à jour le message + moyenne
+        // Recharge les détails pour mettre à jour le message + la moyenne
         const details = await DataMovie.requestMoviedetails(id_movie);
         const moyenneObj = await DataMovie.getMoyenneNote(id_movie);
         const check = await DataMovie.checkUserNote(id_user, id_movie);
@@ -313,7 +316,7 @@
        */
       V.renderMovieDetail = function (data, moyenne = null, dejaNote = false) {
         let content = document.querySelector("#infos");
-        content.style.display = "block"; // Affiche la section infos
+        content.style.display = "block"; // On affiche la section des détails
         content.innerHTML = Moviedetails.format(data, moyenne, dejaNote);
       };
 
@@ -325,9 +328,9 @@
        * formaté par le composant Moviecategorie.
        */
       V.renderMovieCategorie = async function () {
-        let container = document.querySelector(".categorie");
-        let categories = await DataMovie.requestCategories();
-        container.innerHTML = Moviecategorie.format(categories);
+        let container = document.querySelector(".categorie"); // On récupère la section des catégories
+        let categories = await DataMovie.requestCategories(); // On récupère les catégories de films
+        container.innerHTML = Moviecategorie.format(categories); // On affiche les catégories
       };
 
       C.start(); // Démarre l'application
