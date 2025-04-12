@@ -67,20 +67,21 @@
         return $res; // Retourne les résultats
     }
 
-    function getMovieReco(){
-        // Connexion à la base de données
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-
+    function getMovieReco($age){
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    
         $sql = "SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Movie.description, Category.name AS category_name
                 FROM Movie
                 INNER JOIN Category ON Movie.id_category = Category.id
-                WHERE Movie.reco = 1";
-
+                WHERE Movie.reco = 1 AND Movie.min_age <= :age";
+    
         $stmt = $cnx->prepare($sql);
-        $stmt->execute(); 
+        $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+        $stmt->execute();
         $res = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $res;
     }
+    
 
 
     /**
@@ -301,7 +302,6 @@
         $stmt->bindParam(':note', $note, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->rowCount() > 0;
-
     }
 
     function getMoyenneNote($id_movie) {
