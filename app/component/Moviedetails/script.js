@@ -3,11 +3,7 @@ let template = await templateFile.text();
 
 let Moviedetails = {};
 
-Moviedetails.format = function (
-  movie,
-  noteMoyenne = null,
-  alreadyNoted = false
-) {
+Moviedetails.format = function (movie, noteMoyenne = null, dejaNote = false) {
   let movieHtml = template;
 
   movieHtml = movieHtml.replace("{{titre}}", movie.name);
@@ -25,7 +21,7 @@ Moviedetails.format = function (
   movieHtml += `
     <div class="notation">
       ${
-        !alreadyNoted
+        !dejaNote
           ? `
         <label for="note-select">Attribuez une note :</label>
         <select id="note-select">

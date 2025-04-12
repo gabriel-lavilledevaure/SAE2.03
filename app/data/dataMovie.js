@@ -90,12 +90,12 @@ DataMovie.addNote = async function (id_user, id_movie, note) {
     body: fd,
   });
 
-  try {
-    return await res.json();
-  } catch (e) {
-    const text = await res.text();
-    return { error: true, message: "Erreur serveur : réponse non JSON." };
+  if (!res.ok) {
+    return { error: true, message: "Erreur serveur : code " + res.status };
   }
+
+  const data = await res.json();
+  return data;
 };
 
 // Récupérer la moyenne des notes d’un film
@@ -111,7 +111,7 @@ DataMovie.checkUserNote = async function (id_user, id_movie) {
   const res = await fetch(
     `${HOST_URL}/server/script.php?todo=checkUserNote&id_user=${id_user}&id_movie=${id_movie}`
   );
-  return await res.json(); // retourne { alreadyNoted: true }
+  return await res.json(); // retourne { dejaNote: true }
 };
 
 // On exporte la fonction DataMovie.requestMovies

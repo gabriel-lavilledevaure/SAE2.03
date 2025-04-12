@@ -77,10 +77,10 @@
 
         // Vérifie s'il a déjà noté
         const check = await DataMovie.checkUserNote(id_user, id);
-        const alreadyNoted = check.alreadyNoted;
+        const dejaNote = check.dejaNote;
 
         // Affiche
-        V.renderMovieDetail(movie, moyenne, alreadyNoted);
+        V.renderMovieDetail(movie, moyenne, dejaNote);
       };
 
       // Handler pour le clic sur le bouton pour ajouter un film dans les favoris
@@ -226,11 +226,7 @@
         const details = await DataMovie.requestMoviedetails(id_movie);
         const moyenneObj = await DataMovie.getMoyenneNote(id_movie);
         const check = await DataMovie.checkUserNote(id_user, id_movie);
-        V.renderMovieDetail(
-          details[0],
-          moyenneObj?.moyenne,
-          check.alreadyNoted
-        );
+        V.renderMovieDetail(details[0], moyenneObj?.moyenne, check.dejaNote);
       };
 
       /*
@@ -308,14 +304,10 @@
        * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
        * formaté par le composant Movie.
        */
-      V.renderMovieDetail = function (
-        data,
-        moyenne = null,
-        alreadyNoted = false
-      ) {
+      V.renderMovieDetail = function (data, moyenne = null, dejaNote = false) {
         let content = document.querySelector("#infos");
         content.style.display = "block"; // Affiche la section infos
-        content.innerHTML = Moviedetails.format(data, moyenne, alreadyNoted);
+        content.innerHTML = Moviedetails.format(data, moyenne, dejaNote);
       };
 
       /**
