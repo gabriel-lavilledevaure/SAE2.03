@@ -63,7 +63,10 @@
         C.getMovie(); // On fait appelle à C.getMovie() qu'on a défini plus bas
       };
 
-      // Handler pour les détails d'un film
+      /*
+        C.handlerDetail
+        La fonction affiche sur la page les détails d'un film sélectionné
+      */
       C.handlerDetail = async function (id) {
         const details = await DataMovie.requestMoviedetails(id);
         const movie = details[0];
@@ -84,7 +87,10 @@
         V.renderMovieDetail(movie, moyenne, dejaNote);
       };
 
-      // Handler pour le clic sur le bouton pour ajouter un film dans les favoris
+      /*
+        C.handlerMovie
+        La fonction affiche sur la page les détails d'un film sélectionné
+      */
       C.handlerAddFavoris = async function (id_movie, el) {
         if (!el)
           return console.error("Aucun élément reçu pour le bouton like.");
@@ -97,7 +103,10 @@
         alert("Ajouté au favoris !");
       };
 
-      // Handler pour le clic sur le bouton pour supprimer un favoris
+      /*
+        C.handlerDeleteLike
+        La fonction affiche sur la page les détails d'un film sélectionné
+      */
       C.handlerDeleteLike = async function (id_movie, el) {
         const select = document.querySelector("#profile-select");
         const id_user = select.selectedIndex + 1;
@@ -112,7 +121,6 @@
         C.handlerLikes
         La fonction affiche sur la page la collection de films aimés par l'utilisateur sélectionné
       */
-
       C.handlerLikes = async function () {
         const select = document.querySelector("#profile-select");
         const id_user = select.selectedIndex + 1;
@@ -168,16 +176,16 @@
         let m = today.getMonth() - birthDate.getMonth(); // Calcul de la différence de mois
         // Si le mois est négatif ou si c'est le même mois mais que la date d'aujourd'hui est avant la date de naissance
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          // On soustrait 1 à l'âge
+          
           age--;
         }
 
-        C.userAge = age; // Stocker l'âge de l'utilisateur sélectionné
+        C.userAge = age; 
 
-        await C.getMoviesReco(); // Recharger les recommandations après le changement de profil
+        await C.getMoviesReco(); 
 
-        let filteredMovies = await DataMovie.requestMoviesByAge(age); // Récupérer les films par âge
-        V.renderMovie(filteredMovies); // Afficher les films filtrés
+        let filteredMovies = await DataMovie.requestMoviesByAge(age); 
+        V.renderMovie(filteredMovies); 
       };
 
       /*
@@ -196,14 +204,17 @@
       */
       C.handlerSearchBar = async function (valeur) {
         if (!valeur || valeur.trim().length === 0) {
-          return C.getMovie(); // Revenir à la liste complète si champ vide
+          return C.getMovie(); 
         }
 
         const results = await DataMovie.requestSearchMovies(valeur);
         V.renderMovie(results);
       };
 
-      // Ajout de la note depuis l'interface
+      /*
+        C.handlerSubmitNote
+        La fonction enregistre la note d'un film pour un utilisateur sélectionné
+      */
       C.handlerSubmitNote = async function (id_movie) {
         const select = document.querySelector("#profile-select");
         const noteSelect = document.querySelector("#note-select");
@@ -227,7 +238,7 @@
 
         alert("Votre note a été enregistrée.");
 
-        // Recharge les détails pour mettre à jour le message + la moyenne
+       
         const details = await DataMovie.requestMoviedetails(id_movie);
         const moyenneObj = await DataMovie.getMoyenneNote(id_movie);
         const check = await DataMovie.checkUserNote(id_user, id_movie);
@@ -241,19 +252,14 @@
         Elle appelle également un premier profil par défaut.
       */
       C.start = async function () {
-        // On affiche la barre de navigation
         await V.renderNavBar("C.handlerMovies()");
 
-        // On appelle un premier profil par défaut (définit aussi l’âge)
         await C.handlerProfile();
 
-        // On affiche les recos selon l’âge
         await C.getMoviesReco();
 
-        // On affiche la liste des catégories
         V.renderMovieCategorie();
 
-        // On affiche la liste des films
         C.getMovie();
 
         // On affiche la barre de recherche dans la nav

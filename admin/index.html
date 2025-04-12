@@ -25,7 +25,14 @@
 
       window.C = {};
 
-      // Handler pour l'ajout d'un film
+
+      /*
+       * C.handlerAddMovie
+       *
+       * Cette fonction est responsable de l'ajout d'un film.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant MovieForm.
+       */
       C.handlerAddMovie = async function () {
         let form = document.querySelector(".addFilm__form");
         let fd = new FormData(form);
@@ -33,7 +40,13 @@
         V.renderLog(res);
       };
 
-      // Handler pour l'ajout d'un utilisateur
+      /*
+       * C.handlerAddUser
+       *
+       * Cette fonction est responsable de l'ajout d'un utilisateur.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant UserForm.
+       */
       C.handlerAddUser = async function () {
         let form = document.querySelector(".addUser__form");
         let fd = new FormData(form);
@@ -41,7 +54,13 @@
         V.renderLog(res);
       };
 
-      // Handler pour sélectionner un utilisateur (remplit les champs du formulaire)
+      /*
+       * C.handlerSelectUser
+       *
+       * Cette fonction est responsable de la sélection d'un utilisateur.
+       * Elle met à jour les champs du formulaire de mise à jour de l'utilisateur
+       * avec les informations de l'utilisateur sélectionné dans la liste déroulante.
+       */
       C.handlerSelectUser = function () {
         const select = document.getElementById("user-select");
         const selected = select.selectedOptions[0];
@@ -56,7 +75,13 @@
         document.getElementById("user-birthday").value = birthday;
       };
 
-      // Handler pour modifier un utilisateur
+      /*
+       * C.handlerUpdateUser
+       *
+       * Cette fonction est responsable de la mise à jour des informations d'un utilisateur.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant UpdateUserForm.
+       */
       C.handlerUpdateUser = async function () {
         let form = document.querySelector(".updateUser__form");
         let fd = new FormData(form);
@@ -64,7 +89,14 @@
         V.renderLog(res);
       };
 
-      // Recherche des films à modifier
+
+      /*
+       * C.handlerSearchBar
+       *
+       * Cette fonction est responsable de la gestion de la barre de recherche.
+       * Elle effectue une recherche de films en fonction de la requête saisie
+       * et met à jour les résultats affichés dans la barre de recherche.
+       */
       C.handlerSearchBar = async function (query) {
         if (!query || query.trim().length < 2) {
           SearchBar.resultat([]);
@@ -74,8 +106,9 @@
         let results = await DataMovie.searchMovies(query);
         SearchBar.resultat(results);
       };
+    
 
-      // Sélection pour inverser le statut "mis en avant"
+    
       C.handlerToggleReco = async function (id, currentStatus) {
         const newStatus = currentStatus === "1" ? "0" : "1";
         await DataMovie.toggleRecoStatus(id, newStatus);
@@ -85,7 +118,9 @@
         SearchBar.resultat(results);
       };
 
-      // Fonction de démarrage de l'application
+
+
+      
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderForm("C.handlerAddMovie()");
@@ -99,25 +134,21 @@
 
       window.V = {};
 
-      // Affichage du journal
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
       };
 
-      // Affichage du formulaire de film
       V.renderForm = function (handler) {
         let content = document.querySelector("#addFilm");
         content.innerHTML = MovieForm.format(handler);
       };
 
-      // Affichage du formulaire d'ajout utilisateur
       V.renderAddUserForm = function (handler) {
         let content = document.querySelector("#addUser");
         content.innerHTML = UserForm.format(handler);
       };
 
-      // Affichage du formulaire de modification utilisateur
       V.renderUpdateUserForm = async function (handlerSelect, handlerUpdate) {
         let content = document.querySelector("#updateUser");
         let profiles = await DataProfile.getAllProfiles();
@@ -129,7 +160,6 @@
         UpdateUserForm.init();
       };
 
-      // Affichage de la barre de recherche
       V.renderSearchBar = async function () {
         let content = document.querySelector("#searchbar");
         content.innerHTML = SearchBar.format(); // pas besoin de passer movies
