@@ -2,31 +2,25 @@
 let HOST_URL = "..";
 
 let DataMovie = {};
-/**
- * DataMovie.add
+
+/** DataMovie.add
  *
- * Prend en paramètre un objet FormData (données de formulaire) à envoyer au serveur.
- * Ces données sont incluses dans une requête HTTP en méthode POST.
- * La requête comprend aussi un paramètre todo valant add pour indiquer au serveur qu'il
- * s'agit d'une création (car on a codé le serveur pour qu'il sache quoi faire en fonction de la valeur de todo).
+ * Envoie un nouveau film au serveur via une requête HTTP POST.
+ * La requête inclut un paramètre todo=addMovie pour déclencher l'ajout côté serveur.
  *
- * @param {*} fdata un objet FormData contenant les données du formulaire à envoyer au serveur.
+ * @param {*} fdata un objet FormData contenant les données du film à envoyer.
  * @returns la réponse du serveur.
  */
-
 DataMovie.add = async function (fdata) {
-  // console.log("DataMovie.add 1"); // Point de repère n°1
   let config = {
-    method: "POST", // méthode HTTP à utiliser
-    body: fdata, // données à envoyer sous forme d'objet FormData
+    method: "POST",
+    body: fdata,
   };
-  // console.log("DataMovie.add 2 ", config); // Point de repère n°2
 
   let answer = await fetch(
     HOST_URL + "/server/script.php?todo=addMovie",
     config
   );
-  // console.log("DataMovie.add 3 "); // Point de repère n°3
   let data = await answer.json();
   return data;
 };
@@ -44,31 +38,26 @@ DataMovie.add = async function (fdata) {
  * @param {*} fdata un objet FormData contenant les données du formulaire à envoyer au serveur.
  * @returns la réponse du serveur.
  */
-
 DataMovie.update = async function (fdata) {
-  // fetch possède un deuxième paramètre (optionnel) qui est un objet de configuration de la requête HTTP:
-  //  - method : la méthode HTTP à utiliser (GET, POST...)
-  //  - body : les données à envoyer au serveur (sous forme d'objet FormData ou bien d'une chaîne de caractères, par exempe JSON)
-
   let config = {
-    method: "POST", // méthode HTTP à utiliser
-    body: fdata, // données à envoyer sous forme d'objet FormData
+    method: "POST",
+    body: fdata,
   };
 
   let answer = await fetch(HOST_URL + "/server/script.php?todo=update", config);
-  console.log(answer);
+  console.log(answer); // debug
   let data = await answer.json();
   return data;
 };
 
-/**
- * DataMovie.getAllMovies
+/** DataMovie.searchMovies
  *
- * Récupère tous les films de la base de données.
+ * Envoie une requête au serveur pour rechercher des films contenant un mot-clé dans leur titre,
+ * année ou catégorie. La requête utilise la méthode GET.
  *
- * @returns la réponse du serveur.
+ * @param {string} valeur le mot-clé à rechercher.
+ * @returns un tableau d’objets contenant les films correspondants.
  */
-
 DataMovie.searchMovies = async function (valeur) {
   let answer = await fetch(
     HOST_URL + "/server/script.php?todo=searchMovies&titre=" + valeur
@@ -77,6 +66,16 @@ DataMovie.searchMovies = async function (valeur) {
   return data;
 };
 
+/** DataMovie.toggleRecoStatus
+ *
+ * Modifie le statut de recommandation d’un film (0 ou 1).
+ * Utilise une requête HTTP POST avec les paramètres id et reco envoyés dans le corps de la requête.
+ * Le paramètre todo=updateMovieReco permet d’identifier l’action côté serveur.
+ *
+ * @param {number} id l’identifiant du film.
+ * @param {string|number} status le nouveau statut (0 ou 1).
+ * @returns la réponse du serveur.
+ */
 DataMovie.toggleRecoStatus = async function (id, status) {
   const fd = new FormData();
   fd.append("id", id);

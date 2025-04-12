@@ -25,7 +25,6 @@
 
       window.C = {};
 
-
       /*
        * C.handlerAddMovie
        *
@@ -89,7 +88,6 @@
         V.renderLog(res);
       };
 
-
       /*
        * C.handlerSearchBar
        *
@@ -106,9 +104,14 @@
         let results = await DataMovie.searchMovies(query);
         SearchBar.resultat(results);
       };
-    
 
-    
+      /*
+       * C.handlerToggleReco
+       *
+       * Cette fonction est responsable de la gestion du changement de statut de recommandation d'un film.
+       * Elle met à jour le statut de recommandation du film dans la base de données
+       * et met à jour les résultats affichés dans la barre de recherche.
+       */
       C.handlerToggleReco = async function (id, currentStatus) {
         const newStatus = currentStatus === "1" ? "0" : "1";
         await DataMovie.toggleRecoStatus(id, newStatus);
@@ -118,9 +121,12 @@
         SearchBar.resultat(results);
       };
 
-
-
-      
+      /*
+       * C.start
+       *
+       * Cette fonction est responsable du démarrage de l'application.
+       * Elle initialise les composants et affiche les formulaires nécessaires.
+       */
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderForm("C.handlerAddMovie()");
@@ -134,21 +140,49 @@
 
       window.V = {};
 
+      /*
+       * V.renderLog
+       *
+       * Cette fonction est responsable de l'affichage des messages de log.
+       * Elle sélectionne l'élément HTML avec l'ID "log" et y insère le contenu
+       * formaté par le composant Log.
+       */
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
       };
 
+      /*
+       * V.renderForm
+       *
+       * Cette fonction est responsable de l'affichage du formulaire d'ajout de film.
+       * Elle sélectionne l'élément HTML avec l'ID "addFilm" et y insère le contenu
+       * formaté par le composant MovieForm.
+       */
       V.renderForm = function (handler) {
         let content = document.querySelector("#addFilm");
         content.innerHTML = MovieForm.format(handler);
       };
 
+      /*
+       * V.renderAddUserForm
+       *
+       * Cette fonction est responsable de l'affichage du formulaire d'ajout d'utilisateur.
+       * Elle sélectionne l'élément HTML avec l'ID "addUser" et y insère le contenu
+       * formaté par le composant UserForm.
+       */
       V.renderAddUserForm = function (handler) {
         let content = document.querySelector("#addUser");
         content.innerHTML = UserForm.format(handler);
       };
 
+      /*
+       * V.renderUpdateUserForm
+       *
+       * Cette fonction est responsable de l'affichage du formulaire de mise à jour d'utilisateur.
+       * Elle sélectionne l'élément HTML avec l'ID "updateUser" et y insère le contenu
+       * formaté par le composant UpdateUserForm.
+       */
       V.renderUpdateUserForm = async function (handlerSelect, handlerUpdate) {
         let content = document.querySelector("#updateUser");
         let profiles = await DataProfile.getAllProfiles();
@@ -160,6 +194,13 @@
         UpdateUserForm.init();
       };
 
+      /*
+       * V.renderSearchBar
+       *
+       * Cette fonction est responsable de l'affichage de la barre de recherche.
+       * Elle sélectionne l'élément HTML avec l'ID "searchbar" et y insère le contenu
+       * formaté par le composant SearchBar.
+       */
       V.renderSearchBar = async function () {
         let content = document.querySelector("#searchbar");
         content.innerHTML = SearchBar.format(); // pas besoin de passer movies

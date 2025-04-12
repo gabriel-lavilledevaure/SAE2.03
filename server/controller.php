@@ -30,7 +30,7 @@ require ('model.php');
 function readController()
 {
   $movies = getMovie();
-  return $movies;
+ return $movies;
 }
 
 /**
