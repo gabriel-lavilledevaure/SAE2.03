@@ -3,9 +3,13 @@ let template = await templateFile.text();
 
 let Moviedetails = {};
 
-Moviedetails.format = function (movie) {
+Moviedetails.format = function (
+  movie,
+  noteMoyenne = null,
+  alreadyNoted = false
+) {
   let movieHtml = template;
-  // console.log(movie); // debug
+
   movieHtml = movieHtml.replace("{{titre}}", movie.name);
   movieHtml = movieHtml.replace("{{image}}", movie.image);
   movieHtml = movieHtml.replace("{{desc}}", movie.description);
@@ -15,6 +19,30 @@ Moviedetails.format = function (movie) {
   movieHtml = movieHtml.replace("{{categorie}}", movie.category_name);
   movieHtml = movieHtml.replace("{{age}}", movie.min_age);
   movieHtml = movieHtml.replace("{{url}}", movie.trailer);
+  movieHtml = movieHtml.replace("{{moyenne}}", noteMoyenne ?? "Aucune note");
+
+  // Ajout du bloc de notation ou message
+  movieHtml += `
+    <div class="notation">
+      ${
+        !alreadyNoted
+          ? `
+        <label for="note-select">Attribuez une note :</label>
+        <select id="note-select">
+          <option value="">--Choisissez--</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button onclick="C.handlerSubmitNote(${movie.id})">Valider</button>
+      `
+          : `<p class="already-noted">Vous avez déjà noté ce film.</p>`
+      }
+    </div>
+  `;
 
   return movieHtml;
 };

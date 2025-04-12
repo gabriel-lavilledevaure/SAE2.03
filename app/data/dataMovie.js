@@ -74,5 +74,45 @@ DataMovie.requestSearchMovies = async function (valeur) {
   return movies;
 };
 
+// Ajouter une note
+DataMovie.addNote = async function (id_user, id_movie, note) {
+  const fd = new FormData();
+  fd.append("id_user", id_user);
+  fd.append("id_movie", id_movie);
+  fd.append("note", note);
+
+  console.log("id_user", id_user);
+  console.log("id_movie", id_movie);
+  console.log("note", note);
+
+  const res = await fetch(`${HOST_URL}/server/script.php?todo=addNote`, {
+    method: "POST",
+    body: fd,
+  });
+
+  try {
+    return await res.json();
+  } catch (e) {
+    const text = await res.text();
+    return { error: true, message: "Erreur serveur : réponse non JSON." };
+  }
+};
+
+// Récupérer la moyenne des notes d’un film
+DataMovie.getMoyenneNote = async function (id_movie) {
+  const res = await fetch(
+    `${HOST_URL}/server/script.php?todo=getMoyenneNote&id_movie=${id_movie}`
+  );
+  return await res.json();
+};
+
+// Vérifier si l'utilisateur a déjà noté ce film
+DataMovie.checkUserNote = async function (id_user, id_movie) {
+  const res = await fetch(
+    `${HOST_URL}/server/script.php?todo=checkUserNote&id_user=${id_user}&id_movie=${id_movie}`
+  );
+  return await res.json(); // retourne { alreadyNoted: true }
+};
+
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

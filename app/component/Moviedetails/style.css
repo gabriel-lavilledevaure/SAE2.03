@@ -62,6 +62,38 @@
   background-color: var(--color-black);
 }
 
+.details__note-moyenne {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-accent, gold);
+}
+
+.notation {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.notation label {
+  font-weight: bold;
+}
+
+.notation select,
+.notation button {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+}
+
+.already-noted {
+  margin-top: 1rem;
+  color: var(--color-gray-light);
+  font-style: italic;
+}
+
 @media (min-width: 1024px) {
   .details {
     flex-direction: row;
