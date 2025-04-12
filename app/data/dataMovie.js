@@ -48,8 +48,10 @@ DataMovie.requestMoviesByAge = async function (age) {
   return movies;
 };
 
-DataMovie.requestMoviesReco = async function () {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=getMovieReco");
+DataMovie.requestMoviesReco = async function (age) {
+  let answer = await fetch(
+    HOST_URL + "/server/script.php?todo=getMovieReco&age=" + age
+  );
   let movies = await answer.json();
   return movies;
 };
@@ -81,9 +83,9 @@ DataMovie.addNote = async function (id_user, id_movie, note) {
   fd.append("id_movie", id_movie);
   fd.append("note", note);
 
-  console.log("id_user", id_user);
-  console.log("id_movie", id_movie);
-  console.log("note", note);
+  console.log("id_user", id_user); // debug
+  console.log("id_movie", id_movie); // debug
+  console.log("note", note); // debug
 
   const res = await fetch(`${HOST_URL}/server/script.php?todo=addNote`, {
     method: "POST",

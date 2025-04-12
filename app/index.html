@@ -171,7 +171,8 @@
 
         C.userAge = age;
 
-        // Affiche les films filtrés par âge
+        await C.getMoviesReco();
+
         let filteredMovies = await DataMovie.requestMoviesByAge(age);
         V.renderMovie(filteredMovies);
       };
@@ -181,7 +182,8 @@
         La fonction affiche sur la page la collection de films recommandés
       */
       C.getMoviesReco = async function () {
-        const data = await DataMovie.requestMoviesReco();
+        const age = C.userAge;
+        const data = await DataMovie.requestMoviesReco(age);
         V.renderReco(data);
       };
 
@@ -238,14 +240,19 @@
       C.start = async function () {
         // On affiche la barre de navigation
         await V.renderNavBar("C.handlerMovies()");
+
+        // On appelle un premier profil par défaut (définit aussi l’âge)
+        await C.handlerProfile();
+
+        // On affiche les recos selon l’âge
+        await C.getMoviesReco();
+
         // On affiche la liste des catégories
         V.renderMovieCategorie();
+
         // On affiche la liste des films
         C.getMovie();
-        // On affiche les reccomandations
-        C.getMoviesReco();
-        // On appelle un premier profile par défaut
-        C.handlerProfile();
+
         // On affiche la barre de recherche dans la nav
         let searchbar = SearchBar.format();
         await V.renderNavBar("C.handlerMovies()", searchbar);
