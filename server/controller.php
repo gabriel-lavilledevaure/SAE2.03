@@ -246,14 +246,8 @@ function addNoteController() {
       return [ "error" => true, "message" => "Données manquantes." ];
   }
 
-  // $note = (int)$note; 
-
-  // if ($note < 0 || $note > 5) {
-  //     return [ "error" => true, "message" => "Note invalide." ];
-  // }
-
   if (checkUserNote($id_user, $id_movie)) {
-      return [ "error" => true, "alreadyNoted" => true ];
+      return [ "error" => true, "dejaNote" => true ];
   }
 
   $ok = addNote($id_user, $id_movie, $note);
@@ -278,5 +272,5 @@ function checkUserNoteController() {
   if (!$id_user || !$id_movie) return false;
 
   $noted = checkUserNote($id_user, $id_movie);
-  return ["alreadyNoted" => $noted]; // ← tableau JSON propre
+  return ["dejaNote" => $noted]; 
 }
