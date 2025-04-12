@@ -3,13 +3,6 @@ let HOST_URL = "..";
 
 let DataMovie = {};
 
-// DataMovie.requestMovies = async function () {
-//   // Récupération des films
-//   let answer = await fetch(HOST_URL + "server/script.php?todo=getMovie");
-//   let movies = await answer.json();
-//   return movies;
-// };
-
 DataMovie.requestMovies = async function () {
   let answer = await fetch(HOST_URL + "/server/script.php?todo=getMovie");
   let movies = await answer.json();
@@ -76,16 +69,15 @@ DataMovie.requestSearchMovies = async function (valeur) {
   return movies;
 };
 
-// Ajouter une note
 DataMovie.addNote = async function (id_user, id_movie, note) {
   const fd = new FormData();
   fd.append("id_user", id_user);
   fd.append("id_movie", id_movie);
   fd.append("note", note);
 
-  console.log("id_user", id_user); // debug
-  console.log("id_movie", id_movie); // debug
-  console.log("note", note); // debug
+  // console.log("id_user", id_user); // debug
+  // console.log("id_movie", id_movie); // debug
+  // console.log("note", note); // debug
 
   const res = await fetch(`${HOST_URL}/server/script.php?todo=addNote`, {
     method: "POST",
@@ -100,7 +92,6 @@ DataMovie.addNote = async function (id_user, id_movie, note) {
   return data;
 };
 
-// Récupérer la moyenne des notes d’un film
 DataMovie.getMoyenneNote = async function (id_movie) {
   const res = await fetch(
     `${HOST_URL}/server/script.php?todo=getMoyenneNote&id_movie=${id_movie}`
@@ -108,13 +99,11 @@ DataMovie.getMoyenneNote = async function (id_movie) {
   return await res.json();
 };
 
-// Vérifier si l'utilisateur a déjà noté ce film
 DataMovie.checkUserNote = async function (id_user, id_movie) {
   const res = await fetch(
     `${HOST_URL}/server/script.php?todo=checkUserNote&id_user=${id_user}&id_movie=${id_movie}`
   );
-  return await res.json(); // retourne { dejaNote: true }
+  return await res.json();
 };
 
-// On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

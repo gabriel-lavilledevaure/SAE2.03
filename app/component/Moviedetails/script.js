@@ -17,7 +17,6 @@ Moviedetails.format = function (movie, noteMoyenne = null, dejaNote = false) {
   movieHtml = movieHtml.replace("{{url}}", movie.trailer);
   movieHtml = movieHtml.replace("{{moyenne}}", noteMoyenne ?? "Aucune note");
 
-  // Ajout du bloc de notation ou message
   movieHtml += `
     <div class="notation">
       ${

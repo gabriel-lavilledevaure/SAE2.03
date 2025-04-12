@@ -13,11 +13,10 @@ Movie.format = function (movies, isLikesPage = false) {
     let movie = movies[i];
     let movieHtml = template;
 
-    // Remplacements principaux
     movieHtml = movieHtml.replace("{{titre}}", movie.name);
     movieHtml = movieHtml.replace("{{image}}", movie.image);
     movieHtml = movieHtml.replace("{{id}}", movie.id);
-    movieHtml = movieHtml.replace("{{id}}", movie.id); // deuxième remplacement pour l'autre bouton
+    movieHtml = movieHtml.replace("{{id}}", movie.id);
     movieHtml = movieHtml.replace(
       "{{handlerFavoris}}",
       `C.handlerAddFavoris(${movie.id}, this)`
