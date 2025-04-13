@@ -30,7 +30,7 @@ require ('model.php');
 function readController()
 {
   $movies = getMovie();
- return $movies;
+  return $movies;
 }
 
 /**
@@ -241,7 +241,7 @@ function addCommentaryController()
 
   $ok = addCommentary($id_user, $id_movie, $commentary);
   if ($ok != 0) {
-    return "Le commentaire a été ajouté avec succès !";
+    return 'Le commentaire a été ajouté avec succès !';
   } else {
     return "Erreur lors de l'ajout du commentaire !";
   }
