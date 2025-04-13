@@ -47,11 +47,14 @@
         infosSection.innerHTML = "";
         infosSection.style.display = "none";
 
-        // On récupère la liste des films
+        const tags = document.querySelectorAll(".categorie__tag");
+        for (let i = 0; i < tags.length; i++) {
+          tags[i].classList.remove("active");
+        }
+
         let data = await DataMovie.requestMovies();
         V.renderMovie(data);
 
-        // Scroll vers le haut de la page
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
 
@@ -92,6 +95,8 @@
         La fonction affiche sur la page les détails d'un film sélectionné
       */
       C.handlerAddFavoris = async function (id_movie, el) {
+        console.log("id_movie", id_movie); // debug
+        console.log("el", el); // debug
         if (!el)
           return console.error("Aucun élément reçu pour le bouton like.");
         const select = document.querySelector("#profile-select");
@@ -125,7 +130,12 @@
         const select = document.querySelector("#profile-select");
         const id_user = select.selectedIndex + 1;
 
-        const likedMovies = await DataProfile.requestLikesForUser(id_user);
+        const tags = document.querySelectorAll(".categorie__tag");
+        for (let i = 0; i < tags.length; i++) {
+          tags[i].classList.remove("active");
+        }
+
+        const likedMovies = await DataProfile.requestUserLikes(id_user);
         const allMovies = await DataMovie.requestMovies();
 
         const likedFull = allMovies.filter((movie) =>
@@ -137,13 +147,24 @@
 
       /*
         C.handlerCategorie
-        La fonction affiche sur la page la collection de films par catégorie
+        La fonction affiche sur la page la collection de films par catégorie, lors du clic sur une catégorie on supprime l'était "active" de
+        toutes les catégories pour ensuite le rajouter sur celle qu'on vient de cliquer.
       */
       C.handlerCategorie = async function (categorie) {
         if (C.userAge === null) {
           console.warn("Aucun âge utilisateur défini.");
           return;
         }
+
+        const tags = document.querySelectorAll(".categorie__tag");
+        for (let i = 0; i < tags.length; i++) {
+          tags[i].classList.remove("active");
+        }
+
+        let categorieClic = Array.from(
+          document.querySelectorAll(".categorie__tag")
+        ).find((el) => el.textContent.trim() === categorie);
+        if (categorieClic) categorieClic.classList.add("active");
 
         let data = await DataMovie.requestMoviesAgeCategory(
           C.userAge,
@@ -176,16 +197,15 @@
         let m = today.getMonth() - birthDate.getMonth(); // Calcul de la différence de mois
         // Si le mois est négatif ou si c'est le même mois mais que la date d'aujourd'hui est avant la date de naissance
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          
           age--;
         }
 
-        C.userAge = age; 
+        C.userAge = age;
 
-        await C.getMoviesReco(); 
+        await C.getMoviesReco();
 
-        let filteredMovies = await DataMovie.requestMoviesByAge(age); 
-        V.renderMovie(filteredMovies); 
+        let filteredMovies = await DataMovie.requestMoviesByAge(age);
+        V.renderMovie(filteredMovies);
       };
 
       /*
@@ -204,7 +224,7 @@
       */
       C.handlerSearchBar = async function (valeur) {
         if (!valeur || valeur.trim().length === 0) {
-          return C.getMovie(); 
+          return C.getMovie();
         }
 
         const results = await DataMovie.requestSearchMovies(valeur);
@@ -238,7 +258,6 @@
 
         alert("Votre note a été enregistrée.");
 
-       
         const details = await DataMovie.requestMoviedetails(id_movie);
         const moyenneObj = await DataMovie.getMoyenneNote(id_movie);
         const check = await DataMovie.checkUserNote(id_user, id_movie);

@@ -7,7 +7,7 @@ DataProfile.requestProfiles = async function () {
   return await res.json();
 };
 
-DataProfile.requestLikesForUser = async function (id_user) {
+DataProfile.requestUserLikes = async function (id_user) {
   let res = await fetch(
     `${HOST_URL}/server/script.php?todo=getLikesUserMovie&id_user=${id_user}`
   );
