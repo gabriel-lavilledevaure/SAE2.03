@@ -45,6 +45,24 @@
     }
 
     /**
+     * Fonction pour récupérer tous les commentaires de la base de données.
+     *
+     * @return array Un tableau d'objets contenant les informations des utilisateurs
+     */
+    function getComment()
+    {
+        $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+        $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, User.name AS user_name, Movie.name AS movie_name 
+                FROM Comment 
+                INNER JOIN User ON Comment.id_user = User.id 
+                INNER JOIN Movie ON Comment.id_movie = Movie.id';
+        
+        $answer = $cnx->query($sql);
+        $res = $answer->fetchAll(PDO::FETCH_OBJ);
+        return $res;
+    }
+
+    /**
      * Fonction pour récupérer les informations d'un film en fonction de son id.
      *
      * @param int $id L'identifiant du film
@@ -216,6 +234,31 @@
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':image', $image);
         $stmt->bindParam(':datenaissance', $datenaissance);
+
+        $stmt->execute();
+        $res = $stmt->rowCount();
+        return $res;
+    }
+
+    /**
+     * Fonction pour ajouter un commentaire à la base de données
+     *
+     * @param string $id_user l'id de l'utilisateur
+     * @param string $id_movie l'id du film
+     * @param string $commentary le commentaire
+     */
+    function addCommentary($id_user, $id_movie,$commentary)
+    {
+        $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+
+        $sql = 'INSERT INTO Comment (id_user, id_movie, commentary) 
+                VALUES (:id_user, :id_movie, :commentary)';
+
+        $stmt = $cnx->prepare($sql);
+
+        $stmt->bindParam(':id_user', $id_user);
+        $stmt->bindParam(':id_movie', $id_movie);
+        $stmt->bindParam(':commentary', $commentary);
 
         $stmt->execute();
         $res = $stmt->rowCount();

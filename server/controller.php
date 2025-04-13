@@ -56,6 +56,17 @@ function readControllerProfiles()
 }
 
 /**
+ * Fonction de contrôle pour lire les commentaires.
+ *
+ * @return array|false Les profils ou false en cas d'erreur.
+ */
+function readCommentController()
+{
+  $commentarys = getComment();
+  return $commentarys;
+}
+
+/**
  * Fonction de contrôle pour lire les films en fonction du titre.
  *
  * @return array|false Les films ou false en cas d'erreur.
@@ -210,6 +221,29 @@ function addUserController()
     return "L'utilisateur $name a été ajouté avec succès !";
   } else {
     return "Erreur lors de l'ajout de l'utilisateur $name !";
+  }
+}
+
+/**
+ * Fonction de contrôle pour ajouter un commentaire.
+ *
+ * @return string|void Message de succès ou d'erreur.
+ */
+function addCommentaryController()
+{
+  $id_user = $_REQUEST['id_user'] ?? null;
+  $id_movie = $_REQUEST['id_movie'] ?? null;
+  $commentary = $_REQUEST['commentary'] ?? null;
+
+  if (empty($id_user) || empty($id_movie) || empty($commentary)) {
+    return 'Erreur : Tous les champs doivent être remplis.';
+  }
+
+  $ok = addCommentary($id_user, $id_movie, $commentary);
+  if ($ok != 0) {
+    return "Le commentaire a été ajouté avec succès !";
+  } else {
+    return "Erreur lors de l'ajout du commentaire !";
   }
 }
 

@@ -91,6 +91,10 @@
           $data = readControllerMoviesReco();
           break;
 
+        case 'getComment':
+          $data = readCommentController();
+          break;
+
         case 'addProfile':
           $data = addUserController();
           break;
@@ -102,6 +106,14 @@
         case 'addLikes':
           $data = addLikesController();
           break;
+          
+          case 'addNote':
+            $data = addNoteController();
+            break;
+          
+          case 'addComment':
+            $data = addCommentaryController();
+            break;
 
         case 'updateProfile':
           $data = updateUserController();
@@ -119,9 +131,6 @@
           $data = readControllerSearchMovies();
           break;
 
-        case 'addNote':
-          $data = addNoteController();
-          break;
 
         case 'checkUserNote':
           $data = checkUserNoteController();
