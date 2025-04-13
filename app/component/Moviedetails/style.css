@@ -7,8 +7,8 @@
 .details {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-gray-dark);
-  color: var(--color-white);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   font-family: var(--ff-sans);
   border-radius: 1rem;
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.5);
@@ -65,33 +65,66 @@
 .details__note-moyenne {
   font-size: 1.2rem;
   font-weight: bold;
-  color: var(--color-accent, gold);
+  color: var(--color-yellow);
 }
 
 .notation {
-  margin-top: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--color-gray-darkest);
+  border: 1px solid var(--color-gray);
+  border-radius: 0.75rem;
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
   flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
 }
 
 .notation label {
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-white);
 }
 
-.notation select,
-.notation button {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+.notation select {
+  background-color: var(--color-gray);
+  color: var(--color-white);
   border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
+  font-family: var(--ff-sans);
+  transition: background-color 0.3s ease;
+}
+
+.notation select:hover {
+  background-color: var(--color-blue);
+  cursor: pointer;
+}
+
+.notation button {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.notation button:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
 }
 
 .already-noted {
-  margin-top: 1rem;
-  color: var(--color-gray-light);
+  background-color: var(--color-gray-darkest);
+  padding: 1rem;
+  border-radius: 0.5rem;
   font-style: italic;
+  color: var(--color-gray-light);
 }
 
 @media (min-width: 1024px) {
