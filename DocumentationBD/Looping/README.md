@@ -46,5 +46,6 @@ Pour la quinzième itération, il nous est demandé de gérer un système de com
 - **`id_user`** : Un id clé étrangère qui est reliée à la table **User** (`INT`).
 - **`id_movie`** : Un id clé étrangère qui est reliée à la table **Movie** (`INT`).
 - **`commentary`** : Un champ de type `TEXT`` qui permettra de stocker le commentaire de l'utilisateur en fonction du film.
+- **`time_post`** : Un champ de type `DATETIME`` qui permettra de stocker la date et l'heure de publication du commentaire.
 
 Cette structure permet une gestion efficace et évolutive du système de commentaire dans notre base de données.
