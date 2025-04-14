@@ -56,7 +56,7 @@
                 FROM Comment 
                 INNER JOIN User ON Comment.id_user = User.id 
                 INNER JOIN Movie ON Comment.id_movie = Movie.id';
-        
+
         $answer = $cnx->query($sql);
         $res = $answer->fetchAll(PDO::FETCH_OBJ);
         return $res;
@@ -247,7 +247,7 @@
      * @param string $id_movie l'id du film
      * @param string $commentary le commentaire
      */
-    function addCommentary($id_user, $id_movie,$commentary)
+    function addCommentary($id_user, $id_movie, $commentary)
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
 

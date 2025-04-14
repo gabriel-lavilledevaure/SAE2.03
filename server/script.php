@@ -106,14 +106,14 @@
         case 'addLikes':
           $data = addLikesController();
           break;
-          
-          case 'addNote':
-            $data = addNoteController();
-            break;
-          
-          case 'addComment':
-            $data = addCommentaryController();
-            break;
+
+        case 'addNote':
+          $data = addNoteController();
+          break;
+
+        case 'addComment':
+          $data = addCommentaryController();
+          break;
 
         case 'updateProfile':
           $data = updateUserController();
@@ -130,7 +130,6 @@
         case 'searchMovies':
           $data = readControllerSearchMovies();
           break;
-
 
         case 'checkUserNote':
           $data = checkUserNoteController();
