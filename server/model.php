@@ -52,7 +52,8 @@
     function getComment($id_movie)
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
-        $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, User.name AS user_name 
+        $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, 
+                       User.name AS user_name, User.image AS user_image
                 FROM Comment 
                 LEFT JOIN User ON Comment.id_user = User.id 
                 WHERE Comment.id_movie = :id_movie';
