@@ -171,7 +171,7 @@
         V.renderMovie(data);
       };
 
-      C.handlerSubmitComment = async function (id_user, id_movie) {
+      C.handlerSubmitComment = async function (_, id_movie) {
         const textarea = document.getElementById("comment-text");
         const commentaire = textarea.value.trim();
 
@@ -179,6 +179,9 @@
           alert("Le commentaire ne peut pas être vide.");
           return;
         }
+
+        const select = document.querySelector("#profile-select");
+        const id_user = select.selectedOptions[0].dataset.id; // 🔥 CORRECT ici
 
         const result = await DataMovie.addComment(
           id_user,
@@ -190,7 +193,12 @@
           alert("Commentaire ajouté !");
           textarea.value = "";
           const comments = await DataMovie.getCommentsMovie(id_movie);
-          V.renderComments(comments, id_movie);
+          V.renderMovieDetail(
+            await DataMovie.requestMoviedetails(id_movie)[0],
+            null,
+            false,
+            comments
+          ); // mise à jour
         } else {
           alert("Erreur lors de l'envoi du commentaire.");
         }

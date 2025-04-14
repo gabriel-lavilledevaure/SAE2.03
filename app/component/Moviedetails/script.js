@@ -23,18 +23,22 @@ Moviedetails.format = function (
   movieHtml = movieHtml.replace("{{moyenne}}", noteMoyenne ?? "Aucune note");
 
   const select = document.querySelector("#profile-select");
-  const id_user = parseInt(select.value); // ID réel de la BDD
+  const id_user = parseInt(select.dataset.id);
 
   let commentsHtml = "";
   if (comments.length) {
     for (let c of comments) {
-      console.log("ID du commentaire :", c);
-      console.log("ID de l'utilisateur :", c.id_user);
       const auteur = c.user_name ? c.user_name : `Utilisateur ${c.id_user}`;
+      const imgSrc = c.user_image
+        ? `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/${c.user_image}`
+        : "";
       commentsHtml += `
-        <div class="comment">
-          <strong>${auteur}</strong><br>
-          <p>${c.commentary}</p>
+        <div class="comment" style="display: flex; align-items: center; margin-bottom: 1rem;">
+          <img src="${imgSrc}" alt="profil" width="40" height="40" style="border-radius: 50%; margin-right: 0.5rem;">
+          <div>
+            <strong>${auteur}</strong><br>
+            <p>${c.commentary}</p>
+          </div>
         </div>`;
     }
   } else {

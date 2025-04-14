@@ -11,7 +11,7 @@ NavBar.format = function (hAbout, hProfile, profiles, handlerLikes, searchbar) {
   let options = "";
   for (let i = 0; i < profiles.length; i++) {
     let p = profiles[i];
-    options += `<option value="${p.name}" data-img="${p.image}" data-birthday="${p.datenaissance}">${p.name}</option>`;
+    options += `<option value="${p.name}" data-id="${p.id}" data-img="${p.image}" data-birthday="${p.datenaissance}">${p.name}</option>`;
   }
 
   let image = profiles[0]?.image || "";
@@ -19,7 +19,7 @@ NavBar.format = function (hAbout, hProfile, profiles, handlerLikes, searchbar) {
   html = html.replace("{{options}}", options);
   html = html.replace("{{image}}", image);
   html = html.replace("{{handlerLikes}}", handlerLikes);
-  html = html.replace("{{searchbar}}", searchbar || ""); // valeur par défaut vide
+  html = html.replace("{{searchbar}}", searchbar);
 
   return html;
 };
