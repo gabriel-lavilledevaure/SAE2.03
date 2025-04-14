@@ -54,7 +54,7 @@
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
         $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, User.name AS user_name 
                 FROM Comment 
-                INNER JOIN User ON Comment.id_user = User.id 
+                LEFT JOIN User ON Comment.id_user = User.id 
                 WHERE Comment.id_movie = :id_movie';
 
         $stmt = $cnx->prepare($sql);
