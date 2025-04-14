@@ -315,7 +315,7 @@
        * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
        * formaté par le composant Movie.
        */
-      V.renderMovie = function (data, isLikesPage = false) {
+      V.renderMovie = function (data, isLikesPage) {
         let content = document.querySelector("#content");
         content.innerHTML = Movie.format(data, isLikesPage);
       };
