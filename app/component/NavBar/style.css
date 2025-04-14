@@ -58,7 +58,6 @@
   border: 0.125rem solid var(--color-white);
 }
 
-/* Desktop */
 @media (min-width: 48rem) {
   .navbar {
     flex-wrap: nowrap;

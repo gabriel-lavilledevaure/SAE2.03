@@ -106,7 +106,6 @@
   background-color: rgba(255, 0, 0, 0.85);
 }
 
-/* Responsive layouts */
 @media (min-width: 37.5rem) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
