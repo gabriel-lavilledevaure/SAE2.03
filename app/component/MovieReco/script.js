@@ -21,7 +21,7 @@ MovieReco.format = function (movies) {
         movie.id
       })" style="--i:${index + 1}">
         <div class="reco__img-wrapper">
-          <img class="reco__image" src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/${image}" alt="${name}" />
+          <img class="reco__image" src="../server/images/${image}" alt="${name}" />
           <div class="reco__overlay">
             <h3 class="reco__name">${name}</h3>
             <div class="reco__meta">
