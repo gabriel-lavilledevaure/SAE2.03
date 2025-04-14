@@ -7,15 +7,15 @@
 .details {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+  max-width: 75rem;
+  margin: 4rem auto;
+  padding: 2rem;
   background-color: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--ff-sans);
   border-radius: 1rem;
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.5);
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 4rem auto;
-  gap: 2rem;
 }
 
 .details__image {
@@ -30,11 +30,12 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 }
 
 .details__title {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -57,9 +58,10 @@
 .details__trailer {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 0.75rem;
-  border: none;
   background-color: var(--color-black);
+  border: none;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
 }
 
 .details__note-moyenne {
@@ -69,15 +71,15 @@
 }
 
 .notation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
   margin-top: 2rem;
   padding: 1rem;
   background-color: var(--color-gray-darkest);
   border: 1px solid var(--color-gray);
   border-radius: 0.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
 }
 
 .notation label {
@@ -86,32 +88,32 @@
   color: var(--color-white);
 }
 
+.notation select,
+.notation button {
+  font-size: 1rem;
+  font-family: var(--ff-sans);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
 .notation select {
   background-color: var(--color-gray);
   color: var(--color-white);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-family: var(--ff-sans);
-  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .notation select:hover {
   background-color: var(--color-blue);
-  cursor: pointer;
 }
 
 .notation button {
   background-color: var(--color-blue);
   color: var(--color-white);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 0.5rem 1.2rem;
 }
 
 .notation button:hover {
@@ -120,18 +122,18 @@
 }
 
 .already-noted {
-  background-color: var(--color-gray-darkest);
   padding: 1rem;
   border-radius: 0.5rem;
-  font-style: italic;
+  background-color: var(--color-gray-darkest);
   color: var(--color-gray-light);
+  font-style: italic;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
   .details {
     flex-direction: row;
-    gap: 3rem;
     align-items: flex-start;
+    gap: 3rem;
   }
 
   .details__image {
@@ -144,9 +146,5 @@
 
   .details__title {
     font-size: 2.8rem;
-  }
-
-  .details__trailer {
-    margin-top: 2rem;
   }
 }
