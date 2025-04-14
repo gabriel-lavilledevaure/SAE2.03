@@ -106,4 +106,28 @@ DataMovie.checkUserNote = async function (id_user, id_movie) {
   return await res.json();
 };
 
+DataMovie.getCommentsMovie = async function (id_movie) {
+  id_movie = parseInt(id_movie);
+  const res = await fetch(
+    `${HOST_URL}/server/script.php?todo=getComment&id_movie=${id_movie}`
+  );
+  const data = await res.json();
+  console.log("Commentaires récupérés :", data);
+  return data;
+};
+
+DataMovie.addComment = async function (id_user, id_movie, commentary) {
+  const fd = new FormData();
+  fd.append("id_user", id_user);
+  fd.append("id_movie", id_movie);
+  fd.append("commentary", commentary);
+
+  const res = await fetch(`${HOST_URL}/server/script.php?todo=addComment`, {
+    method: "POST",
+    body: fd,
+  });
+
+  return await res.json();
+};
+
 export { DataMovie };

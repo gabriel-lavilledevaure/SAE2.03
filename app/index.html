@@ -74,20 +74,18 @@
         const details = await DataMovie.requestMoviedetails(id);
         const movie = details[0];
 
-        // On récupère la moyenne de notes
         const moyenneObj = await DataMovie.getMoyenneNote(id);
-        const moyenne = moyenneObj?.moyenne ?? "Acune note";
+        const moyenne = moyenneObj?.moyenne ?? "Aucune note";
 
-        // On récupère l'ID de l'utilisateur sélectionné
         const select = document.querySelector("#profile-select");
         const id_user = select.selectedIndex + 1;
 
-        // On vérifie si l'utilisateur a déjà noté le film
         const check = await DataMovie.checkUserNote(id_user, id);
         const dejaNote = check.dejaNote;
 
-        // On affiche les détails du film
-        V.renderMovieDetail(movie, moyenne, dejaNote);
+        const comments = await DataMovie.getCommentsMovie(id);
+
+        await V.renderMovieDetail(movie, moyenne, dejaNote, comments);
       };
 
       /*
@@ -171,6 +169,31 @@
           categorie
         );
         V.renderMovie(data);
+      };
+
+      C.handlerSubmitComment = async function (id_user, id_movie) {
+        const textarea = document.getElementById("comment-text");
+        const commentaire = textarea.value.trim();
+
+        if (!commentaire) {
+          alert("Le commentaire ne peut pas être vide.");
+          return;
+        }
+
+        const result = await DataMovie.addComment(
+          id_user,
+          id_movie,
+          commentaire
+        );
+
+        if (result?.includes("succès")) {
+          alert("Commentaire ajouté !");
+          textarea.value = "";
+          const comments = await DataMovie.getCommentsMovie(id_movie);
+          V.renderComments(comments, id_movie);
+        } else {
+          alert("Erreur lors de l'envoi du commentaire.");
+        }
       };
 
       /*
@@ -339,10 +362,15 @@
        * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
        * formaté par le composant Movie.
        */
-      V.renderMovieDetail = function (data, moyenne = null, dejaNote = false) {
-        let content = document.querySelector("#infos");
-        content.style.display = "block"; // On affiche la section des détails
-        content.innerHTML = Moviedetails.format(data, moyenne, dejaNote);
+      V.renderMovieDetail = function (movie, moyenne, dejaNote, comments) {
+        const content = document.querySelector("#infos");
+        content.style.display = "block";
+        content.innerHTML = Moviedetails.format(
+          movie,
+          moyenne,
+          dejaNote,
+          comments
+        );
       };
 
       /**

@@ -3,7 +3,12 @@ let template = await templateFile.text();
 
 let Moviedetails = {};
 
-Moviedetails.format = function (movie, noteMoyenne = null, dejaNote = false) {
+Moviedetails.format = function (
+  movie,
+  noteMoyenne = null,
+  dejaNote = false,
+  comments = []
+) {
   let movieHtml = template;
 
   movieHtml = movieHtml.replace("{{titre}}", movie.name);
@@ -17,25 +22,35 @@ Moviedetails.format = function (movie, noteMoyenne = null, dejaNote = false) {
   movieHtml = movieHtml.replace("{{url}}", movie.trailer);
   movieHtml = movieHtml.replace("{{moyenne}}", noteMoyenne ?? "Aucune note");
 
+  const select = document.querySelector("#profile-select");
+  const id_user = parseInt(select.value); // ID réel de la BDD
+
+  let commentsHtml = "";
+  if (comments.length) {
+    for (let c of comments) {
+      console.log("ID du commentaire :", c);
+      console.log("ID de l'utilisateur :", c.id_user);
+      const auteur = c.user_name ? c.user_name : `Utilisateur ${c.id_user}`;
+      commentsHtml += `
+        <div class="comment">
+          <strong>${auteur}</strong><br>
+          <p>${c.commentary}</p>
+        </div>`;
+    }
+  } else {
+    commentsHtml = `<p>Aucun commentaire pour ce film. Soyez le premier à en laisser un !</p>`;
+  }
+
+  const commentForm = `
+    <textarea id="comment-text" placeholder="Écrivez votre commentaire ici..." rows="3" style="width: 100%; margin-top: 1rem;"></textarea>
+    <button onclick="C.handlerSubmitComment(${id_user}, ${movie.id})">Envoyer</button>
+  `;
+
   movieHtml += `
-    <div class="notation">
-      ${
-        !dejaNote
-          ? `
-        <label for="note-select">Attribuez une note :</label>
-        <select id="note-select">
-          <option value="">--Choisissez--</option>
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <button onclick="C.handlerSubmitNote(${movie.id})">Valider</button>
-      `
-          : `<p class="already-noted">Vous avez déjà noté ce film.</p>`
-      }
+    <div class="commentaire">
+      <h3>Commentaires</h3>
+      <div id="comments-container">${commentsHtml}</div>
+      <div id="comment-form">${commentForm}</div>
     </div>
   `;
 
