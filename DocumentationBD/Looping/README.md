@@ -49,3 +49,7 @@ Pour la quinzième itération, il nous est demandé de gérer un système de com
 - **`time_post`** : Un champ de type `DATETIME`` qui permettra de stocker la date et l'heure de publication du commentaire.
 
 Cette structure permet une gestion efficace et évolutive du système de commentaire dans notre base de données.
+
+## Itération 16
+
+Pour la seizième itération, il nous est demandé de gérer les commentaires. J'ai donc décidé d'ajouter à ma table **`Comment`** un attribut **`status`** qui aura pour type **`BOOL`** et qui prendra **`True`** si le commentaire doit apparaître dans les détails, **`False** si le cas contraire.
