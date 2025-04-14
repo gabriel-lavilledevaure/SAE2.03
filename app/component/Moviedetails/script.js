@@ -32,12 +32,13 @@ Moviedetails.format = function (
       const imgSrc = c.user_image
         ? `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/${c.user_image}`
         : "";
+
       commentsHtml += `
-        <div class="comment" style="display: flex; align-items: center; margin-bottom: 1rem;">
-          <img src="${imgSrc}" alt="profil" width="40" height="40" style="border-radius: 50%; margin-right: 0.5rem;">
-          <div>
-            <strong>${auteur}</strong><br>
-            <p>${c.commentary}</p>
+        <div class="commentaire__item">
+          <img class="commentaire__avatar" src="${imgSrc}" alt="profil" />
+          <div class="commentaire__content">
+            <span class="commentaire__auteur">${auteur}</span>
+            <p class="commentaire__texte">${c.commentary}</p>
           </div>
         </div>`;
     }
@@ -46,17 +47,18 @@ Moviedetails.format = function (
   }
 
   const commentForm = `
-    <textarea id="comment-text" placeholder="Écrivez votre commentaire ici..." rows="3" style="width: 100%; margin-top: 1rem;"></textarea>
-    <button onclick="C.handlerSubmitComment(${id_user}, ${movie.id})">Envoyer</button>
-  `;
+  <div class="commentaire__form">
+    <textarea id="comment-text" class="commentaire__textarea" placeholder="Écrivez votre commentaire ici..." rows="3"></textarea>
+    <button class="commentaire__button" onclick="C.handlerSubmitComment(${id_user}, ${movie.id})">Envoyer</button>
+  </div>`;
 
   movieHtml += `
-    <div class="commentaire">
-      <h3>Commentaires</h3>
-      <div id="comments-container">${commentsHtml}</div>
-      <div id="comment-form">${commentForm}</div>
-    </div>
-  `;
+  <div class="commentaire">
+    <h3 class="commentaire__titre">Commentaires</h3>
+    <div id="comments-container" class="commentaire__liste">${commentsHtml}</div>
+    ${commentForm}
+  </div>
+`;
 
   return movieHtml;
 };
