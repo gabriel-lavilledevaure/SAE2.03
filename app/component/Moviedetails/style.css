@@ -215,6 +215,13 @@
   color: var(--color-black);
 }
 
+.commentaire__date {
+  font-size: 0.85rem;
+  color: var(--color-gray-light);
+  margin-left: 0.5rem;
+  font-style: italic;
+}
+
 @media (min-width: 64rem) {
   .details {
     flex-direction: row;

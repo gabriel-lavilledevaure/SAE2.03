@@ -52,11 +52,13 @@
     function getComment($id_movie)
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
-        $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, 
-                       User.name AS user_name, User.image AS user_image
-                FROM Comment 
-                LEFT JOIN User ON Comment.id_user = User.id 
-                WHERE Comment.id_movie = :id_movie';
+
+        $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, Comment.time_post,
+               User.name AS user_name, User.image AS user_image
+        FROM Comment 
+        LEFT JOIN User ON Comment.id_user = User.id 
+        WHERE Comment.id_movie = :id_movie
+        ORDER BY Comment.time_post DESC';
 
         $stmt = $cnx->prepare($sql);
         $stmt->bindParam(':id_movie', $id_movie, PDO::PARAM_INT);
@@ -253,8 +255,8 @@
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
 
-        $sql = 'INSERT INTO Comment (id_user, id_movie, commentary) 
-                VALUES (:id_user, :id_movie, :commentary)';
+        $sql = 'INSERT INTO Comment (id_user, id_movie, commentary, time_post) 
+        VALUES (:id_user, :id_movie, :commentary, NOW())';
 
         $stmt = $cnx->prepare($sql);
 

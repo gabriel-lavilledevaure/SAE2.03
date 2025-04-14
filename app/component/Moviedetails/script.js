@@ -28,6 +28,12 @@ Moviedetails.format = function (
   let commentsHtml = "";
   if (comments.length) {
     for (let c of comments) {
+      const dateObj = new Date(c.time_post);
+      const dateLocale = dateObj.toLocaleString("fr-FR", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      });
+
       const auteur = c.user_name ? c.user_name : `Utilisateur ${c.id_user}`;
       const imgSrc = c.user_image
         ? `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/${c.user_image}`
@@ -38,6 +44,7 @@ Moviedetails.format = function (
           <img class="commentaire__avatar" src="${imgSrc}" alt="profil" />
           <div class="commentaire__content">
             <span class="commentaire__auteur">${auteur}</span>
+            <span class="commentaire__date">${dateLocale}</span>
             <p class="commentaire__texte">${c.commentary}</p>
           </div>
         </div>`;
