@@ -56,14 +56,19 @@ function readControllerProfiles()
 }
 
 /**
- * Fonction de contrôle pour lire les commentaires.
+ * Fonction de contrôle pour lire les commentaires d’un film spécifique.
  *
- * @return array|false Les profils ou false en cas d'erreur.
+ * @return array|false Les commentaires ou false en cas d'erreur.
  */
 function readCommentController()
 {
-  $commentarys = getComment();
-  return $commentarys;
+  $id_movie = $_REQUEST['id_movie'] ?? null;
+
+  if (empty($id_movie) || !is_numeric($id_movie)) {
+    return false;
+  }
+
+  return getComment($id_movie);
 }
 
 /**

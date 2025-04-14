@@ -49,17 +49,18 @@
      *
      * @return array Un tableau d'objets contenant les informations des utilisateurs
      */
-    function getComment()
+    function getComment($id_movie)
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
-        $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, User.name AS user_name, Movie.name AS movie_name 
+        $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, User.name AS user_name 
                 FROM Comment 
                 INNER JOIN User ON Comment.id_user = User.id 
-                INNER JOIN Movie ON Comment.id_movie = Movie.id';
+                WHERE Comment.id_movie = :id_movie';
 
-        $answer = $cnx->query($sql);
-        $res = $answer->fetchAll(PDO::FETCH_OBJ);
-        return $res;
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':id_movie', $id_movie, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     /**
