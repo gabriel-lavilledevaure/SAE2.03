@@ -468,3 +468,36 @@
         $count = $stmt->fetchColumn();
         return $count > 0;
     }
+
+    function getCommentAttente()
+    {
+        $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+        $sql = 'SELECT Comment.id, Comment.commentary, Comment.time_post, Comment.status,
+                   User.name AS user_name, User.image AS user_image
+            FROM Comment
+            LEFT JOIN User ON Comment.id_user = User.id
+            WHERE Comment.status = 0
+            ORDER BY Comment.time_post DESC';
+
+        $stmt = $cnx->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    function approveComment($id)
+    {
+        $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+        $sql = 'UPDATE Comment SET status = 1 WHERE id = :id';
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    function removeComment($id)
+    {
+        $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+        $sql = 'DELETE FROM Comment WHERE id = :id';
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }

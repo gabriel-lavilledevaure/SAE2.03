@@ -382,3 +382,33 @@ function checkUserNoteController()
   $noted = checkUserNote($id_user, $id_movie);
   return ['dejaNote' => $noted];
 }
+
+// Lire les commentaires non modérés (status = 0)
+function readCommentAttenteController()
+{
+  return getCommentAttente();
+}
+
+// Marquer un commentaire comme approuvé (status = 1)
+function approveCommentController()
+{
+  $id = $_REQUEST['id'] ?? null;
+  if (!$id || !is_numeric($id)) {
+    return 'Erreur : ID invalide.';
+  }
+
+  $ok = approveComment($id);
+  return $ok ? 'Le commentaire a été approuvé avec succès.' : 'Erreur lors de l’approbation.';
+}
+
+// Supprimer un commentaire
+function removeCommentController()
+{
+  $id = $_REQUEST['id'] ?? null;
+  if (!$id || !is_numeric($id)) {
+    return 'Erreur : ID invalide.';
+  }
+
+  $ok = removeComment($id);
+  return $ok ? 'Le commentaire a été supprimé avec succès.' : 'Erreur lors de la suppression.';
+}

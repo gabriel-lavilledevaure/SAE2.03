@@ -135,6 +135,18 @@
           $data = checkUserNoteController();
           break;
 
+        case 'getCommentAttente':
+          $data = readCommentAttenteController();
+          break;
+
+        case 'approveComment':
+          $data = approveCommentController();
+          break;
+
+        case 'removeComment':
+          $data = removeCommentController();
+          break;
+
         default:
           echo json_encode('[error] Unknown todo value');
           http_response_code(400);
