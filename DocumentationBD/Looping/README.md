@@ -56,4 +56,4 @@ Pour la seizième itération, il nous est demandé de gérer les commentaires. J
 
 ## Itération 17
 
-Pour la dix-septième itération, il nous est demandé d'afficher les films ajoutés il y a moins de 7 jours comme "New". J'ai donc décidé d'ajouter à ma table **`Movie`** un attribut **`date_ajout`** qui aura pour type **`DATE`** et qui stockera la date à laquelle le film est ajouté à la base de donnée.
+Pour la dix-septième itération, il nous est demandé d'afficher les films ajoutés il y a moins de 7 jours comme "New". J'ai donc décidé d'ajouter à ma table **`Movie`** un attribut **`date_ajout`** qui aura pour type **`DATE`** avec valeur par défaut **`CURRENT_TIME`** et qui stockera la date à laquelle le film est ajouté à la base de donnée.
