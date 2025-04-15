@@ -125,38 +125,39 @@
       };
 
       /*
-       * C.handlerLoadComments
+       * C.handlerComments
        *
        * Cette fonction est responsable du chargement des commentaires.
        * Elle récupère les commentaires depuis la base de données et les affiche.
        */
-      C.handlerLoadComments = async function () {
+      C.handlerComments = async function () {
         const comments = await DataComment.getComments();
         V.renderComments(comments);
       };
 
       /*
-       * C.handlerLoadComments
+       * C.handlerApproveComment
        *
-       * Cette fonction est responsable du chargement des commentaires.
-       * Elle récupère les commentaires depuis la base de données et les affiche.
+       * Cette fonction est responsable de l'approbation d'un commentaire.
+       * Elle met à jour le statut du commentaire dans la base de données
+       * et met à jour l'affichage des commentaires.
        */
       C.handlerApproveComment = async function (id) {
         const res = await DataComment.approveComment(id);
         V.renderLog(res);
-        C.handlerLoadComments();
+        C.handlerComments();
       };
 
       /*
-       * C.handlerLoadComments
+       * C.handlerDeleteComment
        *
-       * Cette fonction est responsable du chargement des commentaires.
-       * Elle récupère les commentaires depuis la base de données et les affiche.
+       * Cette fonction est responsable de la suppression d'un commentaire.
+       * Elle supprime le commentaire de la base de données et met à jour l'affichage.
        */
       C.handlerDeleteComment = async function (id) {
         const res = await DataComment.removeComment(id);
         V.renderLog(res);
-        C.handlerLoadComments();
+        C.handlerComments();
       };
 
       /*
@@ -174,7 +175,7 @@
           "C.handlerUpdateUser()"
         );
         V.renderSearchBar();
-        C.handlerLoadComments();
+        C.handlerComments();
       };
 
       window.V = {};
