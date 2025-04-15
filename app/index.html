@@ -16,27 +16,18 @@
     <section class="cards" id="content"></section>
 
     <script type="module">
-      // Importation de la NavBar
       import { NavBar } from "./component/NavBar/script.js";
-      // Importation de la NavBar
       import { SearchBar } from "./component/SearchBar/script.js";
-      // Importation du composant Movie
       import { Movie } from "./component/Movie/script.js";
-      // Importation du composant MovieReco
       import { MovieReco } from "./component/MovieReco/script.js";
-      // Importation du composant Moviedetails
       import { Moviedetails } from "./component/Moviedetails/script.js";
-      // Importation du composant Moviecategorie
       import { Moviecategorie } from "./component/Moviecategorie/script.js";
-      // Importation de la DataMovie
       import { DataMovie } from "./data/dataMovie.js";
-      // Importation de la DataProfile
       import { DataProfile } from "./data/dataProfile.js";
 
       // Controleur
       window.C = {};
 
-      // Stocke l'âge de l'utilisateur sélectionné
       C.userAge = null;
 
       /* C.getMovie
@@ -171,6 +162,10 @@
         V.renderMovie(data);
       };
 
+      /*
+        C.handlerSubmitComment
+        La fonction enregistre le commentaire d'un film pour un utilisateur sélectionné
+      */
       C.handlerSubmitComment = async function (_, id_movie) {
         const textarea = document.getElementById("comment-text");
         const commentaire = textarea.value.trim();
@@ -181,7 +176,7 @@
         }
 
         const select = document.querySelector("#profile-select");
-        const id_user = select.selectedOptions[0].dataset.id; // 🔥 CORRECT ici
+        const id_user = select.selectedOptions[0].dataset.id;
 
         const result = await DataMovie.addComment(
           id_user,
