@@ -39,12 +39,22 @@
         infosSection.style.display = "none";
 
         const tags = document.querySelectorAll(".categorie__tag");
-        for (let i = 0; i < tags.length; i++) {
-          tags[i].classList.remove("active");
+        tags.forEach((tag) => tag.classList.remove("active"));
+
+        const recosSection = document.querySelector("#recos");
+        if (recosSection.dataset.filledWith === "details") {
+          await C.getMoviesReco();
+          delete recosSection.dataset.filledWith;
         }
 
-        let data = await DataMovie.requestMovies();
-        V.renderMovie(data);
+        if (C.userAge !== null) {
+          const data = await DataMovie.requestMoviesByAge(C.userAge);
+          V.renderMovie(data);
+        } else {
+          // Si l'âge n'est pas défini, fallback sur tous les films
+          const data = await DataMovie.requestMovies();
+          V.renderMovie(data);
+        }
 
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
@@ -354,19 +364,25 @@
       /**
        * V.renderMovieDetail
        *
-       * Cette fonction est responsable de l'affichage de la liste des films.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant Movie.
+       * Cette fonction affiche les détails d’un film dans la section des recommandations (#recos).
+       * Elle masque la section #infos pour éviter l’affichage en double.
        */
       V.renderMovieDetail = function (movie, moyenne, dejaNote, comments) {
-        const content = document.querySelector("#infos");
-        content.style.display = "block";
-        content.innerHTML = Moviedetails.format(
+        const infosSection = document.querySelector("#infos");
+        infosSection.innerHTML = "";
+        infosSection.style.display = "none";
+
+        const recosSection = document.querySelector("#recos");
+        recosSection.innerHTML = Moviedetails.format(
           movie,
           moyenne,
           dejaNote,
           comments
         );
+
+        recosSection.dataset.filledWith = "details";
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
       };
 
       /**
