@@ -53,3 +53,7 @@ Cette structure permet une gestion efficace et évolutive du système de comment
 ## Itération 16
 
 Pour la seizième itération, il nous est demandé de gérer les commentaires. J'ai donc décidé d'ajouter à ma table **`Comment`** un attribut **`status`** qui aura pour type **`BOOL`** et qui prendra **`True`** si le commentaire doit apparaître dans les détails, **`False** si le cas contraire.
+
+## Itération 17
+
+Pour la dix-septième itération, il nous est demandé d'afficher les films ajoutés il y a moins de 7 jours comme "New". J'ai donc décidé d'ajouter à ma table **`Movie`** un attribut **`date_ajout`** qui aura pour type **`DATE`** et qui stockera la date à laquelle le film est ajouté à la base de donnée.
