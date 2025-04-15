@@ -51,7 +51,6 @@
           const data = await DataMovie.requestMoviesByAge(C.userAge);
           V.renderMovie(data);
         } else {
-          // Si l'âge n'est pas défini, fallback sur tous les films
           const data = await DataMovie.requestMovies();
           V.renderMovie(data);
         }
@@ -252,7 +251,7 @@
         La fonction affiche sur la page la collection de films correspondant à la recherche
       */
       C.handlerSearchBar = async function (valeur) {
-        if (!valeur || valeur.trim().length === 0) {
+        if (!valeur || valeur.length === 0) {
           return C.getMovie();
         }
 
@@ -267,15 +266,14 @@
       C.handlerSubmitNote = async function (id_movie) {
         const select = document.querySelector("#profile-select");
         const noteSelect = document.querySelector("#note-select");
-        if (!select || !noteSelect) return; // Vérifie si les éléments existent
-
-        const id_user = select.selectedIndex + 1; // On récupère l'ID de l'utilisateur sélectionné
-        const note = noteSelect.value; // On récupère la note sélectionnée
+        if (!select || !noteSelect) return;
+        const id_user = select.selectedIndex + 1;
+        const note = noteSelect.value;
 
         if (!["0", "1", "2", "3", "4", "5"].includes(note)) {
           alert("Veuillez sélectionner une note valide.");
           return;
-        } // Vérifie si la note est valide entre 0 et 5
+        }
 
         const response = await DataMovie.addNote(id_user, id_movie, note);
         if (response.error) {
@@ -310,7 +308,6 @@
 
         C.getMovie();
 
-        // On affiche la barre de recherche dans la nav
         let searchbar = SearchBar.format();
         await V.renderNavBar("C.handlerMovies()", searchbar);
       };
