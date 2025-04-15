@@ -25,6 +25,28 @@ Moviedetails.format = function (
   const select = document.querySelector("#profile-select");
   const id_user = parseInt(select.dataset.id);
 
+  let noteForm = "";
+  if (!dejaNote) {
+    noteForm = `
+      <div class="details__note-form">
+        <label for="note-select">Notez ce film :</label>
+        <select id="note-select">
+          <option value="">-- Choisissez une note --</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button onclick="C.handlerSubmitNote(${movie.id})">Noter</button>
+      </div>`;
+  } else {
+    noteForm = `<p class="details__note-already">Vous avez déjà noté ce film ✅</p>`;
+  }
+
+  movieHtml = movieHtml.replace("{{noteForm}}", noteForm);
+
   let commentsHtml = "";
   if (comments.length) {
     for (let c of comments) {
