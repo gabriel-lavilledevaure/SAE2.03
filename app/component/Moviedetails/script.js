@@ -23,7 +23,7 @@ Moviedetails.format = function (
   movieHtml = movieHtml.replace("{{moyenne}}", noteMoyenne ?? "Aucune note");
 
   const select = document.querySelector("#profile-select");
-  const id_user = parseInt(select.dataset.id);
+  const id_user = parseInt(select.value);
 
   let noteForm = "";
   if (!dejaNote) {
