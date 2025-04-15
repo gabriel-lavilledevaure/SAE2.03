@@ -12,6 +12,7 @@
     <section id="addUser"></section>
     <section id="updateUser"></section>
     <section id="searchbar"></section>
+    <section id="Comment"></section>
 
     <script type="module">
       // Importation des modules
@@ -22,6 +23,8 @@
       import { SearchBar } from "./component/SearchBar/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
+      import { DataComment } from "./data/dataComment.js";
+      import { Comment } from "./component/Comment/script.js";
 
       window.C = {};
 
@@ -122,6 +125,41 @@
       };
 
       /*
+       * C.handlerLoadComments
+       *
+       * Cette fonction est responsable du chargement des commentaires.
+       * Elle récupère les commentaires depuis la base de données et les affiche.
+       */
+      C.handlerLoadComments = async function () {
+        const comments = await DataComment.getComments();
+        V.renderComments(comments);
+      };
+
+      /*
+       * C.handlerLoadComments
+       *
+       * Cette fonction est responsable du chargement des commentaires.
+       * Elle récupère les commentaires depuis la base de données et les affiche.
+       */
+      C.handlerApproveComment = async function (id) {
+        const res = await DataComment.approveComment(id);
+        V.renderLog(res);
+        C.handlerLoadComments();
+      };
+
+      /*
+       * C.handlerLoadComments
+       *
+       * Cette fonction est responsable du chargement des commentaires.
+       * Elle récupère les commentaires depuis la base de données et les affiche.
+       */
+      C.handlerDeleteComment = async function (id) {
+        const res = await DataComment.removeComment(id);
+        V.renderLog(res);
+        C.handlerLoadComments();
+      };
+
+      /*
        * C.start
        *
        * Cette fonction est responsable du démarrage de l'application.
@@ -136,6 +174,7 @@
           "C.handlerUpdateUser()"
         );
         V.renderSearchBar();
+        C.handlerLoadComments();
       };
 
       window.V = {};
@@ -204,6 +243,22 @@
       V.renderSearchBar = async function () {
         let content = document.querySelector("#searchbar");
         content.innerHTML = SearchBar.format(); // pas besoin de passer movies
+      };
+
+      /*
+       * V.renderComments
+       *
+       * Cette fonction est responsable de l'affichage des commentaires.
+       * Elle sélectionne l'élément HTML avec l'ID "Comment" et y insère le contenu
+       * formaté par le composant Comment.
+       */
+      V.renderComments = function (data) {
+        const container = document.getElementById("Comment");
+        container.innerHTML = Comment.format(
+          data,
+          "C.handlerApproveComment",
+          "C.handlerDeleteComment"
+        );
       };
 
       // Lancement
