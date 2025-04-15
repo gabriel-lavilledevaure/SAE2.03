@@ -22,7 +22,7 @@
     function getMovie()
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
-        $sql = 'SELECT id, name, image, reco FROM Movie';
+        $sql = 'SELECT id, name, image, reco, date_ajout FROM Movie';
 
         $answer = $cnx->query($sql);
         $res = $answer->fetchAll(PDO::FETCH_OBJ);
