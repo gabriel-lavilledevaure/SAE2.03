@@ -192,13 +192,6 @@
         if (result?.includes("succès")) {
           alert("Commentaire ajouté !");
           textarea.value = "";
-          const comments = await DataMovie.getCommentsMovie(id_movie);
-          V.renderMovieDetail(
-            await DataMovie.requestMoviedetails(id_movie)[0],
-            null,
-            false,
-            comments
-          ); // mise à jour
         } else {
           alert("Erreur lors de l'envoi du commentaire.");
         }
