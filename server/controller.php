@@ -383,32 +383,44 @@ function checkUserNoteController()
   return ['dejaNote' => $noted];
 }
 
-// Lire les commentaires non modérés (status = 0)
+/**
+ * Fonction de contrôle pour lire les commentaires en attente d'approbation.
+ *
+ * @return array|false Les commentaires ou false en cas d'erreur.
+ */
 function readCommentAttenteController()
 {
   return getCommentAttente();
 }
 
-// Marquer un commentaire comme approuvé (status = 1)
+/**
+ * Fonction de contrôle pour approuver un commentaire.
+ *
+ * @return string Message de succès ou d'erreur.
+ */
 function approveCommentController()
 {
   $id = $_REQUEST['id'] ?? null;
   if (!$id || !is_numeric($id)) {
-    return 'Erreur : ID invalide.';
+    return "Erreur, l'id du commentaire n'est pas un nombre.";
   }
 
   $ok = approveComment($id);
-  return $ok ? 'Le commentaire a été approuvé avec succès.' : 'Erreur lors de l’approbation.';
+  return $ok ? 'Le commentaire a été approuvé avec succès.' : 'Erreur lors de l’approbation du commentaire.';
 }
 
-// Supprimer un commentaire
+/**
+ * Fonction de contrôle pour supprimer un commentaire.
+ *
+ * @return string Message de succès ou d'erreur.
+ */
 function removeCommentController()
 {
   $id = $_REQUEST['id'] ?? null;
   if (!$id || !is_numeric($id)) {
-    return 'Erreur : ID invalide.';
+    return "Erreur, l'id du commentaire n'est pas un nombre.";
   }
 
   $ok = removeComment($id);
-  return $ok ? 'Le commentaire a été supprimé avec succès.' : 'Erreur lors de la suppression.';
+  return $ok ? 'Le commentaire a été supprimé avec succès.' : 'Erreur lors de la suppression du commentaire.';
 }

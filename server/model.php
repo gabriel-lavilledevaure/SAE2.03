@@ -54,11 +54,12 @@
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
 
         $sql = 'SELECT Comment.id_user, Comment.id_movie, Comment.commentary, Comment.time_post,
-               User.name AS user_name, User.image AS user_image
-        FROM Comment 
-        LEFT JOIN User ON Comment.id_user = User.id 
-        WHERE Comment.id_movie = :id_movie
-        ORDER BY Comment.time_post DESC';
+        User.name AS user_name, User.image AS user_image
+ FROM Comment 
+ LEFT JOIN User ON Comment.id_user = User.id 
+ WHERE Comment.id_movie = :id_movie
+   AND Comment.status = 1
+ ORDER BY Comment.time_post DESC';
 
         $stmt = $cnx->prepare($sql);
         $stmt->bindParam(':id_movie', $id_movie, PDO::PARAM_INT);
@@ -469,6 +470,11 @@
         return $count > 0;
     }
 
+    /**
+     * Fonction pour récupérer les commentaires en attente d'approbation
+     *
+     * @return array Un tableau d'objets contenant les commentaires en attente
+     */
     function getCommentAttente()
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
@@ -484,6 +490,12 @@
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * Fonction pour approuver un commentaire
+     *
+     * @param int $id L'identifiant du commentaire
+     * @return bool True si l'approbation a réussi, sinon false
+     */
     function approveComment($id)
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
@@ -493,6 +505,12 @@
         return $stmt->execute();
     }
 
+    /**
+     * Fonction pour supprimer un commentaire
+     *
+     * @param int $id L'identifiant du commentaire
+     * @return bool True si la suppression a réussi, sinon false
+     */
     function removeComment($id)
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);

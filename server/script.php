@@ -23,6 +23,10 @@
      * Il contient les fonctions nécessaires pour traiter chaque type de requête
      * et définir la réponnse à renvoyer au client.
      */
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     require ('controller.php');
 
     /**
