@@ -16,6 +16,19 @@
   cursor: pointer;
 }
 
+.card__new {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: crimson;
+  color: white;
+  font-size: 0.75rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+  z-index: 1;
+  font-weight: bold;
+}
+
 .card:hover {
   transform: scale(1.03);
   box-shadow: var(--shadow-hover);

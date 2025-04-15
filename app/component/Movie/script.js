@@ -13,6 +13,20 @@ Movie.format = function (movies, isLikesPage = false) {
     let movie = movies[i];
     let movieHtml = template;
 
+    let now = new Date();
+    let movieDate = new Date(movie.date_ajout);
+    let diffInDays = (now - movieDate) / (1000 * 60 * 60 * 24);
+    let isNew = diffInDays <= 7;
+
+    if (isNew) {
+      movieHtml = movieHtml.replace(
+        "{{new}}",
+        `<span class="card__new">NOUVEAU</span>`
+      );
+    } else {
+      movieHtml = movieHtml.replace("{{new}}", "");
+    }
+
     movieHtml = movieHtml.replace("{{titre}}", movie.name);
     movieHtml = movieHtml.replace("{{image}}", movie.image);
     movieHtml = movieHtml.replace("{{id}}", movie.id);
