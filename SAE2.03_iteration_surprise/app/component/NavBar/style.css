@@ -1,4 +1,3 @@
-/* === NAVBAR BASE === */
 .navbar {
   position: fixed;
   top: 0;
@@ -12,11 +11,11 @@
   padding: 1rem 2rem;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.8),
-    rgba(0, 0, 0, 0)
-  ); /* Dégradé noir en haut et transparent en bas */
-  color: #ffffff;
-  font-family: "Poppins", sans-serif;
+    rgba(var(--color-black-rgb), 0.8),
+    rgba(var(--color-black-rgb), 0)
+  );
+  color: var(--color-fg);
+  font-family: var(--ff-sans);
 }
 
 .navbar__logo {
@@ -38,7 +37,7 @@
 }
 
 .navbar__item {
-  color: #ffffff;
+  color: var(--color-fg);
   font-weight: 600;
   font-size: 0.95rem;
   text-transform: uppercase;
@@ -49,7 +48,7 @@
 }
 
 .navbar__item:hover {
-  color: #99f2fc;
+  color: var(--color-yellow-fluo);
 }
 
 .navbar__item.active::before {
@@ -59,7 +58,7 @@
   left: 25%;
   width: 50%;
   height: 0.25rem;
-  background-color: #f1ff3b;
+  background-color: var(--color-yellow-fluo);
   border-radius: 2px;
 }
 
@@ -82,21 +81,20 @@
 .navbar__select {
   padding: 0.4rem 0.75rem;
   font-size: 1rem;
-  background-color: #1a1a1a;
-  border: 1px solid #444;
+  background-color: #1a1a1a; /* à créer si besoin : --color-gray-darker */
+  border: 1px solid #444; /* idem : une var pour les bordures si voulu */
   border-radius: 0.5rem;
-  color: #fff;
+  color: var(--color-white);
 }
 
 .navbar__picture {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid var(--color-white);
   object-fit: cover;
 }
 
-/* === BURGER MENU === */
 .burger {
   display: none;
   cursor: pointer;
@@ -106,7 +104,7 @@
 .burger__line {
   transition: all 0.4s ease;
   transform-origin: center;
-  stroke: white;
+  stroke: var(--color-white);
   stroke-width: 2;
   stroke-linecap: round;
 }
@@ -121,7 +119,6 @@ body.nav-open .burger__line:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* === RESPONSIVE === */
 @media (max-width: 48rem) {
   .burger {
     display: block;
@@ -133,7 +130,7 @@ body.nav-open .burger__line:nth-child(3) {
     right: -100%;
     height: 100vh;
     width: 280px;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(var(--color-black-rgb), 0.95);
     backdrop-filter: blur(10px);
     padding: 2rem 1rem;
     flex-direction: column;

@@ -2,18 +2,21 @@
 
 :root {
   /* Primitive Tokens */
-  --color-black: #000000;
-  --color-white: #ffffff;
-  --color-purple: #800080;
-  --color-purple-light: #5d2de6;
-  --colro-gray-dark: #021214;
-  --color-gray-light: #d1d3d4;
-  --color-yellow-fluo: #d2ff00;
-  --color-pink: #fb3aa2;
+  --color-black: hsl(0, 0%, 0%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-purple: hsl(300, 100%, 25%);
+  --color-purple-light: hsl(255, 77%, 53%);
+  --color-gray-dark: hsl(186, 84%, 4%);
+  --color-gray-light: hsl(210, 3%, 83%);
+  --color-yellow-fluo: hsl(73, 100%, 50%);
+  --color-pink: hsl(330, 96%, 60%);
+
+  --color-bg-start: hsl(186, 84%, 4%);
+  --color-bg-end: hsl(186, 82%, 5%);
 
   --ff-sans: "Poppins", sans-serif;
 
-  /* Sementic Tokens */
+  /* Semantic Tokens */
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
 }
