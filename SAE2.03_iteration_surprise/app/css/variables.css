@@ -1,35 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 :root {
   /* Primitive Tokens */
-  --color-black: hsl(0, 0%, 5%);
-  --color-white: hsl(0, 0%, 100%);
-  --color-gray-light: hsl(0, 0%, 80%);
-  --color-gray: hsl(0, 0%, 50%);
-  --color-gray-dark: hsl(0, 0%, 20%);
-  --color-gray-darker: hsl(0, 0%, 10%);
-  --color-gray-darkest: hsl(0, 0%, 5%);
-  --color-green-light: hsl(120, 100%, 61%);
-  --color-green: hsl(120, 100%, 51%);
-  --color-green-dark: hsl(120, 100%, 41%);
-  --color-purple-light: hsl(240, 100%, 61%);
-  --color-purple: hsl(240, 100%, 51%);
-  --color-purple-dark: hsl(240, 100%, 41%);
-  --color-orange-light: hsl(30, 100%, 61%);
-  --color-orange: hsl(30, 100%, 51%);
-  --color-blue-light: hsl(220, 90%, 66%);
-  --color-blue: hsl(220, 90%, 56%);
-  --color-blue-dark: hsl(220, 90%, 46%);
-  --color-red-light: hsl(340, 82%, 62%);
-  --color-red: hsl(340, 82%, 52%);
-  --color-red-dark: hsl(340, 82%, 42%);
-  --color-yellow-light: hsl(45, 100%, 61%);
-  --color-yellow: hsl(45, 100%, 51%);
-  --color-yellow-dark: hsl(45, 100%, 41%);
-  --color-yellow-dark: hsl(45, 100%, 41%);
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-purple: #800080;
+  --color-purple-light: #5d2de6;
+  --colro-gray-dark: #021214;
+  --color-gray-light: #d1d3d4;
+  --color-yellow-fluo: #d2ff00;
+  --color-pink: #fb3aa2;
 
-  --ff-sans: "DM sans", sans-serif;
-  --ff-serif: "DM Serif Display", serif;
+  --ff-sans: "Poppins", sans-serif;
 
   /* Sementic Tokens */
   --color-fg: var(--color-white);

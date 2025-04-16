@@ -30,6 +30,20 @@
 
       C.userAge = null;
 
+      /*
+        C.setActiveNavbar
+        La fonction permet de mettre à jour la barre de navigation en fonction de l'élément cliqué.
+        Elle supprime la classe "active" de tous les éléments et l'ajoute à l'élément correspondant.
+      */
+      C.setActiveNavbar = function (label) {
+        const items = document.querySelectorAll(".navbar__item");
+        items.forEach((item) => item.classList.remove("active"));
+        const target = Array.from(items).find(
+          (el) => el.textContent.trim().toLowerCase() === label.toLowerCase()
+        );
+        if (target) target.classList.add("active");
+      };
+
       /* C.getMovie
           La fonction affiche sur la page la collection de films par défaut
         */
@@ -56,6 +70,7 @@
         }
 
         window.scrollTo({ top: 0, behavior: "smooth" });
+        C.setActiveNavbar("Accueil");
       };
 
       /*

@@ -1,20 +1,51 @@
 <nav class="navbar font-sans">
-  <ul class="navbar__list">
-    <li class="navbar__item" onclick="{{hAbout}}">Accueil</li>
-  </ul>
-  {{searchbar}}
-  <div class="navbar__profile">
-    <label class="navbar__label">Profil :</label>
-    <select id="profile-select" class="navbar__select" onchange="{{handler}}">
-      {{options}}
-    </select>
+  <!-- Logo (toujours visible) -->
+  <img
+    class="navbar__logo"
+    src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/SAE2.03_iteration_surprise/server/images/starz-logo-glint.svg"
+    alt="Logo Starz"
+  />
 
-    <img
-      id="profile-picture"
-      class="navbar__picture"
-      src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/{{image}}"
-      alt="Photo de profil"
-      onclick="{{handlerLikes}}"
-    />
+  <!-- Menu burger (mobile) -->
+  <div
+    class="burger"
+    id="burger"
+    onclick="document.body.classList.toggle('nav-open')"
+  >
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <line class="burger__line" x1="2" y1="7" x2="30" y2="7" />
+      <line class="burger__line" x1="2" y1="16" x2="30" y2="16" />
+      <line class="burger__line" x1="2" y1="25" x2="30" y2="25" />
+    </svg>
+  </div>
+
+  <!-- Contenu du menu (mobile & desktop) -->
+  <div class="navbar__menu">
+    <ul class="navbar__list">
+      <li
+        class="navbar__item"
+        onclick="{{hAbout}}; C.setActiveNavbar('Accueil')"
+      >
+        Accueil
+      </li>
+    </ul>
+
+    <!-- Searchbar affichée même en mobile -->
+    <div class="navbar__search">{{searchbar}}</div>
+
+    <div class="navbar__profile">
+      <label class="navbar__label">Profil :</label>
+      <select id="profile-select" class="navbar__select" onchange="{{handler}}">
+        {{options}}
+      </select>
+
+      <img
+        id="profile-picture"
+        class="navbar__picture"
+        src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/SAE2.03_iteration_surprise/server/images/{{image}}"
+        alt="Photo de profil"
+        onclick="{{handlerLikes}}"
+      />
+    </div>
   </div>
 </nav>
