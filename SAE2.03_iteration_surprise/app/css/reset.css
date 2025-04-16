@@ -29,7 +29,7 @@ dd {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--color-black);
+  background: linear-gradient(to bottom left, #061a1e, #071e21);
   color: var(--color-white);
   font-family: var(--ff-sans);
   line-height: 1.5;

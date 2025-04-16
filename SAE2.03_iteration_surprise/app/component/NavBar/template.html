@@ -6,7 +6,7 @@
     alt="Logo Starz"
   />
 
-  <!-- Menu burger (mobile) -->
+  <!-- Burger menu -->
   <div
     class="burger"
     id="burger"
@@ -19,8 +19,9 @@
     </svg>
   </div>
 
-  <!-- Contenu du menu (mobile & desktop) -->
+  <!-- Menu (mobile & desktop) -->
   <div class="navbar__menu">
+    <!-- Liste des liens -->
     <ul class="navbar__list">
       <li
         class="navbar__item"
@@ -28,11 +29,13 @@
       >
         Accueil
       </li>
+      <!-- Tu peux ajouter ici d'autres liens si besoin -->
     </ul>
 
-    <!-- Searchbar affichée même en mobile -->
+    <!-- Barre de recherche (affichée partout) -->
     <div class="navbar__search">{{searchbar}}</div>
 
+    <!-- Profil -->
     <div class="navbar__profile">
       <label class="navbar__label">Profil :</label>
       <select id="profile-select" class="navbar__select" onchange="{{handler}}">

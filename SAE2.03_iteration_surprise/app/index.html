@@ -10,8 +10,8 @@
   <body>
     <header id="header"></header>
 
-    <section class="categorie"></section>
     <section class="recos" id="recos"></section>
+    <section class="categorie"></section>
     <section class="infos" id="infos"></section>
     <section class="cards" id="content"></section>
 
@@ -30,6 +30,33 @@
 
       C.userAge = null;
 
+      let currentSlide = 0;
+
+      /*
+        C.nextSlide
+        La fonction permet de passer à la diapositive suivante dans le carrousel.
+        Elle utilise la propriété transform pour déplacer le carrousel vers la gauche.
+      */
+      C.nextSlide = function () {
+        const slides = document.querySelectorAll(".reco__card");
+        currentSlide = (currentSlide + 1) % slides.length;
+        document.querySelector(
+          ".reco__slider"
+        ).style.transform = `translateX(-${currentSlide * 100}%)`;
+      };
+
+      /*
+        C.prevSlide
+        La fonction permet de revenir à la diapositive précédente dans le carrousel.
+        Elle utilise la propriété transform pour déplacer le carrousel vers la droite.
+      */
+      C.prevSlide = function () {
+        const slides = document.querySelectorAll(".reco__card");
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        document.querySelector(
+          ".reco__slider"
+        ).style.transform = `translateX(-${currentSlide * 100}%)`;
+      };
       /*
         C.setActiveNavbar
         La fonction permet de mettre à jour la barre de navigation en fonction de l'élément cliqué.
@@ -414,4 +441,3 @@
     </script>
   </body>
 </html>
-<script type="module"></script>
