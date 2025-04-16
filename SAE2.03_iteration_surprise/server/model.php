@@ -99,7 +99,7 @@
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
 
-        $sql = 'SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Movie.description, Category.name AS category_name
+        $sql = 'SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Movie.description,Movie.trailer, Category.name AS category_name
                 FROM Movie
                 INNER JOIN Category ON Movie.id_category = Category.id
                 WHERE Movie.reco = 1 AND Movie.min_age <= :age';
