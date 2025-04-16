@@ -1,0 +1,20 @@
+<nav class="navbar font-sans">
+  <ul class="navbar__list">
+    <li class="navbar__item" onclick="{{hAbout}}">Accueil</li>
+  </ul>
+  {{searchbar}}
+  <div class="navbar__profile">
+    <label class="navbar__label">Profil :</label>
+    <select id="profile-select" class="navbar__select" onchange="{{handler}}">
+      {{options}}
+    </select>
+
+    <img
+      id="profile-picture"
+      class="navbar__picture"
+      src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/{{image}}"
+      alt="Photo de profil"
+      onclick="{{handlerLikes}}"
+    />
+  </div>
+</nav>

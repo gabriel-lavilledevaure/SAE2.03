@@ -1,0 +1,30 @@
+<div class="details">
+  <img
+    src="https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/{{image}}"
+    alt="Affiche du film"
+    class="details__image"
+  />
+  <div class="details__content">
+    <h2 class="details__title">{{titre}}</h2>
+    <p class="details__desc">{{desc}}</p>
+    <p class="details__realisateur">Réalisateur : {{realisateur}}</p>
+    <p class="details__annee">Année : {{annee}}</p>
+    <p class="details__duree">Durée : {{duree}} minutes</p>
+    <p class="details__categorie">Catégorie : {{categorie}}</p>
+    <p class="details__age">Age minimum : {{age}} ans</p>
+    <p class="details__note-moyenne">
+      Note moyenne : <strong>{{moyenne}} / 5</strong>
+    </p>
+    {{noteForm}}
+
+    <iframe
+      class="details__trailer"
+      src="{{url}}"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    >
+    </iframe>
+  </div>
+</div>
