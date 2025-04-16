@@ -1,4 +1,4 @@
-## Installation et configuration du projet
+## Installation et configuration du projets
 
 ## Gabriel Laville--Devaure
 
