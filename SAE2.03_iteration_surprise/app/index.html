@@ -344,14 +344,16 @@
 
         await C.getMoviesReco();
 
-        V.renderMovieCategorie();
-
-        C.getMovie();
+        const data = await DataMovie.requestMoviesByAge(C.userAge);
+        V.renderMovie(data);
 
         let searchbar = SearchBar.format();
         await V.renderNavBar("C.handlerMovies()", searchbar);
-      };
 
+        V.renderMovieCategorie();
+
+        C.setActiveNavbar("Accueil");
+      };
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 

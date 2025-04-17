@@ -157,7 +157,7 @@
     function getMoviesByAge($age)
     {
         $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
-        $sql = 'SELECT id, name, image, min_age FROM Movie WHERE min_age <= :age';
+        $sql = 'SELECT id, name, image, min_age, date_ajout FROM Movie WHERE min_age <= :age';
         $stmt = $cnx->prepare($sql);
         $stmt->bindParam(':age', $age, PDO::PARAM_INT);
         $stmt->execute();
