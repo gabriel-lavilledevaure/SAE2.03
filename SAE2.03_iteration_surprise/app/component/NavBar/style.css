@@ -55,13 +55,11 @@
 
 .navbar__item.active::before {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 25%;
+  display: block;
   width: 50%;
   height: 0.25rem;
+  margin: 0 auto;
   background-color: var(--color-yellow-fluo);
-  border-radius: 2px;
 }
 
 .navbar__search {
@@ -98,7 +96,6 @@
 
 .navbar__select:focus {
   outline: none;
-  /* border-color: var(--color-yellow-fluo); */
   box-shadow: 0 0 0 3px rgba(var(--color-yellow-fluo-rgb), 0.5);
 }
 
