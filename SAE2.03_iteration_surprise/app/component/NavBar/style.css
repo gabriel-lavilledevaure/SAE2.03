@@ -81,8 +81,8 @@
 .navbar__select {
   padding: 0.4rem 0.75rem;
   font-size: 1rem;
-  background-color: #1a1a1a; /* à créer si besoin : --color-gray-darker */
-  border: 1px solid #444; /* idem : une var pour les bordures si voulu */
+  background-color: var(--color-gray-darker);
+  border: 1px solid var(--color-gray-ligther);
   border-radius: 0.5rem;
   color: var(--color-white);
 }

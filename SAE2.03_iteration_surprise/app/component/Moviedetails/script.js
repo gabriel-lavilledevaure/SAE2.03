@@ -57,9 +57,7 @@ Moviedetails.format = function (
       });
 
       const auteur = c.user_name ? c.user_name : `Utilisateur ${c.id_user}`;
-      const imgSrc = c.user_image
-        ? `https://mmi.unilim.fr/~lavilledevaur1/SAE/SAE2.03/server/images/${c.user_image}`
-        : "";
+      const imgSrc = c.user_image ? `../server/images/${c.user_image}` : "";
 
       commentsHtml += `
         <div class="commentaire__item">
