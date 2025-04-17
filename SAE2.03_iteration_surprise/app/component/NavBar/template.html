@@ -1,10 +1,23 @@
 <nav class="navbar font-sans">
+  <!-- Logo (toujours visible) -->
   <img
     class="navbar__logo"
     src="../server/images/starz-logo-glint.svg"
     alt="Logo Starz"
     onclick="{{hAbout}}; C.setActiveNavbar('Accueil')"
   />
+
+  <div
+    class="burger"
+    id="burger"
+    onclick="document.body.classList.toggle('nav-open')"
+  >
+    <svg width="32" height="32" viewBox="0 0 32 32">
+      <line class="burger__line" x1="2" y1="7" x2="30" y2="7" />
+      <line class="burger__line" x1="2" y1="16" x2="30" y2="16" />
+      <line class="burger__line" x1="2" y1="25" x2="30" y2="25" />
+    </svg>
+  </div>
 
   <div class="navbar__menu">
     <ul class="navbar__list">
@@ -31,17 +44,6 @@
         alt="Photo de profil"
         onclick="{{handlerLikes}}"
       />
-      <div
-        class="burger"
-        id="burger"
-        onclick="document.body.classList.toggle('nav-open')"
-      >
-        <svg width="32" height="32" viewBox="0 0 32 32">
-          <line class="burger__line" x1="2" y1="7" x2="30" y2="7" />
-          <line class="burger__line" x1="2" y1="16" x2="30" y2="16" />
-          <line class="burger__line" x1="2" y1="25" x2="30" y2="25" />
-        </svg>
-      </div>
     </div>
   </div>
 </nav>
