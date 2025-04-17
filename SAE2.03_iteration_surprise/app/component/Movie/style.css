@@ -9,29 +9,16 @@
 .card {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius);
-  background-color: var(--color-gray-darkest);
-  box-shadow: var(--shadow-light);
+  border-radius: 0.75rem;
+  background-color: var(--color-gray-darker);
+  box-shadow: 0 0.2rem 0.6rem hsla(0, 0%, 0%, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
-.card__new {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background-color: crimson;
-  color: white;
-  font-size: 0.75rem;
-  padding: 3px 6px;
-  border-radius: 4px;
-  z-index: 1;
-  font-weight: bold;
-}
-
 .card:hover {
   transform: scale(1.03);
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 0.4rem 1rem hsla(0, 0%, 0%, 0.5);
 }
 
 .card__image {
@@ -50,10 +37,23 @@
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
-  font-family: var(--ff-sans);
-  color: var(--color-white);
-  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.6);
+  color: var(--color-fg);
+  text-shadow: 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.6);
   z-index: 1;
+}
+
+.card__new {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background-color: var(--color-pink);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+  z-index: 2;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .card::before {
@@ -62,9 +62,9 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.85),
-    rgba(0, 0, 0, 0.4),
-    transparent
+    hsl(0, 0%, 0%) 0%,
+    hsla(0, 0%, 0%, 0.5) 50%,
+    transparent 100%
   );
   z-index: 0;
   pointer-events: none;
@@ -73,13 +73,10 @@
 .card__favoris,
 .card__delete {
   position: absolute;
-  width: 2.5rem;
-  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 1.25rem;
   z-index: 2;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -87,19 +84,21 @@
 .card__favoris {
   top: 1rem;
   right: 1rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  color: var(--color-white);
-  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  background-color: hsla(0, 0%, 0%, 0.4);
+  color: var(--color-fg);
 }
 
 .card__favoris:hover {
-  background-color: rgba(255, 255, 255, 0.85);
-  color: var(--color-gray-darkest);
+  background-color: hsla(0, 0%, 100%, 0.85);
+  color: var(--color-gray-darker);
   transform: scale(1.1);
 }
 
 .card__favoris--liked {
-  color: var(--color-red);
+  color: var(--color-yellow-fluo);
   transform: scale(1.2);
 }
 
@@ -109,17 +108,16 @@
   width: 2rem;
   height: 2rem;
   font-size: 1rem;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: var(--color-white);
+  background-color: hsla(0, 0%, 0%, 0.6);
+  color: var(--color-fg);
   border: none;
-  cursor: pointer;
 }
 
 .card__delete:hover {
-  background-color: rgba(255, 0, 0, 0.85);
+  background-color: hsla(0, 100%, 50%, 0.85);
 }
 
-@media (min-width: 37.5rem) {
+@media (min-width: 38rem) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.75rem;
