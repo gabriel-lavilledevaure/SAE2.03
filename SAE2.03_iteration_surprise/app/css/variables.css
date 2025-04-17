@@ -12,11 +12,18 @@
   --color-gray-light: hsl(210, 3%, 83%);
   --color-yellow-fluo: hsl(73, 100%, 50%);
   --color-pink: hsl(330, 96%, 60%);
+  --color-blue-light: hsl(190, 100%, 85%);
 
   --color-bg-start: hsl(186, 84%, 4%);
   --color-bg-end: hsl(186, 82%, 5%);
 
   --ff-sans: "Poppins", sans-serif;
+
+  --gradient-button: linear-gradient(
+    to right,
+    var(--color-yellow-fluo),
+    var(--color-blue-light)
+  );
 
   /* Semantic Tokens */
   --color-fg: var(--color-white);
