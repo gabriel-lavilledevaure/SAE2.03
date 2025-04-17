@@ -6,6 +6,7 @@ let NavBar = {};
 NavBar.format = function (hAbout, hProfile, profiles, handlerLikes, searchbar) {
   let html = template;
   html = html.replace("{{hAbout}}", hAbout);
+  html = html.replace("{{hAbout}}", hAbout);
   html = html.replace("{{handler}}", hProfile);
 
   let options = "";
