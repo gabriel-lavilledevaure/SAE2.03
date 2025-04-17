@@ -44,8 +44,8 @@
 
 .card__new {
   position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
+  bottom: 3rem;
+  left: 1.5rem;
   background-color: var(--color-pink);
   color: var(--color-white);
   font-size: 0.75rem;
