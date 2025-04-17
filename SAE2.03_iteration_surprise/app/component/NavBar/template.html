@@ -1,27 +1,12 @@
 <nav class="navbar font-sans">
-  <!-- Logo (toujours visible) -->
   <img
     class="navbar__logo"
     src="../server/images/starz-logo-glint.svg"
     alt="Logo Starz"
+    onclick="{{hAbout}}; C.setActiveNavbar('Accueil')"
   />
 
-  <!-- Burger menu -->
-  <div
-    class="burger"
-    id="burger"
-    onclick="document.body.classList.toggle('nav-open')"
-  >
-    <svg width="32" height="32" viewBox="0 0 32 32">
-      <line class="burger__line" x1="2" y1="7" x2="30" y2="7" />
-      <line class="burger__line" x1="2" y1="16" x2="30" y2="16" />
-      <line class="burger__line" x1="2" y1="25" x2="30" y2="25" />
-    </svg>
-  </div>
-
-  <!-- Menu (mobile & desktop) -->
   <div class="navbar__menu">
-    <!-- Liste des liens -->
     <ul class="navbar__list">
       <li
         class="navbar__item"
@@ -29,13 +14,10 @@
       >
         Accueil
       </li>
-      <!-- Tu peux ajouter ici d'autres liens si besoin -->
     </ul>
 
-    <!-- Barre de recherche (affichée partout) -->
     <div class="navbar__search">{{searchbar}}</div>
 
-    <!-- Profil -->
     <div class="navbar__profile">
       <label class="navbar__label">Profil :</label>
       <select id="profile-select" class="navbar__select" onchange="{{handler}}">
@@ -49,6 +31,17 @@
         alt="Photo de profil"
         onclick="{{handlerLikes}}"
       />
+      <div
+        class="burger"
+        id="burger"
+        onclick="document.body.classList.toggle('nav-open')"
+      >
+        <svg width="32" height="32" viewBox="0 0 32 32">
+          <line class="burger__line" x1="2" y1="7" x2="30" y2="7" />
+          <line class="burger__line" x1="2" y1="16" x2="30" y2="16" />
+          <line class="burger__line" x1="2" y1="25" x2="30" y2="25" />
+        </svg>
+      </div>
     </div>
   </div>
 </nav>
