@@ -3,12 +3,15 @@
   <div class="details__wrapper">
     <div class="details__content">
       <h2 class="details__title">{{titre}}</h2>
+      <div class="details__meta">
+        <span class="details__meta-item">🎬 {{realisateur}}</span>
+        <span class="details__meta-item">📅 {{annee}}</span>
+        <span class="details__meta-item">⏱️ {{duree}} min</span>
+        <span class="details__meta-item">🎭 {{categorie}}</span>
+        <span class="details__meta-item">🔞 {{age}} ans</span>
+      </div>
       <p class="details__desc">{{desc}}</p>
-      <p class="details__realisateur">Réalisateur : {{realisateur}}</p>
-      <p class="details__annee">Année : {{annee}}</p>
-      <p class="details__duree">Durée : {{duree}} minutes</p>
-      <p class="details__categorie">Catégorie : {{categorie}}</p>
-      <p class="details__age">Âge minimum : {{age}} ans</p>
+
       <p class="details__note-moyenne">Note moyenne : <strong>{{moyenne}} / 5</strong></p>
       {{noteForm}}
       <a href="{{url}}" target="_blank" class="details__trailer-button">Voir le trailer 🎬</a>
