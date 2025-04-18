@@ -65,7 +65,9 @@
     */
     C.setActiveNavbar = function (label) {
       const items = document.querySelectorAll(".navbar__item");
-      items.forEach((item) => item.classList.remove("active"));
+      for (let i = 0; i < items.length; i++) {
+        items[i].classList.remove("active");
+      }
       const target = Array.from(items).find(
         (el) => el.textContent.trim().toLowerCase() === label.toLowerCase()
       );
@@ -81,7 +83,9 @@
       infosSection.style.display = "none";
 
       const tags = document.querySelectorAll(".categorie__tag");
-      tags.forEach((tag) => tag.classList.remove("active"));
+      for (let i = 0; i < tags.length; i++) {
+        tags[i].classList.remove("active");
+      }
 
       const recosSection = document.querySelector("#recos");
       if (recosSection.dataset.filledWith === "details") {
