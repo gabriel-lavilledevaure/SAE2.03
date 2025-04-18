@@ -2,6 +2,36 @@
 
 ### Gabriel Laville-Devaure
 
+## Looping
+
+Category 0,n <-> Categoriser <-> 1,n Movie
+Une catégorie peut appartenir au minimum à 0 film, et à n films au maximum.
+Un film peut appartenir au minimum à 1 catégorie, et à n catégorie au maximum.
+
+Movie 0,n <-> Valoir <-> 1,1 Notation
+Un film peut valoir au minimum à 0 note, et à n note au maximum.
+Une note peut appartenir au minimum à 1 film, et à 1 films au maximum.
+
+Movie 0,n <-> Etre commenté <-> 1,1 Comment
+Un film peut être commenté 0 fois au minimum et n fois au maximum.
+Un commentaire peut appartenir à 1 film au minimum et 1 film au maximum.
+
+Movie 0,n <-> Etre aimé <-> 1,1 Likes
+Un film peut être aimé 0 fois au minimum et n fois au maximum.
+Un Like peut appartenir au minimum à 1 film et au maximum à 1 film.
+
+User 0,n <-> Commenter <-> 1,1 Comment
+Un utilisateur peut avoir au minimum à 0 commentaire, et n commentaires au maximum.
+Un commentaire peut appartenir au minimum à 1 utilisateur, et à 1 utilisateur au maximum.
+
+User 0,n <-> Aimer <-> 1,1 Likes
+Un utilisateur peut avoir au minimum 0 likes, et n likes au maximum.
+Un like peut appartenir au minimum à 1 utilisateur, et à 1 utilisateur au maximum.
+
+User 0,n <-> Noter <-> 1,1 Notation
+Un utilisateur peut avoir au minimum 0 notes, et n notes au maximum.
+Une note correspond à 1 utilisateur au minimum et 1 utilisateur au maximum.
+
 ## Itération 5
 
 Pour la cinquième itération, il nous est demandé de gérer des utilisateurs. J'ai donc décidé de créer une nouvelle table nommée **`User`**. Cette table comporte les attributs suivants :
