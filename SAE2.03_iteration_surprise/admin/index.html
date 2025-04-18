@@ -1,269 +1,272 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <title>SAE2.03 ADMIN</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/base.css" />
-  </head>
-  <body>
-    <section id="log"></section>
-    <section id="addFilm"></section>
-    <section id="addUser"></section>
-    <section id="updateUser"></section>
-    <section id="searchbar"></section>
-    <section id="Comment"></section>
 
-    <script type="module">
-      // Importation des modules
-      import { Log } from "./component/Log/script.js";
-      import { MovieForm } from "./component/MovieForm/script.js";
-      import { UserForm } from "./component/UserForm/script.js";
-      import { UpdateUserForm } from "./component/UpdateUserForm/script.js";
-      import { SearchBar } from "./component/SearchBar/script.js";
-      import { DataMovie } from "./data/dataMovie.js";
-      import { DataProfile } from "./data/dataProfile.js";
-      import { DataComment } from "./data/dataComment.js";
-      import { Comment } from "./component/Comment/script.js";
+<head>
+  <title>SAE2.03 ADMIN</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/base.css" />
+</head>
 
-      window.C = {};
+<body>
+  <section id="log"></section>
+  <section id="addFilm"></section>
+  <section id="addUser"></section>
+  <section id="updateUser"></section>
+  <section id="searchbar"></section>
+  <section id="Comment"></section>
 
-      /*
-       * C.handlerAddMovie
-       *
-       * Cette fonction est responsable de l'ajout d'un film.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant MovieForm.
-       */
-      C.handlerAddMovie = async function () {
-        let form = document.querySelector(".addFilm__form");
-        let fd = new FormData(form);
-        let res = await DataMovie.add(fd);
-        V.renderLog(res);
-      };
+  <script type="module">
+    // Importation des modules
+    import { Log } from "./component/Log/script.js";
+    import { MovieForm } from "./component/MovieForm/script.js";
+    import { UserForm } from "./component/UserForm/script.js";
+    import { UpdateUserForm } from "./component/UpdateUserForm/script.js";
+    import { SearchBar } from "./component/SearchBar/script.js";
+    import { DataMovie } from "./data/dataMovie.js";
+    import { DataProfile } from "./data/dataProfile.js";
+    import { DataComment } from "./data/dataComment.js";
+    import { Comment } from "./component/Comment/script.js";
 
-      /*
-       * C.handlerAddUser
-       *
-       * Cette fonction est responsable de l'ajout d'un utilisateur.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant UserForm.
-       */
-      C.handlerAddUser = async function () {
-        let form = document.querySelector(".addUser__form");
-        let fd = new FormData(form);
-        let res = await DataProfile.add(fd);
-        V.renderLog(res);
-      };
+    window.C = {};
 
-      /*
-       * C.handlerSelectUser
-       *
-       * Cette fonction est responsable de la sélection d'un utilisateur.
-       * Elle met à jour les champs du formulaire de mise à jour de l'utilisateur
-       * avec les informations de l'utilisateur sélectionné dans la liste déroulante.
-       */
-      C.handlerSelectUser = function () {
-        const select = document.getElementById("user-select");
-        const selected = select.selectedOptions[0];
-        const id = select.value;
-        const name = selected.dataset.name;
-        const avatar = selected.dataset.avatar;
-        const birthday = selected.dataset.age;
+    /*
+     * C.handlerAddMovie
+     *
+     * Cette fonction est responsable de l'ajout d'un film.
+     * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+     * formaté par le composant MovieForm.
+     */
+    C.handlerAddMovie = async function () {
+      let form = document.querySelector(".addFilm__form");
+      let fd = new FormData(form);
+      let res = await DataMovie.add(fd);
+      V.renderLog(res);
+    };
 
-        document.querySelector(".updateUser__form input[name='id']").value = id;
-        document.getElementById("user-name").value = name;
-        document.getElementById("user-image").value = avatar;
-        document.getElementById("user-birthday").value = birthday;
-      };
+    /*
+     * C.handlerAddUser
+     *
+     * Cette fonction est responsable de l'ajout d'un utilisateur.
+     * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+     * formaté par le composant UserForm.
+     */
+    C.handlerAddUser = async function () {
+      let form = document.querySelector(".addUser__form");
+      let fd = new FormData(form);
+      let res = await DataProfile.add(fd);
+      V.renderLog(res);
+    };
 
-      /*
-       * C.handlerUpdateUser
-       *
-       * Cette fonction est responsable de la mise à jour des informations d'un utilisateur.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant UpdateUserForm.
-       */
-      C.handlerUpdateUser = async function () {
-        let form = document.querySelector(".updateUser__form");
-        let fd = new FormData(form);
-        let res = await DataProfile.update(fd);
-        V.renderLog(res);
-      };
+    /*
+     * C.handlerSelectUser
+     *
+     * Cette fonction est responsable de la sélection d'un utilisateur.
+     * Elle met à jour les champs du formulaire de mise à jour de l'utilisateur
+     * avec les informations de l'utilisateur sélectionné dans la liste déroulante.
+     */
+    C.handlerSelectUser = function () {
+      const select = document.getElementById("user-select");
+      const selected = select.selectedOptions[0];
+      const id = select.value;
+      const name = selected.dataset.name;
+      const avatar = selected.dataset.avatar;
+      const birthday = selected.dataset.age;
 
-      /*
-       * C.handlerSearchBar
-       *
-       * Cette fonction est responsable de la gestion de la barre de recherche.
-       * Elle effectue une recherche de films en fonction de la requête saisie
-       * et met à jour les résultats affichés dans la barre de recherche.
-       */
-      C.handlerSearchBar = async function (query) {
-        if (!query || query.trim().length < 2) {
-          SearchBar.resultat([]);
-          return;
-        }
+      document.querySelector(".updateUser__form input[name='id']").value = id;
+      document.getElementById("user-name").value = name;
+      document.getElementById("user-image").value = avatar;
+      document.getElementById("user-birthday").value = birthday;
+    };
 
-        let results = await DataMovie.searchMovies(query);
-        SearchBar.resultat(results);
-      };
+    /*
+     * C.handlerUpdateUser
+     *
+     * Cette fonction est responsable de la mise à jour des informations d'un utilisateur.
+     * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+     * formaté par le composant UpdateUserForm.
+     */
+    C.handlerUpdateUser = async function () {
+      let form = document.querySelector(".updateUser__form");
+      let fd = new FormData(form);
+      let res = await DataProfile.update(fd);
+      V.renderLog(res);
+    };
 
-      /*
-       * C.handlerToggleReco
-       *
-       * Cette fonction est responsable de la gestion du changement de statut de recommandation d'un film.
-       * Elle met à jour le statut de recommandation du film dans la base de données
-       * et met à jour les résultats affichés dans la barre de recherche.
-       */
-      C.handlerToggleReco = async function (id, currentStatus) {
-        const newStatus = currentStatus === "1" ? "0" : "1";
-        await DataMovie.toggleRecoStatus(id, newStatus);
+    /*
+     * C.handlerSearchBar
+     *
+     * Cette fonction est responsable de la gestion de la barre de recherche.
+     * Elle effectue une recherche de films en fonction de la requête saisie
+     * et met à jour les résultats affichés dans la barre de recherche.
+     */
+    C.handlerSearchBar = async function (query) {
+      if (!query || query.trim().length < 2) {
+        SearchBar.resultat([]);
+        return;
+      }
 
-        const input = document.querySelector(".searchbar__input");
-        const results = await DataMovie.searchMovies(input.value);
-        SearchBar.resultat(results);
-      };
+      let results = await DataMovie.searchMovies(query);
+      SearchBar.resultat(results);
+    };
 
-      /*
-       * C.handlerComments
-       *
-       * Cette fonction est responsable du chargement des commentaires.
-       * Elle récupère les commentaires depuis la base de données et les affiche.
-       */
-      C.handlerComments = async function () {
-        const comments = await DataComment.getComments();
-        V.renderComments(comments);
-      };
+    /*
+     * C.handlerToggleReco
+     *
+     * Cette fonction est responsable de la gestion du changement de statut de recommandation d'un film.
+     * Elle met à jour le statut de recommandation du film dans la base de données
+     * et met à jour les résultats affichés dans la barre de recherche.
+     */
+    C.handlerToggleReco = async function (id, currentStatus) {
+      const newStatus = currentStatus === "1" ? "0" : "1";
+      await DataMovie.toggleRecoStatus(id, newStatus);
 
-      /*
-       * C.handlerApproveComment
-       *
-       * Cette fonction est responsable de l'approbation d'un commentaire.
-       * Elle met à jour le statut du commentaire dans la base de données
-       * et met à jour l'affichage des commentaires.
-       */
-      C.handlerApproveComment = async function (id) {
-        const res = await DataComment.approveComment(id);
-        V.renderLog(res);
-        C.handlerComments();
-      };
+      const input = document.querySelector(".searchbar__input");
+      const results = await DataMovie.searchMovies(input.value);
+      SearchBar.resultat(results);
+    };
 
-      /*
-       * C.handlerDeleteComment
-       *
-       * Cette fonction est responsable de la suppression d'un commentaire.
-       * Elle supprime le commentaire de la base de données et met à jour l'affichage.
-       */
-      C.handlerDeleteComment = async function (id) {
-        const res = await DataComment.removeComment(id);
-        V.renderLog(res);
-        C.handlerComments();
-      };
+    /*
+     * C.handlerComments
+     *
+     * Cette fonction est responsable du chargement des commentaires.
+     * Elle récupère les commentaires depuis la base de données et les affiche.
+     */
+    C.handlerComments = async function () {
+      const comments = await DataComment.getComments();
+      V.renderComments(comments);
+    };
 
-      /*
-       * C.start
-       *
-       * Cette fonction est responsable du démarrage de l'application.
-       * Elle initialise les composants et affiche les formulaires nécessaires.
-       */
-      C.start = function () {
-        V.renderLog("Démarrage de l'application");
-        V.renderForm("C.handlerAddMovie()");
-        V.renderAddUserForm("C.handlerAddUser()");
-        V.renderUpdateUserForm(
-          "C.handlerSelectUser()",
-          "C.handlerUpdateUser()"
-        );
-        V.renderSearchBar();
-        C.handlerComments();
-      };
+    /*
+     * C.handlerApproveComment
+     *
+     * Cette fonction est responsable de l'approbation d'un commentaire.
+     * Elle met à jour le statut du commentaire dans la base de données
+     * et met à jour l'affichage des commentaires.
+     */
+    C.handlerApproveComment = async function (id) {
+      const res = await DataComment.approveComment(id);
+      V.renderLog(res);
+      C.handlerComments();
+    };
 
-      window.V = {};
+    /*
+     * C.handlerDeleteComment
+     *
+     * Cette fonction est responsable de la suppression d'un commentaire.
+     * Elle supprime le commentaire de la base de données et met à jour l'affichage.
+     */
+    C.handlerDeleteComment = async function (id) {
+      const res = await DataComment.removeComment(id);
+      V.renderLog(res);
+      C.handlerComments();
+    };
 
-      /*
-       * V.renderLog
-       *
-       * Cette fonction est responsable de l'affichage des messages de log.
-       * Elle sélectionne l'élément HTML avec l'ID "log" et y insère le contenu
-       * formaté par le composant Log.
-       */
-      V.renderLog = function (txt) {
-        let content = document.querySelector("#log");
-        content.innerHTML = Log.format(txt);
-      };
+    /*
+     * C.start
+     *
+     * Cette fonction est responsable du démarrage de l'application.
+     * Elle initialise les composants et affiche les formulaires nécessaires.
+     */
+    C.start = function () {
+      V.renderLog("Démarrage de l'application");
+      V.renderForm("C.handlerAddMovie()");
+      V.renderAddUserForm("C.handlerAddUser()");
+      V.renderUpdateUserForm(
+        "C.handlerSelectUser()",
+        "C.handlerUpdateUser()"
+      );
+      V.renderSearchBar();
+      C.handlerComments();
+    };
 
-      /*
-       * V.renderForm
-       *
-       * Cette fonction est responsable de l'affichage du formulaire d'ajout de film.
-       * Elle sélectionne l'élément HTML avec l'ID "addFilm" et y insère le contenu
-       * formaté par le composant MovieForm.
-       */
-      V.renderForm = function (handler) {
-        let content = document.querySelector("#addFilm");
-        content.innerHTML = MovieForm.format(handler);
-      };
+    window.V = {};
 
-      /*
-       * V.renderAddUserForm
-       *
-       * Cette fonction est responsable de l'affichage du formulaire d'ajout d'utilisateur.
-       * Elle sélectionne l'élément HTML avec l'ID "addUser" et y insère le contenu
-       * formaté par le composant UserForm.
-       */
-      V.renderAddUserForm = function (handler) {
-        let content = document.querySelector("#addUser");
-        content.innerHTML = UserForm.format(handler);
-      };
+    /*
+     * V.renderLog
+     *
+     * Cette fonction est responsable de l'affichage des messages de log.
+     * Elle sélectionne l'élément HTML avec l'ID "log" et y insère le contenu
+     * formaté par le composant Log.
+     */
+    V.renderLog = function (txt) {
+      let content = document.querySelector("#log");
+      content.innerHTML = Log.format(txt);
+    };
 
-      /*
-       * V.renderUpdateUserForm
-       *
-       * Cette fonction est responsable de l'affichage du formulaire de mise à jour d'utilisateur.
-       * Elle sélectionne l'élément HTML avec l'ID "updateUser" et y insère le contenu
-       * formaté par le composant UpdateUserForm.
-       */
-      V.renderUpdateUserForm = async function (handlerSelect, handlerUpdate) {
-        let content = document.querySelector("#updateUser");
-        let profiles = await DataProfile.getAllProfiles();
-        content.innerHTML = UpdateUserForm.format(
-          profiles,
-          handlerSelect,
-          handlerUpdate
-        );
-        UpdateUserForm.init();
-      };
+    /*
+     * V.renderForm
+     *
+     * Cette fonction est responsable de l'affichage du formulaire d'ajout de film.
+     * Elle sélectionne l'élément HTML avec l'ID "addFilm" et y insère le contenu
+     * formaté par le composant MovieForm.
+     */
+    V.renderForm = function (handler) {
+      let content = document.querySelector("#addFilm");
+      content.innerHTML = MovieForm.format(handler);
+    };
 
-      /*
-       * V.renderSearchBar
-       *
-       * Cette fonction est responsable de l'affichage de la barre de recherche.
-       * Elle sélectionne l'élément HTML avec l'ID "searchbar" et y insère le contenu
-       * formaté par le composant SearchBar.
-       */
-      V.renderSearchBar = async function () {
-        let content = document.querySelector("#searchbar");
-        content.innerHTML = SearchBar.format(); // pas besoin de passer movies
-      };
+    /*
+     * V.renderAddUserForm
+     *
+     * Cette fonction est responsable de l'affichage du formulaire d'ajout d'utilisateur.
+     * Elle sélectionne l'élément HTML avec l'ID "addUser" et y insère le contenu
+     * formaté par le composant UserForm.
+     */
+    V.renderAddUserForm = function (handler) {
+      let content = document.querySelector("#addUser");
+      content.innerHTML = UserForm.format(handler);
+    };
 
-      /*
-       * V.renderComments
-       *
-       * Cette fonction est responsable de l'affichage des commentaires.
-       * Elle sélectionne l'élément HTML avec l'ID "Comment" et y insère le contenu
-       * formaté par le composant Comment.
-       */
-      V.renderComments = function (data) {
-        const container = document.getElementById("Comment");
-        container.innerHTML = Comment.format(
-          data,
-          "C.handlerApproveComment",
-          "C.handlerDeleteComment"
-        );
-      };
+    /*
+     * V.renderUpdateUserForm
+     *
+     * Cette fonction est responsable de l'affichage du formulaire de mise à jour d'utilisateur.
+     * Elle sélectionne l'élément HTML avec l'ID "updateUser" et y insère le contenu
+     * formaté par le composant UpdateUserForm.
+     */
+    V.renderUpdateUserForm = async function (handlerSelect, handlerUpdate) {
+      let content = document.querySelector("#updateUser");
+      let profiles = await DataProfile.getAllProfiles();
+      content.innerHTML = UpdateUserForm.format(
+        profiles,
+        handlerSelect,
+        handlerUpdate
+      );
+      UpdateUserForm.init();
+    };
 
-      // Lancement
-      C.start();
-    </script>
-  </body>
+    /*
+     * V.renderSearchBar
+     *
+     * Cette fonction est responsable de l'affichage de la barre de recherche.
+     * Elle sélectionne l'élément HTML avec l'ID "searchbar" et y insère le contenu
+     * formaté par le composant SearchBar.
+     */
+    V.renderSearchBar = async function () {
+      let content = document.querySelector("#searchbar");
+      content.innerHTML = SearchBar.format(); // pas besoin de passer movies
+    };
+
+    /*
+     * V.renderComments
+     *
+     * Cette fonction est responsable de l'affichage des commentaires.
+     * Elle sélectionne l'élément HTML avec l'ID "Comment" et y insère le contenu
+     * formaté par le composant Comment.
+     */
+    V.renderComments = function (data) {
+      const container = document.getElementById("Comment");
+      container.innerHTML = Comment.format(
+        data,
+        "C.handlerApproveComment",
+        "C.handlerDeleteComment"
+      );
+    };
+
+    // Lancement
+    C.start();
+  </script>
+</body>
+
 </html>
