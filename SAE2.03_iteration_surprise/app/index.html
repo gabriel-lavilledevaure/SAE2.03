@@ -1,441 +1,444 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <title>SAE2.03 APP</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/base.css" />
-  </head>
 
-  <body>
-    <!-- <section class="categorie"></section> -->
-    <header id="header"></header>
+<head>
+  <title>SAE2.03 APP</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/base.css" />
+</head>
 
-    <section class="recos" id="recos"></section>
-    <section class="infos" id="infos"></section>
-    <section class="cards" id="content"></section>
+<body>
+  <!-- <section class="categorie"></section> -->
+  <header id="header"></header>
 
-    <script type="module">
-      import { NavBar } from "./component/NavBar/script.js";
-      import { SearchBar } from "./component/SearchBar/script.js";
-      import { Movie } from "./component/Movie/script.js";
-      import { MovieReco } from "./component/MovieReco/script.js";
-      import { Moviedetails } from "./component/Moviedetails/script.js";
-      import { Moviecategorie } from "./component/Moviecategorie/script.js";
-      import { DataMovie } from "./data/dataMovie.js";
-      import { DataProfile } from "./data/dataProfile.js";
+  <section class="recos" id="recos"></section>
+  <section class="infos" id="infos"></section>
+  <section class="cards" id="content"></section>
 
-      // Controleur
-      window.C = {};
+  <script type="module">
+    import { NavBar } from "./component/NavBar/script.js";
+    import { SearchBar } from "./component/SearchBar/script.js";
+    import { Movie } from "./component/Movie/script.js";
+    import { MovieReco } from "./component/MovieReco/script.js";
+    import { Moviedetails } from "./component/Moviedetails/script.js";
+    import { Moviecategorie } from "./component/Moviecategorie/script.js";
+    import { DataMovie } from "./data/dataMovie.js";
+    import { DataProfile } from "./data/dataProfile.js";
 
-      C.userAge = null;
+    // Controleur
+    window.C = {};
 
-      let currentSlide = 0;
+    C.userAge = null;
 
-      /*
-        C.nextSlide
-        La fonction permet de passer à la diapositive suivante dans le carrousel.
-        Elle utilise la propriété transform pour déplacer le carrousel vers la gauche.
-      */
-      C.nextSlide = function () {
-        const slides = document.querySelectorAll(".reco__card");
-        currentSlide = (currentSlide + 1) % slides.length;
-        document.querySelector(
-          ".reco__slider"
-        ).style.transform = `translateX(-${currentSlide * 100}%)`;
-      };
+    let currentSlide = 0;
 
-      /*
-        C.prevSlide
-        La fonction permet de revenir à la diapositive précédente dans le carrousel.
-        Elle utilise la propriété transform pour déplacer le carrousel vers la droite.
-      */
-      C.prevSlide = function () {
-        const slides = document.querySelectorAll(".reco__card");
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        document.querySelector(
-          ".reco__slider"
-        ).style.transform = `translateX(-${currentSlide * 100}%)`;
-      };
-      /*
-        C.setActiveNavbar
-        La fonction permet de mettre à jour la barre de navigation en fonction de l'élément cliqué.
-        Elle supprime la classe "active" de tous les éléments et l'ajoute à l'élément correspondant.
-      */
-      C.setActiveNavbar = function (label) {
-        const items = document.querySelectorAll(".navbar__item");
-        items.forEach((item) => item.classList.remove("active"));
-        const target = Array.from(items).find(
-          (el) => el.textContent.trim().toLowerCase() === label.toLowerCase()
-        );
-        if (target) target.classList.add("active");
-      };
+    /*
+      C.nextSlide
+      La fonction permet de passer à la diapositive suivante dans le carrousel.
+      Elle utilise la propriété transform pour déplacer le carrousel vers la gauche.
+    */
+    C.nextSlide = function () {
+      const slides = document.querySelectorAll(".reco__card");
+      currentSlide = (currentSlide + 1) % slides.length;
+      document.querySelector(
+        ".reco__slider"
+      ).style.transform = `translateX(-${currentSlide * 100}%)`;
+    };
 
-      /* C.getMovie
-          La fonction affiche sur la page la collection de films par défaut
-        */
-      C.getMovie = async function () {
-        let infosSection = document.querySelector("#infos");
-        infosSection.innerHTML = "";
-        infosSection.style.display = "none";
+    /*
+      C.prevSlide
+      La fonction permet de revenir à la diapositive précédente dans le carrousel.
+      Elle utilise la propriété transform pour déplacer le carrousel vers la droite.
+    */
+    C.prevSlide = function () {
+      const slides = document.querySelectorAll(".reco__card");
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      document.querySelector(
+        ".reco__slider"
+      ).style.transform = `translateX(-${currentSlide * 100}%)`;
+    };
+    /*
+      C.setActiveNavbar
+      La fonction permet de mettre à jour la barre de navigation en fonction de l'élément cliqué.
+      Elle supprime la classe "active" de tous les éléments et l'ajoute à l'élément correspondant.
+    */
+    C.setActiveNavbar = function (label) {
+      const items = document.querySelectorAll(".navbar__item");
+      items.forEach((item) => item.classList.remove("active"));
+      const target = Array.from(items).find(
+        (el) => el.textContent.trim().toLowerCase() === label.toLowerCase()
+      );
+      if (target) target.classList.add("active");
+    };
 
-        const tags = document.querySelectorAll(".categorie__tag");
-        tags.forEach((tag) => tag.classList.remove("active"));
-
-        const recosSection = document.querySelector("#recos");
-        if (recosSection.dataset.filledWith === "details") {
-          await C.getMoviesReco();
-          delete recosSection.dataset.filledWith;
-        }
-
-        if (C.userAge !== null) {
-          const data = await DataMovie.requestMoviesByAge(C.userAge);
-          V.renderMovie(data);
-        } else {
-          const data = await DataMovie.requestMovies();
-          V.renderMovie(data);
-        }
-
-        C.setActiveNavbar("Accueil");
-      };
-
-      /*
-        C.handlerMovies
+    /* C.getMovie
         La fonction affiche sur la page la collection de films par défaut
       */
-      C.handlerMovies = function () {
-        C.getMovie(); // On fait appelle à C.getMovie() qu'on a défini plus bas
-      };
+    C.getMovie = async function () {
+      let infosSection = document.querySelector("#infos");
+      infosSection.innerHTML = "";
+      infosSection.style.display = "none";
 
-      /*
-        C.handlerDetail
-        La fonction affiche sur la page les détails d'un film sélectionné
-      */
-      C.handlerDetail = async function (id) {
-        const details = await DataMovie.requestMoviedetails(id);
-        const movie = details[0];
+      const tags = document.querySelectorAll(".categorie__tag");
+      tags.forEach((tag) => tag.classList.remove("active"));
 
-        const moyenneObj = await DataMovie.getMoyenneNote(id);
-        const moyenne = moyenneObj?.moyenne ?? "Aucune note";
-
-        const select = document.querySelector("#profile-select");
-        const id_user = select.selectedIndex + 1;
-
-        const check = await DataMovie.checkUserNote(id_user, id);
-        const dejaNote = check.dejaNote;
-
-        const comments = await DataMovie.getCommentsMovie(id);
-
-        await V.renderMovieDetail(movie, moyenne, dejaNote, comments);
-      };
-
-      /*
-        C.handlerMovie
-        La fonction affiche sur la page les détails d'un film sélectionné
-      */
-      C.handlerAddFavoris = async function (id_movie, el) {
-        console.log("id_movie", id_movie); // debug
-        console.log("el", el); // debug
-        if (!el)
-          return console.error("Aucun élément reçu pour le bouton like.");
-        const select = document.querySelector("#profile-select");
-        const id_user = select.selectedIndex + 1;
-
-        if (!id_user || !id_movie) return;
-
-        const response = await DataProfile.addLike(id_user, id_movie);
-        alert("Ajouté au favoris !");
-      };
-
-      /*
-        C.handlerDeleteLike
-        La fonction affiche sur la page les détails d'un film sélectionné
-      */
-      C.handlerDeleteLike = async function (id_movie, el) {
-        const select = document.querySelector("#profile-select");
-        const id_user = select.selectedIndex + 1;
-
-        if (!id_user || !id_movie) return;
-
-        const response = await DataProfile.removeLike(id_user, id_movie);
-        alert("Supprimé des favoris !");
-      };
-
-      /*
-        C.handlerLikes
-        La fonction affiche sur la page la collection de films aimés par l'utilisateur sélectionné
-      */
-      C.handlerLikes = async function () {
-        const select = document.querySelector("#profile-select");
-        const id_user = select.selectedIndex + 1;
-
-        const tags = document.querySelectorAll(".categorie__tag");
-        for (let i = 0; i < tags.length; i++) {
-          tags[i].classList.remove("active");
-        }
-
-        const likedMovies = await DataProfile.requestUserLikes(id_user);
-        const allMovies = await DataMovie.requestMovies();
-
-        const likedFull = allMovies.filter((movie) =>
-          likedMovies.some((like) => like.id_movie == movie.id)
-        );
-
-        V.renderMovie(likedFull, true);
-      };
-
-      /*
-        C.handlerCategorie
-        La fonction affiche sur la page la collection de films par catégorie, lors du clic sur une catégorie on supprime l'était "active" de
-        toutes les catégories pour ensuite le rajouter sur celle qu'on vient de cliquer.
-      */
-      C.handlerCategorie = async function (categorie) {
-        if (C.userAge === null) {
-          console.warn("Aucun âge utilisateur défini.");
-          return;
-        }
-
-        const tags = document.querySelectorAll(".categorie__tag");
-        for (let i = 0; i < tags.length; i++) {
-          tags[i].classList.remove("active");
-        }
-
-        let categorieClic = Array.from(
-          document.querySelectorAll(".categorie__tag")
-        ).find((el) => el.textContent.trim() === categorie);
-        if (categorieClic) categorieClic.classList.add("active");
-
-        let data = await DataMovie.requestMoviesAgeCategory(
-          C.userAge,
-          categorie
-        );
-        V.renderMovie(data);
-      };
-
-      /*
-        C.handlerSubmitComment
-        La fonction enregistre le commentaire d'un film pour un utilisateur sélectionné
-      */
-      C.handlerSubmitComment = async function (_, id_movie) {
-        const textarea = document.getElementById("comment-text");
-        const commentaire = textarea.value.trim();
-
-        if (!commentaire) {
-          alert("Le commentaire ne peut pas être vide.");
-          return;
-        }
-
-        const select = document.querySelector("#profile-select");
-        const id_user = select.selectedOptions[0].dataset.id;
-
-        const result = await DataMovie.addComment(
-          id_user,
-          id_movie,
-          commentaire
-        );
-
-        if (result?.includes("succès")) {
-          alert("Commentaire ajouté !");
-          textarea.value = "";
-        } else {
-          alert("Erreur lors de l'envoi du commentaire.");
-        }
-      };
-
-      /*
-        C.handlerProfile
-        La fonction affiche sur la page la collection de films par âge
-      */
-      C.handlerProfile = async function () {
-        const select = document.querySelector("#profile-select");
-        const selectedOption = select.selectedOptions[0];
-
-        const profileName = selectedOption.value; // On récupère le nom du profil
-        const birthday = selectedOption.dataset.birthday; // On récupère la date de naissance
-        const imageFilename = selectedOption.dataset.img; // On récupère le nom de l'image
-
-        const picture = document.querySelector("#profile-picture"); // On récupère l'image du profil
-        const base = "../server/images/"; //
-        picture.src = base + imageFilename;
-
-        // Calcul de l'âge de l'utilisateur
-        let birthDate = new Date(birthday); // Date de naissance
-        let today = new Date(); // Date d'aujourd'hui
-        let age = today.getFullYear() - birthDate.getFullYear(); // Calcul de l'âge
-        let m = today.getMonth() - birthDate.getMonth(); // Calcul de la différence de mois
-        // Si le mois est négatif ou si c'est le même mois mais que la date d'aujourd'hui est avant la date de naissance
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          age--;
-        }
-
-        C.userAge = age;
-
+      const recosSection = document.querySelector("#recos");
+      if (recosSection.dataset.filledWith === "details") {
         await C.getMoviesReco();
+        delete recosSection.dataset.filledWith;
+      }
 
-        let filteredMovies = await DataMovie.requestMoviesByAge(age);
-        V.renderMovie(filteredMovies);
-      };
-
-      /*
-        C.getMovieReco
-        La fonction affiche sur la page la collection de films recommandés
-      */
-      C.getMoviesReco = async function () {
-        const age = C.userAge;
-        const data = await DataMovie.requestMoviesReco(age);
-        V.renderReco(data);
-      };
-
-      /*
-        C.handlerSearch
-        La fonction affiche sur la page la collection de films correspondant à la recherche
-      */
-      C.handlerSearchBar = async function (valeur) {
-        if (!valeur || valeur.length === 0) {
-          return C.getMovie();
-        }
-
-        const results = await DataMovie.requestSearchMovies(valeur);
-        V.renderMovie(results);
-      };
-
-      /*
-        C.handlerSubmitNote
-        La fonction enregistre la note d'un film pour un utilisateur sélectionné
-      */
-      C.handlerSubmitNote = async function (id_movie) {
-        const select = document.querySelector("#profile-select");
-        const noteSelect = document.querySelector("#note-select");
-        if (!select || !noteSelect) return;
-        const id_user = select.selectedIndex + 1;
-        const note = noteSelect.value;
-
-        if (!["0", "1", "2", "3", "4", "5"].includes(note)) {
-          alert("Veuillez sélectionner une note valide.");
-          return;
-        }
-
-        const response = await DataMovie.addNote(id_user, id_movie, note);
-        if (response.error) {
-          alert(
-            response.message || "Erreur lors de l'enregistrement de votre note."
-          );
-          return;
-        }
-
-        alert("Votre note a été enregistrée.");
-
-        const details = await DataMovie.requestMoviedetails(id_movie);
-        const moyenneObj = await DataMovie.getMoyenneNote(id_movie);
-        const check = await DataMovie.checkUserNote(id_user, id_movie);
-        V.renderMovieDetail(details[0], moyenneObj?.moyenne, check.dejaNote);
-      };
-
-      /*
-        C.start
-        La fonction démarre l'application en affichant la barre de navigation,
-        la liste des catégories et la liste des films.
-        Elle appelle également un premier profil par défaut.
-      */
-      C.start = async function () {
-        await V.renderNavBar("C.handlerMovies()");
-
-        await C.handlerProfile();
-
-        await C.getMoviesReco();
-
+      if (C.userAge !== null) {
         const data = await DataMovie.requestMoviesByAge(C.userAge);
         V.renderMovie(data);
+      } else {
+        const data = await DataMovie.requestMovies();
+        V.renderMovie(data);
+      }
 
-        let searchbar = SearchBar.format();
-        await V.renderNavBar("C.handlerMovies()", searchbar);
+      C.setActiveNavbar("Accueil");
+    };
 
-        V.renderMovieCategorie();
+    /*
+      C.handlerMovies
+      La fonction affiche sur la page la collection de films par défaut
+    */
+    C.handlerMovies = function () {
+      C.getMovie(); // On fait appelle à C.getMovie() qu'on a défini plus bas
+    };
 
-        C.setActiveNavbar("Accueil");
-      };
-      // Vue (contient tout ce qui est relatif à l'affichage)
-      window.V = {};
+    /*
+      C.handlerDetail
+      La fonction affiche sur la page les détails d'un film sélectionné
+    */
+    C.handlerDetail = async function (id) {
+      const details = await DataMovie.requestMoviedetails(id);
+      const movie = details[0];
 
-      /**
-       * V.renderNavBar
-       *
-       * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
-       * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
-       * formaté par le composant NavBar.
-       */
-      V.renderNavBar = async function (hAbout, searchbarHTML) {
-        let header = document.querySelector("#header");
-        let profiles = await DataProfile.requestProfiles();
-        header.innerHTML = NavBar.format(
-          hAbout,
-          "C.handlerProfile()",
-          profiles,
-          "C.handlerLikes()",
-          searchbarHTML
+      const moyenneObj = await DataMovie.getMoyenneNote(id);
+      const moyenne = moyenneObj?.moyenne ?? "Aucune note";
+
+      const select = document.querySelector("#profile-select");
+      const id_user = select.selectedIndex + 1;
+
+      const check = await DataMovie.checkUserNote(id_user, id);
+      const dejaNote = check.dejaNote;
+
+      const comments = await DataMovie.getCommentsMovie(id);
+
+      await V.renderMovieDetail(movie, moyenne, dejaNote, comments);
+    };
+
+    /*
+      C.handlerMovie
+      La fonction affiche sur la page les détails d'un film sélectionné
+    */
+    C.handlerAddFavoris = async function (id_movie, el) {
+      console.log("id_movie", id_movie); // debug
+      console.log("el", el); // debug
+      if (!el)
+        return console.error("Aucun élément reçu pour le bouton like.");
+      const select = document.querySelector("#profile-select");
+      const id_user = select.selectedIndex + 1;
+
+      if (!id_user || !id_movie) return;
+
+      const response = await DataProfile.addLike(id_user, id_movie);
+      alert("Ajouté au favoris !");
+    };
+
+    /*
+      C.handlerDeleteLike
+      La fonction affiche sur la page les détails d'un film sélectionné
+    */
+    C.handlerDeleteLike = async function (id_movie, el) {
+      const select = document.querySelector("#profile-select");
+      const id_user = select.selectedIndex + 1;
+
+      if (!id_user || !id_movie) return;
+
+      const response = await DataProfile.removeLike(id_user, id_movie);
+      alert("Supprimé des favoris !");
+    };
+
+    /*
+      C.handlerLikes
+      La fonction affiche sur la page la collection de films aimés par l'utilisateur sélectionné
+    */
+    C.handlerLikes = async function () {
+      const select = document.querySelector("#profile-select");
+      const id_user = select.selectedIndex + 1;
+
+      const tags = document.querySelectorAll(".categorie__tag");
+      for (let i = 0; i < tags.length; i++) {
+        tags[i].classList.remove("active");
+      }
+
+      const likedMovies = await DataProfile.requestUserLikes(id_user);
+      const allMovies = await DataMovie.requestMovies();
+
+      const likedFull = allMovies.filter((movie) =>
+        likedMovies.some((like) => like.id_movie == movie.id)
+      );
+
+      V.renderMovie(likedFull, true);
+    };
+
+    /*
+      C.handlerCategorie
+      La fonction affiche sur la page la collection de films par catégorie, lors du clic sur une catégorie on supprime l'était "active" de
+      toutes les catégories pour ensuite le rajouter sur celle qu'on vient de cliquer.
+    */
+    C.handlerCategorie = async function (categorie) {
+      if (C.userAge === null) {
+        console.warn("Aucun âge utilisateur défini.");
+        return;
+      }
+
+      const tags = document.querySelectorAll(".categorie__tag");
+      for (let i = 0; i < tags.length; i++) {
+        tags[i].classList.remove("active");
+      }
+
+      let categorieClic = Array.from(
+        document.querySelectorAll(".categorie__tag")
+      ).find((el) => el.textContent.trim() === categorie);
+      if (categorieClic) categorieClic.classList.add("active");
+
+      let data = await DataMovie.requestMoviesAgeCategory(
+        C.userAge,
+        categorie
+      );
+      V.renderMovie(data);
+    };
+
+    /*
+      C.handlerSubmitComment
+      La fonction enregistre le commentaire d'un film pour un utilisateur sélectionné
+    */
+    C.handlerSubmitComment = async function (_, id_movie) {
+      const textarea = document.getElementById("comment-text");
+      const commentaire = textarea.value.trim();
+
+      if (!commentaire) {
+        alert("Le commentaire ne peut pas être vide.");
+        return;
+      }
+
+      const select = document.querySelector("#profile-select");
+      const id_user = select.selectedOptions[0].dataset.id;
+
+      const result = await DataMovie.addComment(
+        id_user,
+        id_movie,
+        commentaire
+      );
+
+      if (result?.includes("succès")) {
+        alert("Commentaire ajouté !");
+        textarea.value = "";
+      } else {
+        alert("Erreur lors de l'envoi du commentaire.");
+      }
+    };
+
+    /*
+      C.handlerProfile
+      La fonction affiche sur la page la collection de films par âge
+    */
+    C.handlerProfile = async function () {
+      const select = document.querySelector("#profile-select");
+      const selectedOption = select.selectedOptions[0];
+
+      const profileName = selectedOption.value; // On récupère le nom du profil
+      const birthday = selectedOption.dataset.birthday; // On récupère la date de naissance
+      const imageFilename = selectedOption.dataset.img; // On récupère le nom de l'image
+
+      const picture = document.querySelector("#profile-picture"); // On récupère l'image du profil
+      const base = "../server/images/"; //
+      picture.src = base + imageFilename;
+
+      // Calcul de l'âge de l'utilisateur
+      let birthDate = new Date(birthday); // Date de naissance
+      let today = new Date(); // Date d'aujourd'hui
+      let age = today.getFullYear() - birthDate.getFullYear(); // Calcul de l'âge
+      let m = today.getMonth() - birthDate.getMonth(); // Calcul de la différence de mois
+      // Si le mois est négatif ou si c'est le même mois mais que la date d'aujourd'hui est avant la date de naissance
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      C.userAge = age;
+
+      await C.getMoviesReco();
+
+      let filteredMovies = await DataMovie.requestMoviesByAge(age);
+      V.renderMovie(filteredMovies);
+    };
+
+    /*
+      C.getMovieReco
+      La fonction affiche sur la page la collection de films recommandés
+    */
+    C.getMoviesReco = async function () {
+      const age = C.userAge;
+      const data = await DataMovie.requestMoviesReco(age);
+      V.renderReco(data);
+    };
+
+    /*
+      C.handlerSearch
+      La fonction affiche sur la page la collection de films correspondant à la recherche
+    */
+    C.handlerSearchBar = async function (valeur) {
+      if (!valeur || valeur.length === 0) {
+        return C.getMovie();
+      }
+
+      const results = await DataMovie.requestSearchMovies(valeur);
+      V.renderMovie(results);
+    };
+
+    /*
+      C.handlerSubmitNote
+      La fonction enregistre la note d'un film pour un utilisateur sélectionné
+    */
+    C.handlerSubmitNote = async function (id_movie) {
+      const select = document.querySelector("#profile-select");
+      const noteSelect = document.querySelector("#note-select");
+      if (!select || !noteSelect) return;
+      const id_user = select.selectedIndex + 1;
+      const note = noteSelect.value;
+
+      if (!["0", "1", "2", "3", "4", "5"].includes(note)) {
+        alert("Veuillez sélectionner une note valide.");
+        return;
+      }
+
+      const response = await DataMovie.addNote(id_user, id_movie, note);
+      if (response.error) {
+        alert(
+          response.message || "Erreur lors de l'enregistrement de votre note."
         );
-      };
+        return;
+      }
 
-      /**
-       * V.renderMovie
-       *
-       * Cette fonction est responsable de l'affichage de la liste des films.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant Movie.
-       */
-      V.renderMovie = function (data, isLikesPage) {
-        let content = document.querySelector("#content");
-        content.innerHTML = Movie.format(data, isLikesPage);
-      };
+      alert("Votre note a été enregistrée.");
 
-      /**
-       * V.renderReco
-       *
-       * Cette fonction est responsable de l'affichage de la liste des films recommandés.
-       * Elle sélectionne l'élément HTML avec la classe "reco-header" et y insère le contenu
-       * formaté par le composant MovieReco.
-       */
-      V.renderReco = function (data) {
-        const container = document.querySelector("#recos");
-        container.innerHTML = MovieReco.format(data);
-      };
+      const details = await DataMovie.requestMoviedetails(id_movie);
+      const moyenneObj = await DataMovie.getMoyenneNote(id_movie);
+      const check = await DataMovie.checkUserNote(id_user, id_movie);
+      V.renderMovieDetail(details[0], moyenneObj?.moyenne, check.dejaNote);
+    };
 
-      /**
-       * V.renderMovieDetail
-       *
-       * Cette fonction affiche les détails d’un film dans la section des recommandations (#recos).
-       * Elle masque la section #infos pour éviter l’affichage en double.
-       */
-      V.renderMovieDetail = function (movie, moyenne, dejaNote, comments) {
-        const infosSection = document.querySelector("#infos");
-        infosSection.innerHTML = "";
-        infosSection.style.display = "none";
+    /*
+      C.start
+      La fonction démarre l'application en affichant la barre de navigation,
+      la liste des catégories et la liste des films.
+      Elle appelle également un premier profil par défaut.
+    */
+    C.start = async function () {
+      const searchbar = SearchBar.format();
+      await V.renderNavBar("C.handlerMovies()", searchbar);
 
-        const recosSection = document.querySelector("#recos");
-        recosSection.innerHTML = Moviedetails.format(
-          movie,
-          moyenne,
-          dejaNote,
-          comments
-        );
+      await C.handlerProfile();
+      await C.getMoviesReco();
 
-        recosSection.dataset.filledWith = "details";
-      };
+      const data = await DataMovie.requestMoviesByAge(C.userAge);
+      V.renderMovie(data);
 
-      /**
-       * V.renderMovieCategorie
-       *
-       * Cette fonction est responsable de l'affichage de la liste des catégories de films.
-       * Elle sélectionne l'élément HTML avec la classe "categorie" et y insère le contenu
-       * formaté par le composant Moviecategorie.
-       */
-      V.renderMovieCategorie = async function () {
-        let container = document.querySelector(".categorie"); // On récupère la section des catégories
-        let categories = await DataMovie.requestCategories(); // On récupère les catégories de films
-        container.innerHTML = Moviecategorie.format(categories); // On affiche les catégories
-      };
+      C.setActiveNavbar("Accueil");
+    };
 
-      C.start(); // Démarre l'application
-    </script>
-  </body>
+    // Vue (contient tout ce qui est relatif à l'affichage)
+    window.V = {};
+
+    /**
+     * V.renderNavBar
+     *
+     * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
+     * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
+     * formaté par le composant NavBar.
+     */
+    V.renderNavBar = async function (hAbout, searchbarHTML) {
+      const profiles = await DataProfile.requestProfiles();
+      const categories = await DataMovie.requestCategories();
+      const categorieMenu = Moviecategorie.format(categories);
+
+      const header = document.querySelector("#header");
+      header.innerHTML = NavBar.format(
+        hAbout,
+        "C.handlerProfile()",
+        profiles,
+        "C.handlerLikes()",
+        searchbarHTML,
+        categorieMenu
+      );
+    };
+
+
+    /**
+     * V.renderMovie
+     *
+     * Cette fonction est responsable de l'affichage de la liste des films.
+     * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+     * formaté par le composant Movie.
+     */
+    V.renderMovie = function (data, isLikesPage) {
+      let content = document.querySelector("#content");
+      content.innerHTML = Movie.format(data, isLikesPage);
+    };
+
+    /**
+     * V.renderReco
+     *
+     * Cette fonction est responsable de l'affichage de la liste des films recommandés.
+     * Elle sélectionne l'élément HTML avec la classe "reco-header" et y insère le contenu
+     * formaté par le composant MovieReco.
+     */
+    V.renderReco = function (data) {
+      const container = document.querySelector("#recos");
+      container.innerHTML = MovieReco.format(data);
+    };
+
+    /**
+     * V.renderMovieDetail
+     *
+     * Cette fonction affiche les détails d’un film dans la section des recommandations (#recos).
+     * Elle masque la section #infos pour éviter l’affichage en double.
+     */
+    V.renderMovieDetail = function (movie, moyenne, dejaNote, comments) {
+      const infosSection = document.querySelector("#infos");
+      infosSection.innerHTML = "";
+      infosSection.style.display = "none";
+
+      const recosSection = document.querySelector("#recos");
+      recosSection.innerHTML = Moviedetails.format(
+        movie,
+        moyenne,
+        dejaNote,
+        comments
+      );
+
+      recosSection.dataset.filledWith = "details";
+    };
+
+    /**
+     * V.renderMovieCategorie
+     *
+     * Cette fonction est responsable de l'affichage de la liste des catégories de films.
+     * Elle sélectionne l'élément HTML avec la classe "categorie" et y insère le contenu
+     * formaté par le composant Moviecategorie.
+     */
+    V.renderMovieCategorie = async function () {
+      let container = document.querySelector(".categorie"); // On récupère la section des catégories
+      let categories = await DataMovie.requestCategories(); // On récupère les catégories de films
+      container.innerHTML = Moviecategorie.format(categories); // On affiche les catégories
+    };
+
+    C.start(); // Démarre l'application
+  </script>
+</body>
+
 </html>

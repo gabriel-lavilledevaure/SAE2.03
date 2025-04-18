@@ -124,6 +124,41 @@
   stroke-linecap: round;
 }
 
+.navbar__dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.navbar__dropdown-menu {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  background-color: var(--color-gray-darkest);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  display: none;
+  flex-direction: column;
+  min-width: 10rem;
+  box-shadow: 0 0.5rem 1rem hsla(0, 0%, 0%, 0.4);
+  z-index: 999;
+}
+
+.navbar__dropdown:hover .navbar__dropdown-menu {
+  display: flex;
+}
+
+.navbar__dropdown-item {
+  padding: 0.75rem 1.2rem;
+  font-size: 1rem;
+  color: var(--color-white);
+  transition: background-color 0.3s ease;
+}
+
+.navbar__dropdown-item:hover {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
 body.nav-open .burger__line:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }

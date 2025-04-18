@@ -1,17 +1,8 @@
 <nav class="navbar font-sans">
-  <!-- Logo (toujours visible) -->
-  <img
-    class="navbar__logo"
-    src="../server/images/starz-logo-glint.svg"
-    alt="Logo Starz"
-    onclick="{{hAbout}}; C.setActiveNavbar('Accueil')"
-  />
+  <img class="navbar__logo" src="../server/images/starz-logo-glint.svg" alt="Logo Starz"
+    onclick="{{hAbout}}; C.setActiveNavbar('Accueil')" />
 
-  <div
-    class="burger"
-    id="burger"
-    onclick="document.body.classList.toggle('nav-open')"
-  >
+  <div class="burger" id="burger" onclick="document.body.classList.toggle('nav-open')">
     <svg width="32" height="32" viewBox="0 0 32 32">
       <line class="burger__line" x1="2" y1="7" x2="30" y2="7" />
       <line class="burger__line" x1="2" y1="16" x2="30" y2="16" />
@@ -21,12 +12,16 @@
 
   <div class="navbar__menu">
     <ul class="navbar__list">
-      <li
-        class="navbar__item"
-        onclick="{{hAbout}}; C.setActiveNavbar('Accueil')"
-      >
+      <li class="navbar__item" onclick="{{hAbout}}; C.setActiveNavbar('Accueil')">
         Accueil
       </li>
+      <li class="navbar__item navbar__dropdown">
+        Catégories
+        <ul class="navbar__dropdown-menu">
+          {{categorieMenu}}
+        </ul>
+      </li>
+
     </ul>
 
     <div class="navbar__search">{{searchbar}}</div>
@@ -37,13 +32,8 @@
         {{options}}
       </select>
 
-      <img
-        id="profile-picture"
-        class="navbar__picture"
-        src="../server/images/{{image}}"
-        alt="Photo de profil"
-        onclick="{{handlerLikes}}"
-      />
+      <img id="profile-picture" class="navbar__picture" src="../server/images/{{image}}" alt="Photo de profil"
+        onclick="{{handlerLikes}}" />
     </div>
   </div>
 </nav>

@@ -7,11 +7,10 @@ Moviecategorie.format = function (categories) {
   let listHTML = "";
   for (let i = 0; i < categories.length; i++) {
     let cat = categories[i];
-    listHTML += `<li class="categorie__tag" onclick="C.handlerCategorie('${cat.name}')">${cat.name}</li>`;
+    listHTML += `<li class="navbar__dropdown-item" onclick="C.handlerCategorie('${cat.name}')">${cat.name}</li>`;
   }
 
-  let html = template.replace("{{categories}}", listHTML);
-  return html;
+  return listHTML;
 };
 
 export { Moviecategorie };

@@ -1,78 +1,55 @@
-.infos {
-  display: grid;
-  place-items: center;
-  padding: 4rem 1.5rem;
-}
-
 .details {
+  position: relative;
   display: grid;
-  gap: 2rem;
   grid-template-columns: 1fr;
-  align-items: end;
   min-height: 100vh;
-  height: auto;
-  width: 100%;
-  padding: 2rem;
-  color: var(--color-fg);
-  background-image: url("../server/images/{{image}}");
   background-size: cover;
   background-position: center;
-  position: relative;
+  padding: 2rem;
+  color: var(--color-white);
 }
 
-.details::before {
-  content: "";
+.details__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
-    hsla(0, 0%, 0%, 0.85) 30%,
-    transparent 80%
+    hsl(0, 0%, 0%, 0.85) 30%,
+    hsl(0, 0%, 0%, 0.3) 60%,
+    transparent 100%
   );
   z-index: 0;
 }
 
-.details__image {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 0.75rem;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
+.details__wrapper {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
 }
 
 .details__content {
-  z-index: 1;
   display: grid;
-  gap: 1rem;
+  gap: 1.2rem;
   padding: 2rem;
   background: transparent;
-  color: var(--color-fg);
-  text-align: left;
 }
 
 .details__title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-white);
-  text-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.6);
+  text-shadow: 0 0.2rem 1rem hsl(0, 0%, 0%, 0.6);
 }
 
-.details__desc {
-  font-size: 1.2rem;
-  color: var(--color-gray-light);
-}
-
-.details__content,
-.details__trailer {
-  z-index: 1;
-}
-
+.details__desc,
 .details__realisateur,
 .details__annee,
 .details__duree,
 .details__categorie,
 .details__age {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--color-gray-light);
 }
 
@@ -82,25 +59,16 @@
   color: var(--color-yellow-fluo);
 }
 
-.details__trailer {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background-color: var(--color-black);
-  border: none;
-  border-radius: 0.75rem;
-  margin-top: 2rem;
-}
-
 .details__note-form {
   display: grid;
   grid-template-columns: auto auto;
-  align-items: center;
   gap: 1rem;
-  margin-top: 1rem;
+  align-items: center;
 }
 
 .details__note-form label {
   font-weight: 600;
+  font-size: 1rem;
 }
 
 .details__note-form select,
@@ -128,11 +96,27 @@
   color: var(--color-gray-light);
 }
 
+.details__trailer-button {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-black);
+  background-color: var(--color-yellow-fluo);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.details__trailer-button:hover {
+  opacity: 0.85;
+}
+
 .commentaire {
   display: grid;
   gap: 2rem;
   padding-top: 3rem;
-  border-top: 1px solid var(--color-gray-light);
+  border-top: 0.1rem solid var(--color-gray-light);
 }
 
 .commentaire__titre {
@@ -159,7 +143,7 @@
   aspect-ratio: 1;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.2rem 0.5rem hsl(0, 0%, 0%, 0.3);
 }
 
 .commentaire__content {
@@ -170,6 +154,13 @@
 .commentaire__auteur {
   font-weight: bold;
   color: var(--color-white);
+  font-size: 1rem;
+}
+
+.commentaire__date {
+  font-size: 0.85rem;
+  color: var(--color-gray-light);
+  font-style: italic;
 }
 
 .commentaire__texte {
@@ -177,12 +168,6 @@
   color: var(--color-gray-light);
   font-size: 1rem;
   line-height: 1.5;
-}
-
-.commentaire__date {
-  font-size: 0.85rem;
-  color: var(--color-gray-light);
-  font-style: italic;
 }
 
 .commentaire__form {
@@ -194,7 +179,7 @@
   padding: 1rem;
   font-size: 1rem;
   border-radius: 0.5rem;
-  border: 1px solid var(--color-gray-light);
+  border: 0.1rem solid var(--color-gray-light);
   background-color: var(--color-gray-darker);
   color: var(--color-white);
   resize: vertical;
@@ -208,6 +193,7 @@
   padding: 0.6rem 1.4rem;
   border-radius: 0.5rem;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
   transition: opacity 0.3s ease;
 }
@@ -218,14 +204,17 @@
 
 @media (min-width: 48rem) {
   .details {
-    grid-template-columns: 1fr 1fr;
-    align-items: end;
-    background-position: center;
+    grid-template-columns: 1fr;
+    align-items: center;
     padding: 4rem;
   }
 
+  .details__wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .details__title {
-    font-size: 3rem;
+    font-size: 2.6rem;
   }
 
   .details__desc {
